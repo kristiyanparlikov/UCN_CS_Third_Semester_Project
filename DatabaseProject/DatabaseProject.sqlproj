@@ -63,7 +63,7 @@
     <Folder Include="PublishLocations" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PublishLocations\DatabaseProject.publish.Kris.xml" />
+    <None Include="PublishLocations\DatabaseProject-Kris.publish.xml" />
     <None Include="PublishLocations\DatabaseProject.publish.xml" />
   </ItemGroup>
   <ItemGroup>
