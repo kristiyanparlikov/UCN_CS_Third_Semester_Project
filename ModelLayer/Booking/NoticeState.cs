@@ -13,7 +13,6 @@ namespace ModelLayer.Booking
         {
             //notice booking cannot be accepted
         }
-
         public override void Cancel(BookingContext booking)
         {
             throw new NotImplementedException();
