@@ -25,6 +25,7 @@ namespace ModelLayer.Booking
 
         public override void EnterState(BookingModel booking)
         {
+            booking.Status = "Notice";
             booking.MoveOutDate = DateTime.UtcNow.AddMonths(3);
         }
     }

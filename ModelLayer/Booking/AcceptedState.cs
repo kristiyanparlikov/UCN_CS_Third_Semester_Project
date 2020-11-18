@@ -26,7 +26,7 @@ namespace ModelLayer.Booking
 
         public override void EnterState(BookingModel booking)
         {
-            //send email to the student
+            booking.Status = "Accepted";
         }
     }
 }

@@ -34,6 +34,7 @@ namespace ModelLayer.Booking
         public override void EnterState(BookingModel booking)
         {
             //show the reason for being cancelled
+            booking.Status = "Cancelled";
         }
     }
 }

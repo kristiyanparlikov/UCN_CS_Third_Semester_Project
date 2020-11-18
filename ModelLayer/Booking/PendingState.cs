@@ -26,7 +26,7 @@ namespace ModelLayer.Booking
 
         public override void EnterState(BookingModel booking)
         {
-            
+            booking.Status = "Pending";
         }
     }
 }

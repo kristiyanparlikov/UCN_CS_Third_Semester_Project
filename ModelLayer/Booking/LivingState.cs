@@ -26,7 +26,7 @@ namespace ModelLayer.Booking
 
         public override void EnterState(BookingModel booking)
         {
-            throw new NotImplementedException();
+            booking.Status = "Living";
         }
     }
 }

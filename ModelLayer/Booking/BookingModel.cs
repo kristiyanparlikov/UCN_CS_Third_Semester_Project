@@ -17,6 +17,8 @@ namespace UCNThirdSemesterProject.ModelLayer
 
         public DateTime MoveOutDate { get; set; }
 
+        public string Status { get; set; }
+
         private BookingState currentState;
 
         public BookingModel()
