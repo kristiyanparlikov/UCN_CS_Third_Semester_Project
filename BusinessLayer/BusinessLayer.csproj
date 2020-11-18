@@ -41,18 +41,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="DbStudentIF.cs" />
+    <Compile Include="ICRUD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RESTWebAPI\RESTWebAPI.csproj">
-      <Project>{E777530D-0EC9-4FF7-9D30-EC1B23F0AD28}</Project>
-      <Name>RESTWebAPI</Name>
-    </ProjectReference>
+    <Compile Include="StudentController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModelLayer\ModelLayer.csproj">
+      <Project>{6af0c67e-6a00-4f09-9035-eff825f846ef}</Project>
+      <Name>ModelLayer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

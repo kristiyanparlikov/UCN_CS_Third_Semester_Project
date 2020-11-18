@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace RESTWebAPI.Models
+namespace ModelLayer
 {
-    public class User
+    public class UserModel
     {
         public int Id { get; set; }
-        public string FirstName { get; set; } 
-        public string LastName { get; set; } 
-        public string PhoneNumber { get; set; } 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
         public string Email { get; set; }
 
-        public User() { }
+        public UserModel() { }
 
-        public User(int id, string firstName, string lastName, string phoneNumber, string email)
+        public UserModel(int id, string firstName, string lastName, string phoneNumber, string email)
         {
             Id = id;
             FirstName = firstName;
@@ -24,7 +24,7 @@ namespace RESTWebAPI.Models
             Email = email;
 
         }
-        public User(string firstName, string lastName, string phoneNumber, string email)
+        public UserModel(string firstName, string lastName, string phoneNumber, string email)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -37,7 +37,4 @@ namespace RESTWebAPI.Models
 
     }
 }
-
-
-
 

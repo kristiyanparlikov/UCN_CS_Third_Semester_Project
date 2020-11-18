@@ -9,16 +9,14 @@ namespace RESTWebAPI.Models
 {
     public class Student : User
     {
-        public int Id { get; set; } 
         public string DateOfBirth { get; set; }
         public string EducationEndDate { get; set; }
         public string Nationality { get; set; } 
 
 
 
-        public Student(string firstName, string lastName, string phoneNumber, string email, int id, string dateOfBirth, string educationEndDate, string nationality): base(firstName, lastName, phoneNumber,email)
+        public Student(int id, string firstName, string lastName, string phoneNumber, string email, string dateOfBirth, string educationEndDate, string nationality): base(id, firstName, lastName, phoneNumber,email)
         {
-            Id = id;
             DateOfBirth = dateOfBirth;
             EducationEndDate = educationEndDate;
             Nationality = nationality;
