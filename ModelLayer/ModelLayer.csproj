@@ -44,7 +44,7 @@
     <Compile Include="AddressModel.cs" />
     <Compile Include="AdministratorModel.cs" />
     <Compile Include="Booking\AcceptedState.cs" />
-    <Compile Include="Booking\BookingContext.cs" />
+    <Compile Include="Booking\BookingModel.cs" />
     <Compile Include="Booking\BookingState.cs" />
     <Compile Include="Booking\CancelledState.cs" />
     <Compile Include="Booking\LivingState.cs" />

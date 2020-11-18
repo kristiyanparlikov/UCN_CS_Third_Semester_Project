@@ -9,22 +9,22 @@ namespace ModelLayer.Booking
 {
     public class PendingState : BookingState
     {
-        public override void Accept(BookingContext booking)
+        public override void Accept(BookingModel booking)
         {
             //booking.TransitionToState(new DepositPaymentState());
         }
 
-        public override void Cancel(BookingContext booking)
+        public override void Cancel(BookingModel booking)
         {
             booking.TransitionToState(new CancelledState("Booking cancelled by admin"));
         }
 
-        public override void Create(BookingContext booking, DateTime moveInDate, DateTime moveOutDate)
+        public override void Create(BookingModel booking, DateTime moveInDate, DateTime moveOutDate)
         {
             //pending booking cannot be created
         }
 
-        public override void EnterState(BookingContext booking)
+        public override void EnterState(BookingModel booking)
         {
             
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace UCNThirdSemesterProject.ModelLayer
 {
-    public class BookingContext
+    public class BookingModel
     {
         public int BookingId { get; set; }
 
@@ -19,7 +19,7 @@ namespace UCNThirdSemesterProject.ModelLayer
 
         private BookingState currentState;
 
-        public BookingContext()
+        public BookingModel()
         {
             TransitionToState(new NewState());
         }
