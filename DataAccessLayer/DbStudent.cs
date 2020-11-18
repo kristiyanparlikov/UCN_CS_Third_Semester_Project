@@ -1,4 +1,4 @@
-﻿using BusinessLayer;
+﻿
 using RESTWebAPI.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class DbStudent : DbStudentIF
+    public class DbStudent : IStudent
     {
 
         public Student GetStudentById(int id)

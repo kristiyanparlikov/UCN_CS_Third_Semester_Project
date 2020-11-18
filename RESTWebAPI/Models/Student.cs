@@ -9,10 +9,10 @@ namespace RESTWebAPI.Models
 {
     public class Student : User
     {
-        public int Id { get; set; } = 0;
-        public string DateOfBirth { get; set; } = "";
-        public string EducationEndDate { get; set; } = "";
-        public string Nationality { get; set; } = "";
+        public int Id { get; set; } 
+        public string DateOfBirth { get; set; }
+        public string EducationEndDate { get; set; }
+        public string Nationality { get; set; } 
 
 
 

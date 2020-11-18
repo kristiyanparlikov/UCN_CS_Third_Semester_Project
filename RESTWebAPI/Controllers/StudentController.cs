@@ -13,13 +13,7 @@ namespace RESTWebAPI.Controllers
     {
 
         List<Student> students = new List<Student>();
-    public StudentController()
-        {
-            
-            students.Add(new Student( "Alanis",  "Mirko",  "123",  "sjsjjs@nhh", 1, "12", "123",  "jjj" ));
-            students.Add(new Student("Olivia", "denmark", "123", "sjsjjs@nhh", 2, "12", "123", "jjj"));
-            students.Add(new Student("Sandija", "Lapina", "123", "sjsjjs@nhh", 3, "12", "123", "jjj"));
-        }
+  
 
         // GET: api/Student
         public List<Student> Get()
