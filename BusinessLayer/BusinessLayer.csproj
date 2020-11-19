@@ -50,6 +50,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj">
+      <Project>{0656ad48-8da8-4950-aad3-f4cc26a0905a}</Project>
+      <Name>DataAccessLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ModelLayer\ModelLayer.csproj">
       <Project>{6af0c67e-6a00-4f09-9035-eff825f846ef}</Project>
       <Name>ModelLayer</Name>

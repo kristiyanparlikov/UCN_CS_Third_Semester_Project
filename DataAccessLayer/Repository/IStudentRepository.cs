@@ -7,17 +7,16 @@ namespace DataAccessLayer.Repository
 {
     public interface IStudentRepository
     {
-        StudentModel Add(StudentModel entity);
+        StudentModel Find(int id);
 
-        StudentModel Update(StudentModel entity);
+        List<StudentModel> GetAll();
 
-        StudentModel Get(int id);
+        StudentModel Add(StudentModel booking);
 
-        IEnumerable<StudentModel> GetAll();
+        StudentModel Update(StudentModel booking);
 
-        IEnumerable<StudentModel> Find(Expression<Func<StudentModel, bool>> predicate);
+        void Remove(int id);
 
-        bool Remove(int id);
     }
 }
 

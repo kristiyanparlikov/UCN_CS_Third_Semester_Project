@@ -1,48 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq.Expressions;
-using DataAccessLayer.Repository;
-using System.Configuration;
+﻿using DataAccessLayer.Repository;
 using ModelLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-    public class StudentRepository : IRepository<StudentModel>
+    public class StudentRepository : IStudentRepository
     {
-        private IDbConnection db;
-
-        public StudentRepository()
-        {
-            this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionName"].ConnectionString);
-        }
-        public StudentModel Add(StudentModel entity)
+        public StudentModel Add(StudentModel booking)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<StudentModel> Find(Expression<Func<StudentModel, bool>> predicate)
+        public StudentModel Find(int id)
         {
             throw new NotImplementedException();
         }
 
-        public StudentModel Get(int id)
+        public List<StudentModel> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<StudentModel> GetAll()
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }
 
-        public bool Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public StudentModel Update(StudentModel entity)
+        public StudentModel Update(StudentModel booking)
         {
             throw new NotImplementedException();
         }
