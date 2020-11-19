@@ -7,15 +7,17 @@ namespace ModelLayer
 {
     public class StudentModel : UserModel
     {
-        public string DateOfBirth { get; set; }
-        public string EducationEndDate { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
         public string Nationality { get; set; }
+
+        public DateTime EducationEndDate { get; set; }
 
         //private Address address;
 
         public StudentModel() : base() { }
 
-        public StudentModel(string firstName, string lastName, string phoneNumber, string email, string dateOfBirth, string educationEndDate, string nationality) : base(firstName, lastName, phoneNumber, email)
+        public StudentModel(string firstName, string lastName, string phoneNumber, string email, DateTime dateOfBirth, string nationality, DateTime educationEndDate) : base(firstName, lastName, phoneNumber, email)
         {
             DateOfBirth = dateOfBirth;
             EducationEndDate = educationEndDate;

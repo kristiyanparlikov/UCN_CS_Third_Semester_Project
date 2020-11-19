@@ -9,7 +9,7 @@ namespace UCNThirdSemesterProject.ModelLayer
 {
     public class BookingModel
     {
-        public int BookingId { get; set; }
+        public int Id { get; set; }
 
         public DateTime MadeOn { get; }
 

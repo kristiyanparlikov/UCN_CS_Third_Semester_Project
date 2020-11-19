@@ -42,4 +42,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="BookingId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="99a56483-6508-4134-96f6-bb03b5d02e69" ChangeDateTime="11/19/2020 12:35:15">
+    <Property Name="ElementName" Value="[dbo].[Administrators].[FName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Administrators]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="84edf577-e247-4788-b5cf-a1a6d9b6e5b3" ChangeDateTime="11/19/2020 12:35:19">
+    <Property Name="ElementName" Value="[dbo].[Administrators].[LName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Administrators]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="92637991-b867-4b57-9b71-5086a71c70f5" ChangeDateTime="11/19/2020 12:35:38">
+    <Property Name="ElementName" Value="[dbo].[Students].[FName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Students]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="05094652-03c8-455e-abc9-d6b2c58296fa" ChangeDateTime="11/19/2020 12:35:40">
+    <Property Name="ElementName" Value="[dbo].[Students].[LName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Students]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LastName" />
+  </Operation>
 </Operations>

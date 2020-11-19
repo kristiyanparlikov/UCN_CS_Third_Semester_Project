@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq.Expressions;
 using UCNThirdSemesterProject.ModelLayer;
 using System.Linq;
+using Dapper;
 
 namespace DataAccessLayer
 {
@@ -32,8 +33,7 @@ namespace DataAccessLayer
 
         public List<BookingModel> GetAll()
         {
-            //return this.db.Query<BookingModel>("SELECT * FROM Bookings").ToList();
-            throw new NotImplementedException();
+            return this.db.Query<BookingModel>("SELECT * FROM Bookings").ToList();
         }
 
         public void Remove(int id)

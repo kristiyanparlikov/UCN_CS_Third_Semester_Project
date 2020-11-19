@@ -63,8 +63,8 @@
     <Folder Include="PublishLocations" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PublishLocations\DatabaseProject-Kris.publish.xml" />
-    <None Include="PublishLocations\DatabaseProject-Alanis.xml" />
+    <None Include="PublishLocations\DatabaseProject-Hildur.publish.xml" />
+    <None Include="PublishLocations\DatabaseProject-Alanis.publish.xml" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\Administrators.sql" />
