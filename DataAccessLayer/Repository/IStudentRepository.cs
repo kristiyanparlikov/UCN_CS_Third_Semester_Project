@@ -11,9 +11,9 @@ namespace DataAccessLayer.Repository
 
         List<StudentModel> GetAll();
 
-        StudentModel Add(StudentModel booking);
+        StudentModel Add(StudentModel student);
 
-        StudentModel Update(StudentModel booking);
+        StudentModel Update(StudentModel student);
 
         void Remove(int id);
 

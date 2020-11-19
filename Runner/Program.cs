@@ -29,11 +29,16 @@ namespace Runner
 
             //act
             var bookings = repository.GetAll();
+            var students = repository.GetAll();
 
             //assert
             Console.WriteLine($"Count: {bookings.Count}");
             Debug.Assert(bookings.Count == 0);
             bookings.Output();
+
+            Console.WriteLine($"Count: {students.Count}");
+            Debug.Assert(students.Count == 0);
+            students.Output();
         }
 
         private static void Initialize()
@@ -44,9 +49,15 @@ namespace Runner
             config = builder.Build();
         }
 
-        private static IBookingRepository CreateRepository()
+        /*private static IBookingRepository CreateRepository()
         {
             return new BookingRepository(config.GetConnectionString("DefaultConnection"));
+        }
+        */
+
+        private static IStudentRepository CreateRepository()
+        {
+            return new StudentRepository(config.GetConnectionString("DefaultConnection"));
         }
     }
 }
