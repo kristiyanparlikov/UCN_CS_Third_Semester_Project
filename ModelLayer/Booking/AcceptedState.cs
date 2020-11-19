@@ -11,7 +11,10 @@ namespace ModelLayer.Booking
     {
         public override void Accept(BookingModel booking)
         {
-            //accepted booking cannot be accepted
+            //student pays deposit
+            //once the payment is complete
+            booking.TransitionToState(new LivingState());
+
         }
 
         public override void Cancel(BookingModel booking)

@@ -17,8 +17,8 @@ namespace ModelLayer.Booking
 
         public abstract void Accept(BookingModel booking);
 
-
-
+        // We should probably have a fifth method for date passing 
+        // -> if move-in date have already passed then the booking should change state to cancelled
 
 
 

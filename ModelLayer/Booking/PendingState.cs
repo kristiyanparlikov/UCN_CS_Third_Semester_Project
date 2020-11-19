@@ -11,7 +11,8 @@ namespace ModelLayer.Booking
     {
         public override void Accept(BookingModel booking)
         {
-            //booking.TransitionToState(new DepositPaymentState());
+            //should notify the student through email
+            booking.TransitionToState(new AcceptedState());
         }
 
         public override void Cancel(BookingModel booking)

@@ -15,7 +15,7 @@ namespace ModelLayer.Booking
         }
         public override void Cancel(BookingModel booking)
         {
-            throw new NotImplementedException();
+            booking.TransitionToState(new CancelledState("3 months notice have expired"));
         }
 
         public override void Create(BookingModel booking, DateTime moveInDate, DateTime moveOutDate)
@@ -25,8 +25,9 @@ namespace ModelLayer.Booking
 
         public override void EnterState(BookingModel booking)
         {
-            booking.Status = "Notice";
+            booking.Status = "Notice"; 
             booking.MoveOutDate = DateTime.UtcNow.AddMonths(3);
+           
         }
     }
 }

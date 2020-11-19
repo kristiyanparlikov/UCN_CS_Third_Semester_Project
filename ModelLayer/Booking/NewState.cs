@@ -23,6 +23,7 @@ namespace ModelLayer.Booking
         {
             booking.MoveInDate = moveInDate;
             booking.MoveOutDate = moveOutDate;
+            booking.TransitionToState(new PendingState());
         }
 
         public override void EnterState(BookingModel booking)

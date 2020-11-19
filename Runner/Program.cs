@@ -15,7 +15,7 @@ namespace Runner
 
         static void Main(string[] args)
         {
-            Initialize();
+            //Initialize();
 
             Get_all_should_return_0_result();
 
