@@ -25,7 +25,7 @@ namespace WPFClient.views
         public RegisterView()
         {
             InitializeComponent();
-            static readonly HttpClient client = new HttpClient();
+            HttpClient client = new HttpClient();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

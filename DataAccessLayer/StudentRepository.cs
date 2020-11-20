@@ -18,10 +18,9 @@ namespace DataAccessLayer
     {
         private IDbConnection db;
 
-        public StudentRepository(string connString)
+        public StudentRepository()
         {
             this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            //this.db = new SqlConnection(connString);       
         }
 
         public StudentModel Add(StudentModel student)

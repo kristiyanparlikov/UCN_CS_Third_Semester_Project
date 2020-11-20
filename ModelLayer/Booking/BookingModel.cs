@@ -11,7 +11,7 @@ namespace UCNThirdSemesterProject.ModelLayer
     {
         public int Id { get; set; }
 
-        public DateTime MadeOn { get; }
+        public DateTime CreationDate { get; }
 
         public DateTime MoveInDate { get; set; }
 

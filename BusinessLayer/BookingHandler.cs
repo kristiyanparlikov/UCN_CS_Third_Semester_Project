@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataAccessLayer;
+using DataAccessLayer.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,31 +9,33 @@ using UCNThirdSemesterProject.ModelLayer;
 
 namespace BusinessLayer
 {
-    public class BookingController : ICRUD<BookingModel>
+    public class BookingHandler : ICRUD<BookingModel>
     {
+        IBookingRepository db = new BookingRepository();
+
         public void Create(BookingModel entity)
         {
-            throw new NotImplementedException();
+            db.Add(entity);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            db.Remove(id);
         }
 
         public BookingModel Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Find(id);
         }
 
         public IEnumerable<BookingModel> GetAll()
         {
-            throw new NotImplementedException();
+            return db.GetAll();
         }
 
         public void Update(BookingModel entity)
         {
-            throw new NotImplementedException();
+            db.Remove(entity.Id);
         }
     }
 }

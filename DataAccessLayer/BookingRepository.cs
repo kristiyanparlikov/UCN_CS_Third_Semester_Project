@@ -15,20 +15,24 @@ namespace DataAccessLayer
     {
         private IDbConnection db;
 
-        public BookingRepository(string connString)
+        public BookingRepository()
         {
             this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            //this.db = new SqlConnection(connString);
         }
 
         public BookingModel Add(BookingModel booking)
         {
-            throw new NotImplementedException();
+            var sql = 
+                "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) VALUES (@MoveInDate, @MoveOutDate, @Status)" +
+                "SELECT CAST (SCOPE_IDENTITY() as int)";
+            var id = this.db.Query<int>(sql, booking).Single();
+            booking.Id = id;
+            return booking;
         }
 
         public BookingModel Find(int id)
         {
-            throw new NotImplementedException();
+            return this.db.Query<BookingModel>("SELECT * FROM Bookings WHERE Id = @Id", new { id }).SingleOrDefault();
         }
 
         public List<BookingModel> GetAll()
@@ -38,12 +42,20 @@ namespace DataAccessLayer
 
         public void Remove(int id)
         {
-            throw new NotImplementedException();
+            this.db.Execute("DELETE FROM Bookings WHERE Id = @Id", new { id });
         }
 
         public BookingModel Update(BookingModel booking)
         {
-            throw new NotImplementedException();
+            var sql =
+                "UPDATE  Bookings " +
+                "SET MoveInDate = @MoveInDate, " +
+                "    MoveOutDate = @MoveOutDate, " +
+                "    Status = @Status " +
+                "WHERE Id = @Id";
+            this.db.Execute(sql, booking);
+            return booking;
         }
+
     }
 }

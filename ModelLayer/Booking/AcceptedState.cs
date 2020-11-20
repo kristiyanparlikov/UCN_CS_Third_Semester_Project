@@ -9,6 +9,7 @@ namespace ModelLayer.Booking
 {
     public class AcceptedState : BookingState
     {
+
         public override void Accept(BookingModel booking)
         {
             //student pays deposit
