@@ -52,6 +52,7 @@
     <Compile Include="Booking\NoticeState.cs" />
     <Compile Include="Booking\PendingState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoomModel.cs" />
     <Compile Include="StudentModel.cs" />
     <Compile Include="UserModel.cs" />
   </ItemGroup>
