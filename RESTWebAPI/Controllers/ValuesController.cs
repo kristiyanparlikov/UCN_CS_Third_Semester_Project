@@ -11,32 +11,40 @@ namespace RESTWebAPI.Controllers
     [Authorize]
     public class ValuesController : ApiController
     {
+
         // GET api/values
-        public IEnumerable<string> Get()
+        public string Get()
         {
-            var id = RequestContext.Principal.Identity.GetUserId();
-            return new string[] { "value1", "value2", id };
+            var userName = this.RequestContext.Principal.Identity.Name;
+            return String.Format("Hello, {0}.", userName);
         }
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+        //// GET api/values
+        //public IEnumerable<string> Get()
+        //{
+        //    var id = RequestContext.Principal.Identity.GetUserId();
+        //    return new string[] { "value1", "value2", id };
+        //}
 
-        // POST api/values
-        public void Post([FromBody]string value)
-        {
-        }
+        //// GET api/values/5
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// POST api/values
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/values/5
-        public void Delete(int id)
-        {
-        }
+        //// PUT api/values/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE api/values/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
