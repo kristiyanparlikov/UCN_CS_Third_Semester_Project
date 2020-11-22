@@ -14,13 +14,13 @@ namespace DataAccessLayer.Repository
 
         List<BookingModel> GetAll();
 
-        BookingModel Add(BookingModel booking);
+        BookingModel AddAnonymous(BookingModel booking);
 
         BookingModel AddFull(BookingModel booking, StudentModel student);
 
-        BookingModel Update(BookingModel booking);
+        int Update(BookingModel booking);
 
-        void Remove(int id);
+        int Remove(int id);
 
     }
 }

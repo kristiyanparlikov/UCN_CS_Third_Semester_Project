@@ -22,13 +22,15 @@ namespace Runner
 
             //Insert_should_assign_identity_to_new_entity();
 
-            //Find_should_retrieve_existing_entity(4);
+            Find_should_retrieve_existing_entity(2);
 
             //Modify_should_update_existing_entity(4);
 
             //Delete_should_remove_entitiy(4);
 
-            Insert_full_booking_should_update_all_related_tables();
+            //Insert_full_booking_should_update_all_related_tables();
+
+            //Insert_should_assign_identity_to_new_entity();
 
             Console.ReadLine();
         }
@@ -51,10 +53,15 @@ namespace Runner
             return new BookingRepository();
         }
 
+        private static IBookingRepository CreateBookingRepositoryAdoNet()
+        {
+            return new BookingRepositoryAdoNet();
+        }
+
         static int Insert_full_booking_should_update_all_related_tables()
         {
             //arrange 
-            var bookingRepository = CreateBookingRepository();
+            var bookingRepository = CreateBookingRepositoryAdoNet();
             var studentRepository = CreateStudentRepository();
 
             //var student = new StudentModel
@@ -127,7 +134,7 @@ namespace Runner
         {
             //arrange
             var studentRepository = CreateStudentRepository();
-            var bookingRepository = CreateBookingRepository();
+            var bookingRepository = CreateBookingRepositoryAdoNet();
 
             //act
             var bookings = bookingRepository.GetAll();
@@ -135,7 +142,7 @@ namespace Runner
 
             //assert
             Console.WriteLine($"Count: {bookings.Count}");
-            Debug.Assert(bookings.Count == 1);
+            //Debug.Assert(bookings.Count == 1);
             bookings.Output();
 
             Console.WriteLine($"Count: {students.Count}");
@@ -146,30 +153,30 @@ namespace Runner
         private static void Find_should_retrieve_existing_entity(int id)
         {
             //arrange 
-            var bookingRepository = CreateBookingRepository();
+            var bookingRepository = CreateBookingRepositoryAdoNet();
 
             //act
             var booking = bookingRepository.Find(id);
 
             Console.WriteLine("***Get Booking***");
             booking.Output();
-            Debug.Assert(booking.MoveInDate == DateTime.Parse("2021-01-01"));
-            Debug.Assert(booking.MoveOutDate == DateTime.Parse("2021-03-15"));
+            //Debug.Assert(booking.MoveInDate == DateTime.Parse("2021-01-01"));
+            //Debug.Assert(booking.MoveOutDate == DateTime.Parse("2021-03-15"));
         }
 
         private static int Insert_should_assign_identity_to_new_entity()
         {
             //arrange
-            var bookingRepository = CreateBookingRepository();
+            var bookingRepository = CreateBookingRepositoryAdoNet();
             var booking = new BookingModel
             {
-                MoveInDate = DateTime.Parse("2021-01-01"),
-                MoveOutDate = DateTime.Parse("2021-03-15"),
-                Status = "New"
+                MoveInDate = DateTime.Parse("2021-12-21"),
+                MoveOutDate = DateTime.Parse("2022-11-11"),
+                Status = "Pending"
             };
 
             //act
-            bookingRepository.Add(booking);
+            bookingRepository.AddAnonymous(booking);
 
             //assert 
             Debug.Assert(booking.Id != 0);

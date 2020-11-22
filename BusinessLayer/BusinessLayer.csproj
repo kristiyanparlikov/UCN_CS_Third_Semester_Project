@@ -48,7 +48,6 @@
     <Compile Include="BookingHandler.cs" />
     <Compile Include="ICRUD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StudentController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

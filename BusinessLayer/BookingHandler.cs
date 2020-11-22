@@ -11,11 +11,11 @@ namespace BusinessLayer
 {
     public class BookingHandler : ICRUD<BookingModel>
     {
-        IBookingRepository db = new BookingRepository();
+        IBookingRepository db = new BookingRepositoryAdoNet();
 
         public void Create(BookingModel entity)
         {
-            db.Add(entity);
+            db.AddAnonymous(entity);
         }
 
         public void Delete(int id)

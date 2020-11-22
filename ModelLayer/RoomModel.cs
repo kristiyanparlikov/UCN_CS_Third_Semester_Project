@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UCNThirdSemesterProject.ModelLayer;
 
 namespace ModelLayer
 {
@@ -15,6 +16,8 @@ namespace ModelLayer
         public double Size { get; set; }
         public double Price { get; set; }
         public bool isAvailable { get; set; } = true;
+
+        List<BookingModel> bookings;
 
         public RoomModel(int roomNumber, int floor, int capacity, double size, double price)
         {

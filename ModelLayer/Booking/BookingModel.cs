@@ -11,13 +11,15 @@ namespace UCNThirdSemesterProject.ModelLayer
     {
         public int Id { get; set; }
 
-        public DateTime CreationDate { get; }
+        public DateTime CreationDate { get; set;  }
 
         public DateTime MoveInDate { get; set; }
 
         public DateTime MoveOutDate { get; set; }
 
         public string Status { get; set; }
+
+        public int roomId { get; set; }
 
         private BookingState currentState;
 

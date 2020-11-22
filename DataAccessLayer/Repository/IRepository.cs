@@ -21,6 +21,5 @@ namespace DataAccessLayer.Repository
 
         bool Remove(int id);
 
-        //void SaveChanges();
     }
 }

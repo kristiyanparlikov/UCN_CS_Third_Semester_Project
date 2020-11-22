@@ -23,7 +23,7 @@ namespace DataAccessLayer
         }
 
         //using dapper
-        public BookingModel Add(BookingModel booking)
+        public BookingModel AddAnonymous(BookingModel booking)
         {
             var sql = 
                 "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) VALUES (@MoveInDate, @MoveOutDate, @Status)" +
@@ -36,41 +36,72 @@ namespace DataAccessLayer
         //using ado.net
         public BookingModel AddFull(BookingModel booking, StudentModel student)
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+            //SQL statement for Bookings table
+            var query1 = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) ";
+            query1 += "VALUES (@MoveInDate, @MoveOutDate, @Status) ";
+            query1 += "SELECT CAST (SCOPE_IDENTITY() as int)";
+
+            //SQL statement for StudentBooking table
+            var query2 = "INSERT INTO StudentBooking (StudentId, BookingId) VALUES (@StudentId, @BookingId)";
+            try
             {
-                //Booking table
-                var query1 = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) VALUES (@MoveInDate, @MoveOutDate, @Status)" +
-                "SELECT CAST (SCOPE_IDENTITY() as int)";
-                using (SqlCommand cmd1 = new SqlCommand(query1, con))
+                using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
                 {
-                    // add parameters and their values
-                    cmd1.Parameters.AddWithValue("@MoveInDate", booking.MoveInDate);
-                    cmd1.Parameters.AddWithValue("@MoveOutDate", booking.MoveOutDate);
-                    cmd1.Parameters.AddWithValue("@Status", booking.Status);
+                    //open connection
+                    cnn.Open();
 
-                    // open connection, execute command and close connection
-                    con.Open();
-                    var id = cmd1.ExecuteScalar();
-                    con.Close();
-                    booking.Id = (int)id;
+                    using (SqlTransaction trn = cnn.BeginTransaction()) {
+                        try
+                        {
+                            using (SqlCommand cmd = new SqlCommand(query1, cnn))
+                            {
+                                // Add the transaction to the command object
+                                cmd.Transaction = trn;
+
+                                // Create input parameters
+                                cmd.Parameters.Add(new SqlParameter("@MoveInDate", booking.MoveInDate));
+                                cmd.Parameters.Add(new SqlParameter("@MoveOutDate", booking.MoveOutDate));
+                                cmd.Parameters.Add(new SqlParameter("@Status", booking.Status));
+
+                                // Set CommandType
+                                cmd.CommandType = CommandType.Text;
+
+                                // Execute the first statement
+                                var id = cmd.ExecuteScalar();
+                                booking.Id = (int)id;
+
+                                //***Second statement to execute***
+
+                                // Reset the command text
+                                cmd.CommandText = query2;
+
+                                // Clear previous parameters
+                                cmd.Parameters.Clear();
+
+                                // Create input parameters 
+                                cmd.Parameters.AddWithValue("@StudentId", student.Id);
+                                cmd.Parameters.AddWithValue("@BookingId", booking.Id);
+
+                                // Execute the second statement
+                                cmd.ExecuteNonQuery();
+
+                                // Finish the transaction
+                                trn.Commit();
+                            }
+                        }
+                        catch(Exception ex) //catch block for transaction
+                        {
+                            trn.Rollback();
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
                 }
-                
-                //StudentBooking table
-                var query2 = "INSERT INTO StudentBooking (StudentId, BookingId) VALUES (@StudentId, @BookingId)";
-
-                using (SqlCommand cmd2 = new SqlCommand(query2, con))
-                {
-                    // add parameters and their values
-                    cmd2.Parameters.AddWithValue("@StudentId", student.Id);
-                    cmd2.Parameters.AddWithValue("@BookingId", booking.Id);
-
-                    // open connection, execute command and close connection
-                    con.Open();
-                    cmd2.ExecuteNonQuery();
-                    con.Close();
-                }
-                return booking;
             }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return booking;
         }
 
         //using dapper
@@ -86,13 +117,13 @@ namespace DataAccessLayer
         }
 
         //using dapper
-        public void Remove(int id)
+        public int Remove(int id)
         {
-            this.db.Execute("DELETE FROM Bookings WHERE Id = @Id", new { id });
+            return this.db.Execute("DELETE FROM Bookings WHERE Id = @Id", new { id });
         }
 
         //using dapper
-        public BookingModel Update(BookingModel booking)
+        public int Update(BookingModel booking)
         {
             var sql =
                 "UPDATE  Bookings " +
@@ -100,8 +131,7 @@ namespace DataAccessLayer
                 "    MoveOutDate = @MoveOutDate, " +
                 "    Status = @Status " +
                 "WHERE Id = @Id";
-            this.db.Execute(sql, booking);
-            return booking;
+            return this.db.Execute(sql, booking);
         }
 
     }
