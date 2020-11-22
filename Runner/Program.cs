@@ -1,6 +1,7 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Repository;
 using Microsoft.Extensions.Configuration;
+using ModelLayer;
 using System;
 using System.Configuration;
 using System.Diagnostics;
@@ -27,6 +28,8 @@ namespace Runner
 
             //Delete_should_remove_entitiy(4);
 
+            Insert_full_booking_should_update_all_related_tables();
+
             Console.ReadLine();
         }
 
@@ -46,6 +49,41 @@ namespace Runner
         private static IBookingRepository CreateBookingRepository()
         {
             return new BookingRepository();
+        }
+
+        static int Insert_full_booking_should_update_all_related_tables()
+        {
+            //arrange 
+            var bookingRepository = CreateBookingRepository();
+            var studentRepository = CreateStudentRepository();
+
+            //var student = new StudentModel
+            //{
+            //    FirstName = "Kristiyan",
+            //    LastName = "Parlikov",
+            //    PhoneNumber = "+4500000000",
+            //    Email = "K@p.com",
+            //    DateOfBirth = DateTime.Parse("2000-12-09"),
+            //    Nationality = "Bulgarian",
+            //    EducationEndDate = DateTime.Parse("2022-01-31")
+            //};
+            var student = studentRepository.Find(1);
+            var booking = new BookingModel
+            {
+                MoveInDate = DateTime.Parse("2021-01-01"),
+                MoveOutDate = student.EducationEndDate,
+                Status = "New"
+            };
+
+            //act
+            bookingRepository.AddFull(booking, student);
+
+            //assert
+            Debug.Assert(booking.Id != 0);
+            Console.WriteLine("***Booking inserted***");
+            Console.WriteLine($"New ID: {booking.Id}");
+            return booking.Id;
+
         }
 
         static void Delete_should_remove_entitiy(int id)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModelLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,8 @@ namespace DataAccessLayer.Repository
         List<BookingModel> GetAll();
 
         BookingModel Add(BookingModel booking);
+
+        BookingModel AddFull(BookingModel booking, StudentModel student);
 
         BookingModel Update(BookingModel booking);
 
