@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,25 +13,26 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFClient.view_model;
 
-namespace WPFClient
+namespace WPFClient.views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RegisterView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RegisterView : UserControl
     {
-        public MainWindow()
+        //AdministratorControler adminCtrl;
+        public RegisterView()
         {
             InitializeComponent();
+            static readonly HttpClient client = new HttpClient();
         }
 
-
-
-        private void RegisterViewClicked(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            DataContext = new RegisterViewModel();
+           
+           
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelLayer
 {
-    class AdministratorModel : UserModel
+    public class AdministratorModel : UserModel
     {
         public int EmployeeNumber { get; set; }
 
