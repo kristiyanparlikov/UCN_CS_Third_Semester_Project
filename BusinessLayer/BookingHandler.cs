@@ -35,7 +35,7 @@ namespace BusinessLayer
 
         public void Update(BookingModel entity)
         {
-            db.Remove(entity.Id);
+            db.Update(entity);
         }
     }
 }

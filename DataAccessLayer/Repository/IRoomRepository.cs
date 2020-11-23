@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Repository
 {
-    interface IRoomRepository
+    public interface IRoomRepository
     {
         RoomModel Find(int id);
 
@@ -15,8 +15,8 @@ namespace DataAccessLayer.Repository
 
         void Create(RoomModel admin);
 
-        RoomModel Update(RoomModel booking);
+        bool Update(RoomModel booking);
 
-        void Remove(int id);
+        bool Remove(int id);
     }
 }
