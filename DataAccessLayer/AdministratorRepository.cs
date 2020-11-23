@@ -16,46 +16,62 @@ namespace DataAccessLayer
     {
         private IDbConnection db;
 
-        public AdministratorRepository() 
+        public AdministratorRepository()
         {
             this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         }
-        public void Create(AdministratorModel admin)
+        public AdministratorModel Add(AdministratorModel administrator)
         {
-            using (db)
-            {
-                var p = new DynamicParameters();
-                p.Add("@EmployeeNumber", admin.EmployeeNumber);
-                p.Add("@FName", admin.FirstName);
-                p.Add("@LName", admin.LastName);
-                p.Add("@PhoneNumber", admin.PhoneNumber);
-                p.Add("@Email", admin.Email);
-                string sql = "INSERT INTO Administrator VALUES @EmployeeNumber, @FName, @LName, @PhoneNumber,@Email";
-                db.Open();
-                db.Execute(sql, p);
-            }
-            }
+            var sql =
+                "INSERT INTO Administrators (FirstName, LastName, PhoneNumber, Email, EmployeeNumber) VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @EmployeeNumber);" +
+                "SELECT CAST(SCOPE_INDENTITY() as int)";
+            var id = this.db.Query<int>(sql, administrator).Single();
+            administrator.Id = id;
+            return administrator;
+        }
 
         public AdministratorModel Find(int id)
         {
-            throw new NotImplementedException();
+            return this.db.Query<AdministratorModel>("SELECT * FROM Administrators WHERE Id =@Id", new { id }).SingleOrDefault();
+        }
+
+        public AdministratorModel GetSingleAdministrator(int id)
+        {
+            return db.Query<AdministratorModel>("SELECT[id],[FirstName],[LastName] FROM [Administrators] WHERE Id =@id", new { Id = id }).SingleOrDefault();
         }
 
         public List<AdministratorModel> GetAll()
         {
-            throw new NotImplementedException();
+            return this.db.Query<AdministratorModel>("SELECT * FROM Administrators").ToList();
         }
 
-        public void Remove(int id)
+        public bool Remove(int id)
         {
-            throw new NotImplementedException();
+            int rowsAffected = this.db.Execute(@"DELETE FROM [Administrators] WHERE Id = @Id",
+                new { Id = id });
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public AdministratorModel Update(AdministratorModel booking)
+        public bool Update(AdministratorModel administrator)
         {
-            throw new NotImplementedException();
+            int rowsAffected = this.db.Execute(
+                        "UPDATE [Students] SET [FirstName] = @FirstName ,[LastName] = @LastName," +
+                        "[PhoneNumber] = @PhoneNumber ,[Email] = @Email," +
+                        "[EmployeeNumber] = @EmployeeNumber  WHERE Id = " +
+                        administrator.Id, administrator);
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
-    }
-
-
+}

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using ModelLayer;
+using System;
 using System.Collections.Generic;
-using System.Linq.Expressions;
-using ModelLayer;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using UCNThirdSemesterProject.ModelLayer;
 
 namespace DataAccessLayer.Repository
 {
@@ -11,12 +14,13 @@ namespace DataAccessLayer.Repository
 
         List<StudentModel> GetAll();
 
+        StudentModel GetSingleStudent(int id);
+
         StudentModel Add(StudentModel student);
 
-        StudentModel Update(StudentModel student);
+        bool Update(StudentModel student);
 
-        void Remove(int id);
+        bool Remove(int id);
 
     }
 }
-

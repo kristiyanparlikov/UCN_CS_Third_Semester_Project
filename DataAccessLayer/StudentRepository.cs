@@ -26,8 +26,8 @@ namespace DataAccessLayer
         public StudentModel Add(StudentModel student)
         {
             var sql =
-                "INSERT INTO Student (FirstName, LastName, PhoneNumber, Email, DateOfBirth, Nationality, EducationEndDate) VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @DateOfBirth, @Nationality, @EducationEndDate);" +
-                "SELECT CAST(SCOPE_INDENTITY() as int";
+                "INSERT INTO Students (FirstName, LastName, PhoneNumber, Email, DateOfBirth, Nationality, EducationEndDate) VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @DateOfBirth, @Nationality, @EducationEndDate);" +
+                "SELECT CAST(SCOPE_INDENTITY() as int)";
             var id = this.db.Query<int>(sql, student).Single();
             student.Id = id;
             return student;
@@ -38,30 +38,46 @@ namespace DataAccessLayer
             return this.db.Query<StudentModel>("SELECT * FROM Students WHERE Id =@Id", new { id }).SingleOrDefault();
         }
 
+        public StudentModel GetSingleStudent(int id)
+        {
+            return db.Query<StudentModel>("SELECT[id],[FirstName],[LastName] FROM [Students] WHERE Id =@id", new { Id = id }).SingleOrDefault();
+        }
+
         public List<StudentModel> GetAll()
         {
             return this.db.Query<StudentModel>("SELECT * FROM Students").ToList();
         }
 
-        public void Remove(int id)
+        public bool Remove(int id)
         {
-            this.db.Execute("DELETE FROM Students WHERE Id=@Id", new { Id = id });
+            int rowsAffected = this.db.Execute(@"DELETE FROM [Students] WHERE Id = @Id",
+                new { Id = id });
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
-        public StudentModel Update(StudentModel student)
+        public bool Update(StudentModel student)
         {
-            var sql =
-                 "UPDATE Students " +
-                 "SET FirstName = @FirstName, " +
-                 "LastName = @LastName, " +
-                 "PhoneNumber = @PhoneNumber, " +
-                 "Email = @Email, " +
-                 "DateOfBirth = @DateOfBirth, " +
-                 "Nationality = @Nationality " +
-                 "EducationEndDate = @EducationEndDate, " +
-                 "WHERE Id = @Id";
-            this.db.Execute(sql, student);
-            return student;
+            int rowsAffected = this.db.Execute(
+                        "UPDATE [Students] SET [FirstName] = @FirstName ,[LastName] = @LastName," +
+                        "[PhoneNumber] = @PhoneNumber ,[Email] = @Email," +
+                        "[DateOfBirth] = @DateOfBirth ,[Nationality] = @Nationality," +
+                        " [EducationEndDate] = @EducationEndDate WHERE Id = " +
+                        student.Id, student);
+
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+
+            return false;
         }
+
+
     }
 }

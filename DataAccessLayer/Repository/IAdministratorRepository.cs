@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UCNThirdSemesterProject.ModelLayer;
 
 namespace DataAccessLayer.Repository
 {
@@ -12,11 +13,12 @@ namespace DataAccessLayer.Repository
         AdministratorModel Find(int id);
 
         List<AdministratorModel> GetAll();
+        AdministratorModel GetSingleAdministrator(int id);
 
-        void Create(AdministratorModel admin);
+        AdministratorModel Add(AdministratorModel administrator);
 
-        AdministratorModel Update(AdministratorModel booking);
+        bool Update(AdministratorModel administrator);
 
-        void Remove(int id);
+        bool Remove(int id);
     }
 }

@@ -19,9 +19,9 @@ namespace BusinessLayer
             db.Add(entity);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            db.Remove(id);
+            return db.Remove(id);
         }
 
         public StudentModel Get(int id)
@@ -29,14 +29,19 @@ namespace BusinessLayer
             return db.Find(id);
         }
 
+        StudentModel GetSingleStudent(int id)
+        {
+            return db.GetSingleStudent(id);
+        }
+
         public IEnumerable<StudentModel> GetAll()
         {
             return db.GetAll();
         }
 
-        public void Update(StudentModel entity)
+        public bool Update(StudentModel entity)
         {
-            //db.Update(entity.Id);
+            return db.Update(entity);
         }
     }
 }

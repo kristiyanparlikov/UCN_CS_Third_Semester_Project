@@ -14,33 +14,27 @@ namespace BusinessLayer
         IAdministratorRepository db = new AdministratorRepository();
         public void Create(AdministratorModel entity)
         {
-            db.Create(entity);
+            db.Add(entity);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            return db.Remove(id);
         }
 
         public AdministratorModel Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Find(id);
         }
 
         public IEnumerable<AdministratorModel> GetAll()
         {
-            throw new NotImplementedException();
+            return db.GetAll();
         }
 
-        public void Update(AdministratorModel entity)
+        public bool Update(AdministratorModel administrator)
         {
-            throw new NotImplementedException();
-        }
-
-        public AdministratorModel adminObjectCreator(string firstName, string lastName, string phoneNumber, string email)
-        {
-            AdministratorModel admin = new AdministratorModel(firstName, lastName, phoneNumber, email, 1);
-            return admin;
+            return db.Update(administrator);
         }
     }
 }
