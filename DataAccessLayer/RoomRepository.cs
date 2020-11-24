@@ -25,12 +25,12 @@ namespace DataAccessLayer
             return retrieveMockData();
         }
 
-        public void Remove(int id)
+        public bool Remove(int id)
         {
             throw new NotImplementedException();
         }
 
-        public RoomModel Update(RoomModel booking)
+        public bool Update(RoomModel booking)
         {
             throw new NotImplementedException();
         }

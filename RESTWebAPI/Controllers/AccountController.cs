@@ -330,6 +330,12 @@ namespace RESTWebAPI.Controllers
 
             var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
 
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.DateOfBirth = model.DateOfBirth;
+            user.EducationEndDate = model.EducationEndDate;
+            user.Nationality = model.Nationality;
+
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);
 
             if (!result.Succeeded)

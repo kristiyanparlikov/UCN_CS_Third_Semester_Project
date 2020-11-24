@@ -48,6 +48,18 @@ namespace RESTWebAPI.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Nationality { get; set; }
+
+        [Display(Name = "Date of birth")]
+        public string DateOfBirth { get; set; }
+
+        [Display(Name = "Education end date")]
+        public string EducationEndDate { get; set; }
+        
+
     }
 
     public class RegisterExternalBindingModel

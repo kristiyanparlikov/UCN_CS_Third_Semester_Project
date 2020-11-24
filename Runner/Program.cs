@@ -22,7 +22,7 @@ namespace Runner
 
             //Insert_should_assign_identity_to_new_entity();
 
-            Find_should_retrieve_existing_entity(2);
+            //Find_should_retrieve_existing_entity(2);
 
             //Modify_should_update_existing_entity(4);
 
@@ -31,6 +31,8 @@ namespace Runner
             //Insert_full_booking_should_update_all_related_tables();
 
             //Insert_should_assign_identity_to_new_entity();
+
+            Insert_admin_should_add_new_entity();
 
             Console.ReadLine();
         }
@@ -48,6 +50,11 @@ namespace Runner
             return new StudentRepository();
         }
 
+        //private static AdministratorRepository CreateAdministratorRepository()
+        //{
+        //    return new AdministratorRepository();
+        //}
+
         private static IBookingRepository CreateBookingRepository()
         {
             return new BookingRepository();
@@ -56,6 +63,31 @@ namespace Runner
         private static IBookingRepository CreateBookingRepositoryAdoNet()
         {
             return new BookingRepositoryAdoNet();
+        }
+
+        static void Insert_admin_should_add_new_entity()
+        {
+            //arrange
+            //var administratorRepository = CreateAdministratorRepository();
+            var administratorRepository = new AdministratorRepository();
+            //act
+            var admin = new AdministratorModel()
+            {
+                FirstName = "John",
+                LastName = "Johnson",
+                Email = "J@J.com",
+                PhoneNumber = "+4512534211",
+                EmployeeNumber = 404
+            };
+            int rowsAffected = administratorRepository.Add(admin);
+
+            //assert
+            Debug.Assert(rowsAffected == 1);
+            if(rowsAffected == 1)
+            {
+                Console.WriteLine("***Administrator inserted***");
+            }
+            
         }
 
         static int Insert_full_booking_should_update_all_related_tables()

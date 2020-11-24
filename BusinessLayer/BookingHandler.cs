@@ -9,7 +9,7 @@ using UCNThirdSemesterProject.ModelLayer;
 
 namespace BusinessLayer
 {
-    public class BookingHandler : ICRUD<BookingModel>
+    public class BookingHandler 
     {
         IBookingRepository db = new BookingRepositoryAdoNet();
 
@@ -33,9 +33,9 @@ namespace BusinessLayer
             return db.GetAll();
         }
 
-        public void Update(BookingModel entity)
+        public int Update(BookingModel entity)
         {
-            db.Update(entity);
+            return db.Update(entity);
         }
     }
 }

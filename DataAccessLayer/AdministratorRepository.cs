@@ -15,19 +15,51 @@ namespace DataAccessLayer
     public class AdministratorRepository : IAdministratorRepository
     {
         private IDbConnection db;
-
+        //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public AdministratorRepository()
         {
-            this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            //this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            //this.db = new SqlConnection(connString);
+
         }
-        public AdministratorModel Add(AdministratorModel administrator)
+        public int Add(AdministratorModel administrator)
         {
-            var sql =
-                "INSERT INTO Administrators (FirstName, LastName, PhoneNumber, Email, EmployeeNumber) VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @EmployeeNumber);" +
-                "SELECT CAST(SCOPE_INDENTITY() as int)";
-            var id = this.db.Query<int>(sql, administrator).Single();
-            administrator.Id = id;
-            return administrator;
+            int rowsAffected = 0;
+            var sql = "INSERT INTO Administrators (FirstName, LastName, PhoneNumber, Email, EmployeeNumber) VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @EmployeeNumber)";
+            //sql += " SELECT CAST(SCOPE_INDENTITY() as int)";
+
+            //var id = this.db.Query<int>(sql, administrator).Single();
+            //administrator.Id = id;
+            //return administrator;
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", administrator.FirstName));
+                        cmd.Parameters.Add(new SqlParameter("@LastName", administrator.LastName));
+                        cmd.Parameters.Add(new SqlParameter("@PhoneNumber", administrator.PhoneNumber));
+                        cmd.Parameters.Add(new SqlParameter("@Email", administrator.Email));
+                        cmd.Parameters.Add(new SqlParameter("@EmployeeNumber", administrator.EmployeeNumber));
+
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        rowsAffected = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return rowsAffected;
         }
 
         public AdministratorModel Find(int id)

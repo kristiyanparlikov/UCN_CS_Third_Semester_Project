@@ -15,7 +15,7 @@ namespace DataAccessLayer.Repository
         List<AdministratorModel> GetAll();
         AdministratorModel GetSingleAdministrator(int id);
 
-        AdministratorModel Add(AdministratorModel administrator);
+        int Add(AdministratorModel administrator);
 
         bool Update(AdministratorModel administrator);
 
