@@ -38,7 +38,12 @@ namespace WPFClient.views
          */
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            AdministratorModel admin = administratorHandler.adminObjectCreator(fName.Text, lName.Text, phoneNumber.Text, email.Text);
+            AdministratorModel admin = new AdministratorModel()
+            {   FirstName =fName.Text,
+                LastName = lName.Text, 
+                PhoneNumber = phoneNumber.Text,
+                Email = email.Text
+            };
             String url = $"https://localhost:44302/api/Administrator/Register/{admin}";
             String responseBody = await client.GetStringAsync(url);
             returnBox.Content = JsonConvert.DeserializeObject<String>(responseBody);
