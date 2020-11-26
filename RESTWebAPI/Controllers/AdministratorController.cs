@@ -10,6 +10,7 @@ using ModelLayer;
 
 namespace RESTWebAPI.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class AdministratorController : ApiController
     {
         AdministratorHandler adminHandler = new AdministratorHandler();
@@ -31,6 +32,7 @@ namespace RESTWebAPI.Controllers
         }
 
         // POST: api/Administrator
+        [AllowAnonymous]
         [HttpPost]
         [Route("api/Administrator/Register")]
         public IHttpActionResult Post([FromBody] AdministratorModel admin)
@@ -42,7 +44,7 @@ namespace RESTWebAPI.Controllers
                     return BadRequest(ModelState);
                 }
                 adminHandler.Create(admin);
-                //Administrators.Add(admin);
+                Administrators.Add(admin);
                 return Ok("Success");
             }
             catch (Exception)
@@ -56,6 +58,7 @@ namespace RESTWebAPI.Controllers
         {
             Administrators.RemoveAll(x => x.Id == id);
         }
+
     }
 }
 

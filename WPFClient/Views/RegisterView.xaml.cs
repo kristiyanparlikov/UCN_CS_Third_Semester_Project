@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,8 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
-using BusinessLayer;
-using ModelLayer;
+using Newtonsoft.Json.Linq;
 
 namespace WPFClient.views
 {
@@ -24,8 +24,13 @@ namespace WPFClient.views
     /// </summary>
     public partial class RegisterView : UserControl
     {
+
+        string firstName;
+        string lastName;
+        string phoneNumber;
+        string email;
+        int employeeNumber;
         HttpClient client = new HttpClient();
-        AdministratorHandler administratorHandler = new AdministratorHandler();
 
         public RegisterView()
         {
@@ -38,16 +43,17 @@ namespace WPFClient.views
          */
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            AdministratorModel admin = new AdministratorModel()
-            {   FirstName =fName.Text,
-                LastName = lName.Text, 
-                PhoneNumber = phoneNumber.Text,
-                Email = email.Text
-            };
-            String url = $"https://localhost:44302/api/Administrator/Register/{admin}";
-            String responseBody = await client.GetStringAsync(url);
-            returnBox.Content = JsonConvert.DeserializeObject<String>(responseBody);
-           
+            string url = $"https://localhost:44302/api/Administrator/Register";
+            var registerContent = new JObject();
+            registerContent.Add("employeeNumber", int.Parse(employeeNumbField.Text));
+            registerContent.Add("firstName", fNameField.Text);
+            registerContent.Add("lastName", lNameField.Text);
+            registerContent.Add("phoneNumber", phoneNumberField.Text);
+            registerContent.Add("email", emailField.Text);
+            HttpContent content = new StringContent(registerContent.ToString(), Encoding.UTF8, "application/json");
+            var responseBody = client.PostAsJsonAsync(url, registerContent).Result;
+            returnBox.Content = await responseBody.Content.ReadAsStringAsync();
+            
 
         }
     }

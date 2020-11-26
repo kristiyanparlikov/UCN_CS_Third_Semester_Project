@@ -15,12 +15,10 @@ namespace DataAccessLayer
     public class AdministratorRepository : IAdministratorRepository
     {
         private IDbConnection db;
-        //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public AdministratorRepository()
         {
-            //this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-            //this.db = new SqlConnection(connString);
+            
 
         }
         public int Add(AdministratorModel administrator)
