@@ -18,9 +18,9 @@ namespace DataAccessLayer.Repository
 
         StudentModel Add(StudentModel student);
 
-        bool Update(StudentModel student);
+        int Update(StudentModel student);
 
-        bool Remove(int id);
+        int Remove(int id);
 
     }
 }

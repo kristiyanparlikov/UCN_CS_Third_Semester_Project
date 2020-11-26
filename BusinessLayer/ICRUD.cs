@@ -11,7 +11,7 @@ namespace BusinessLayer
         void Create(T entity);
         T Get(int id);
         IEnumerable<T> GetAll();
-        bool Update(T entity);
-        bool Delete(int id);
+        int Update(T entity);
+        int Delete(int id);
     }
 }

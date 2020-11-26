@@ -19,7 +19,7 @@ namespace BusinessLayer
             db.Add(entity);
         }
 
-        public bool Delete(int id)
+        public int Delete(int id)
         {
             return db.Remove(id);
         }
@@ -39,7 +39,7 @@ namespace BusinessLayer
             return db.GetAll();
         }
 
-        public bool Update(StudentModel entity)
+        public int Update(StudentModel entity)
         {
             return db.Update(entity);
         }
