@@ -13,10 +13,10 @@ namespace RESTWebAPI.Controllers
     public class AdministratorController : ApiController
     {
         AdministratorHandler adminHandler = new AdministratorHandler();
-        List<Administrator> Administrators = new List<Administrator>();
+        List<AdministratorModel> Administrators = new List<AdministratorModel>();
 
         // GET: api/Administrators
-        public List<Administrator> Get()
+        public List<AdministratorModel> Get()
         {
             return Administrators;
         }
@@ -25,7 +25,7 @@ namespace RESTWebAPI.Controllers
 
         // GET: api/Administrator/5
 
-        public Administrator Get(int id)
+        public AdministratorModel Get(int id)
         {
             return Administrators.Where(x => x.Id == id).FirstOrDefault();
         }

@@ -36,5 +36,11 @@ namespace BusinessLayer
         {
             throw new NotImplementedException();
         }
+
+        public AdministratorModel adminObjectCreator(string firstName, string lastName, string phoneNumber, string email)
+        {
+            AdministratorModel admin = new AdministratorModel(firstName, lastName, phoneNumber, email, 1);
+            return admin;
+        }
     }
 }
