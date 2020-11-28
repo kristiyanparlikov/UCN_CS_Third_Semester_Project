@@ -41,6 +41,13 @@ namespace WebApplication.Controllers
 
         }
 
+        public ActionResult Login()
+        {
+
+            return View();
+
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register(StudentModel model)
