@@ -1,4 +1,4 @@
-﻿using DataAccessLayer.Repository;
+﻿ using DataAccessLayer.Repository;
 using ModelLayer;
 using System;
 using System.Collections.Generic;
@@ -18,10 +18,10 @@ namespace DataAccessLayer
 
 
         //using ado.net
-        public StudentModel Add(StudentModel student)
+        public StudentModel Add(StudentModel student, string hashedPassword)
         {
-            var query = "INSERT INTO Students (FirstName, LastName, PhoneNumber, Email, DateOfBirth, Nationality, EducationEndDate) ";
-            query += "VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @DateOfBirth, @Nationality, @EducationEndDate) ";
+            var query = "INSERT INTO Students (Email, Password, FirstName, LastName, PhoneNumber, DateOfBirth, Nationality, EducationEndDate) ";
+            query += "VALUES (@Email, @Password, @FirstName, @LastName, @PhoneNumber, @DateOfBirth, @Nationality, @EducationEndDate) ";
             query += "SELECT CAST (SCOPE_IDENTITY() as int)";
             try
             {
@@ -29,10 +29,11 @@ namespace DataAccessLayer
                 {
                     using (SqlCommand cmd = new SqlCommand(query, cnn))
                     {
+                        cmd.Parameters.Add(new SqlParameter("@Email", student.Email));
+                        cmd.Parameters.Add(new SqlParameter("@Password", hashedPassword));
                         cmd.Parameters.Add(new SqlParameter("@FirstName", student.FirstName));
                         cmd.Parameters.Add(new SqlParameter("@LastName", student.LastName));
                         cmd.Parameters.Add(new SqlParameter("@PhoneNumber", student.PhoneNumber));
-                        cmd.Parameters.Add(new SqlParameter("@Email", student.Email));
                         cmd.Parameters.Add(new SqlParameter("@DateOfBirth", student.DateOfBirth));
                         cmd.Parameters.Add(new SqlParameter("@Nationality", student.Nationality));
                         cmd.Parameters.Add(new SqlParameter("@EducationEndDate", student.EducationEndDate));
@@ -169,7 +170,29 @@ namespace DataAccessLayer
                 }
             }
         }
+        public bool VerifyStudent(string email, string hashedPassword)
+        {
+            string query = "SELECT * FROM Students WHERE Email=@Email AND Password=@Password";
+
+            using(SqlConnection cnn = new SqlConnection(connString))
+            {
+                using(SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Email", email));
+                    cmd.Parameters.Add(new SqlParameter("@Password", hashedPassword));
+
+                    cnn.Open();
+
+                    var result = cmd.ExecuteScalar();
+
+                    if (result != null)
+                        return true;
+                    else { return false; }
+                }
+            }
+        }
     }
+
 
     //using dapper
     /*

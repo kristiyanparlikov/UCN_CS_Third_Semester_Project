@@ -17,7 +17,7 @@ namespace ModelLayer
 
         public StudentModel() : base() { }
 
-        public StudentModel(string firstName, string lastName, string phoneNumber, string email, DateTime dateOfBirth, string nationality, DateTime educationEndDate) : base(firstName, lastName, phoneNumber, email)
+        public StudentModel(string email, string firstName, string lastName, string phoneNumber, DateTime dateOfBirth, string nationality, DateTime educationEndDate) : base(firstName, lastName, phoneNumber, email)
         {
             DateOfBirth = dateOfBirth;
             EducationEndDate = educationEndDate;

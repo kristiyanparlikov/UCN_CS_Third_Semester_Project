@@ -6,7 +6,7 @@ using System.Web;
 
 namespace WebApplication.Models
 {
-    public class StudentModel
+    public class StudentRegisterModel
     {
         [Required(ErrorMessage = "Please enter email")]
         [DataType(DataType.EmailAddress)]

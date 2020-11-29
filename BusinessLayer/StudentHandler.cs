@@ -10,13 +10,13 @@ using UCNThirdSemesterProject.ModelLayer;
 
 namespace BusinessLayer
 {
-    class StudentHandler : ICRUD<StudentModel>
+    public class StudentHandler
     {
         IStudentRepository db = new StudentRepository();
 
-        public void Create(StudentModel entity)
+        public StudentModel Create(StudentModel entity, string hashedPassword)
         {
-            db.Add(entity);
+            return db.Add(entity, hashedPassword);
         }
 
         public int Delete(int id)
@@ -29,11 +29,6 @@ namespace BusinessLayer
             return db.Find(id);
         }
 
-        StudentModel GetSingleStudent(int id)
-        {
-            return db.GetSingleStudent(id);
-        }
-
         public IEnumerable<StudentModel> GetAll()
         {
             return db.GetAll();
@@ -42,6 +37,11 @@ namespace BusinessLayer
         public int Update(StudentModel entity)
         {
             return db.Update(entity);
+        }
+
+        public bool VerifyStudentCredentials(string email, string hashedPassword)
+        {
+            return db.VerifyStudent(email, hashedPassword);
         }
     }
 }

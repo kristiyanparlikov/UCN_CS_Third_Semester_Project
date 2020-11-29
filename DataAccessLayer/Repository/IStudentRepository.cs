@@ -14,13 +14,12 @@ namespace DataAccessLayer.Repository
 
         List<StudentModel> GetAll();
 
-        StudentModel GetSingleStudent(int id);
-
-        StudentModel Add(StudentModel student);
+        StudentModel Add(StudentModel student, string hashedPassword);
 
         int Update(StudentModel student);
 
         int Remove(int id);
 
+        bool VerifyStudent(string email, string hashedPassword);
     }
 }

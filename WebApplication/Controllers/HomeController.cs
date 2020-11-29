@@ -50,16 +50,16 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(StudentModel model)
+        public ActionResult Register(StudentRegisterModel model)
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44302/api/");
+                client.BaseAddress = new Uri("https://localhost:44382/api/");
                 var json = JsonConvert.SerializeObject(model);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
 
                 //HTTP POST
-                var postTask = client.PostAsync("Account/Register", data);
+                var postTask = client.PostAsync("Student/Register", data);
 
                 postTask.Wait();
 
