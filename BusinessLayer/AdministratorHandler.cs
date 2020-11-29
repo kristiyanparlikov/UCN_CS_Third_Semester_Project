@@ -9,12 +9,12 @@ using DataAccessLayer.Repository;
 
 namespace BusinessLayer
 {
-    public class AdministratorHandler : ICRUD<AdministratorModel>
+    public class AdministratorHandler 
     {
         IAdministratorRepository db = new AdministratorRepository();
-        public void Create(AdministratorModel entity)
+        public AdministratorModel Create(AdministratorModel entity, string hashedPassword)
         {
-            db.Add(entity);
+            return db.Add(entity, hashedPassword);
         }
 
         public bool Delete(int id)
@@ -35,6 +35,11 @@ namespace BusinessLayer
         public bool Update(AdministratorModel administrator)
         {
             return db.Update(administrator);
+        }
+
+        public string getAdministratorPassword(string email)
+        {
+            return db.GetAdministratorPassword(email);
         }
     }
 }

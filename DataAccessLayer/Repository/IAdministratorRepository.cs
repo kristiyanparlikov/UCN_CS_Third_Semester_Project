@@ -10,15 +10,11 @@ namespace DataAccessLayer.Repository
 {
     public interface IAdministratorRepository
     {
+        AdministratorModel Add(AdministratorModel administrator, string hashedPassword);
         AdministratorModel Find(int id);
-
         List<AdministratorModel> GetAll();
         AdministratorModel GetSingleAdministrator(int id);
-
-        int Add(AdministratorModel administrator);
-
         bool Update(AdministratorModel administrator);
-
         bool Remove(int id);
     }
 }

@@ -21,25 +21,22 @@ namespace DataAccessLayer
             
 
         }
-        public int Add(AdministratorModel administrator)
+        public AdministratorModel Add(AdministratorModel administrator, string hashedPassword)
         {
-            int rowsAffected = 0;
-            var sql = "INSERT INTO Administrators (FirstName, LastName, PhoneNumber, Email, EmployeeNumber) VALUES (@FirstName, @LastName, @PhoneNumber, @Email, @EmployeeNumber)";
-            //sql += " SELECT CAST(SCOPE_INDENTITY() as int)";
-
-            //var id = this.db.Query<int>(sql, administrator).Single();
-            //administrator.Id = id;
-            //return administrator;
+            var sql = "INSERT INTO Administrators (Email, Password, FirstName, LastName, PhoneNumber,  EmployeeNumber) " +
+                "VALUES (@Email, @Password, @FirstName, @LastName, @PhoneNumber,  @EmployeeNumber) " +
+                "SELECT CAST (SCOPE_IDENTITY() as int)";
             try
             {
                 using (SqlConnection cnn = new SqlConnection(connString))
                 {
                     using (SqlCommand cmd = new SqlCommand(sql, cnn))
                     {
+                        cmd.Parameters.Add(new SqlParameter("@Email", administrator.Email));
+                        cmd.Parameters.Add(new SqlParameter("@Password", hashedPassword));
                         cmd.Parameters.Add(new SqlParameter("@FirstName", administrator.FirstName));
                         cmd.Parameters.Add(new SqlParameter("@LastName", administrator.LastName));
                         cmd.Parameters.Add(new SqlParameter("@PhoneNumber", administrator.PhoneNumber));
-                        cmd.Parameters.Add(new SqlParameter("@Email", administrator.Email));
                         cmd.Parameters.Add(new SqlParameter("@EmployeeNumber", administrator.EmployeeNumber));
 
                         // Set CommandType
@@ -49,7 +46,8 @@ namespace DataAccessLayer
                         cnn.Open();
 
                         // Execute the first statement
-                        rowsAffected = cmd.ExecuteNonQuery();
+                        var id = cmd.ExecuteScalar();
+                        administrator.Id = (int)id;
                     }
                 }
             }
@@ -57,7 +55,7 @@ namespace DataAccessLayer
             {
                 Console.WriteLine(ex.Message);
             }
-            return rowsAffected;
+            return administrator;
         }
 
         public AdministratorModel Find(int id)
@@ -103,5 +101,11 @@ namespace DataAccessLayer
 
             return false;
         }
+
+        public AdministratorModel GetAdministratorInfo(string email)
+        {
+            return db.Query<AdministratorModel>("SELECT[Password] FROM [Administrators] WHERE Email =@Email", new { email }).SingleOrDefault();
+        }
     }
+
 }
