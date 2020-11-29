@@ -13,28 +13,28 @@ namespace ModelLayer
         public int RoomNumber { get; set; }
         public int Floor { get; set; }
         public int Capacity { get; set; }
-        public double Size { get; set; }
+        public double Area { get; set; }
         public double Price { get; set; }
         public bool isAvailable { get; set; } = true;
 
         List<BookingModel> bookings;
 
-        public RoomModel(int roomNumber, int floor, int capacity, double size, double price)
+        public RoomModel(int roomNumber, int floor, int capacity, double area, double price)
         {
             RoomNumber = roomNumber;
             Floor = floor;
             Capacity = capacity;
-            Size = size;
+            Area = area;
             Price = price;
         }
 
-        public RoomModel(int id, int roomNumber, int floor, int capacity, double size, double price)
+        public RoomModel(int id, int roomNumber, int floor, int capacity, double area, double price)
         {
             Id = id;
             RoomNumber = roomNumber;
             Floor = floor;
             Capacity = capacity;
-            Size = size;
+            Area = area;
             Price = price;
         }
     }
