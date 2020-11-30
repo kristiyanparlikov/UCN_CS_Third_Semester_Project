@@ -32,7 +32,7 @@ namespace Runner
 
             //Insert_should_assign_identity_to_new_entity();
 
-            Insert_admin_should_add_new_entity();
+            //Insert_admin_should_add_new_entity();
 
             Console.ReadLine();
         }
@@ -65,65 +65,65 @@ namespace Runner
             return new BookingRepositoryAdoNet();
         }
 
-        static void Insert_admin_should_add_new_entity()
-        {
-            //arrange
-            //var administratorRepository = CreateAdministratorRepository();
-            var administratorRepository = new AdministratorRepository();
-            //act
-            var admin = new AdministratorModel()
-            {
-                FirstName = "John",
-                LastName = "Johnson",
-                Email = "J@J.com",
-                PhoneNumber = "+4512534211",
-                EmployeeNumber = 404
-            };
-            int rowsAffected = administratorRepository.Add(admin);
+        //static void Insert_admin_should_add_new_entity()
+        //{
+        //    //arrange
+        //    //var administratorRepository = CreateAdministratorRepository();
+        //    var administratorRepository = new AdministratorRepository();
+        //    //act
+        //    var admin = new AdministratorModel()
+        //    {
+        //        FirstName = "John",
+        //        LastName = "Johnson",
+        //        Email = "J@J.com",
+        //        PhoneNumber = "+4512534211",
+        //        EmployeeNumber = 404
+        //    };
+        //    int rowsAffected = administratorRepository.Add(admin);
 
-            //assert
-            Debug.Assert(rowsAffected == 1);
-            if(rowsAffected == 1)
-            {
-                Console.WriteLine("***Administrator inserted***");
-            }
+        //    //assert
+        //    Debug.Assert(rowsAffected == 1);
+        //    if(rowsAffected == 1)
+        //    {
+        //        Console.WriteLine("***Administrator inserted***");
+        //    }
             
-        }
+        //}
 
-        static int Insert_full_booking_should_update_all_related_tables()
-        {
-            //arrange 
-            var bookingRepository = CreateBookingRepositoryAdoNet();
-            var studentRepository = CreateStudentRepository();
+        //static int Insert_full_booking_should_update_all_related_tables()
+        //{
+        //    //arrange 
+        //    var bookingRepository = CreateBookingRepositoryAdoNet();
+        //    var studentRepository = CreateStudentRepository();
 
-            //var student = new StudentModel
-            //{
-            //    FirstName = "Kristiyan",
-            //    LastName = "Parlikov",
-            //    PhoneNumber = "+4500000000",
-            //    Email = "K@p.com",
-            //    DateOfBirth = DateTime.Parse("2000-12-09"),
-            //    Nationality = "Bulgarian",
-            //    EducationEndDate = DateTime.Parse("2022-01-31")
-            //};
-            var student = studentRepository.Find(1);
-            var booking = new BookingModel
-            {
-                MoveInDate = DateTime.Parse("2021-01-01"),
-                MoveOutDate = student.EducationEndDate,
-                Status = "New"
-            };
+        //    //var student = new StudentModel
+        //    //{
+        //    //    FirstName = "Kristiyan",
+        //    //    LastName = "Parlikov",
+        //    //    PhoneNumber = "+4500000000",
+        //    //    Email = "K@p.com",
+        //    //    DateOfBirth = DateTime.Parse("2000-12-09"),
+        //    //    Nationality = "Bulgarian",
+        //    //    EducationEndDate = DateTime.Parse("2022-01-31")
+        //    //};
+        //    //var student = studentRepository.Find(1);
+        //    var booking = new BookingModel
+        //    {
+        //        MoveInDate = DateTime.Parse("2021-01-01"),
+        //        MoveOutDate = student.EducationEndDate,
+        //        Status = "New"
+        //    };
 
-            //act
-            bookingRepository.AddFull(booking, student);
+        //    //act
+        //    bookingRepository.AddFull(booking, student);
 
-            //assert
-            Debug.Assert(booking.Id != 0);
-            Console.WriteLine("***Booking inserted***");
-            Console.WriteLine($"New ID: {booking.Id}");
-            return booking.Id;
+        //    //assert
+        //    Debug.Assert(booking.Id != 0);
+        //    Console.WriteLine("***Booking inserted***");
+        //    Console.WriteLine($"New ID: {booking.Id}");
+        //    return booking.Id;
 
-        }
+        //}
 
         static void Delete_should_remove_entitiy(int id)
         {

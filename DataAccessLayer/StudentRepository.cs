@@ -14,7 +14,8 @@ namespace DataAccessLayer
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
 
         //using ado.net
@@ -58,15 +59,15 @@ namespace DataAccessLayer
 
         }
 
-        public StudentModel Find(int id)
+        public StudentModel Find(string email)
         {
-            string query = "SELECT * FROM Students WHERE Id = @Id";
+            string query = "SELECT * FROM Students WHERE Email=@Email";
             StudentModel student = new StudentModel();
             using (SqlConnection cnn = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
                 {
-                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+                    cmd.Parameters.Add(new SqlParameter("@Email", email));
 
                     cnn.Open();
                     using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
@@ -76,10 +77,10 @@ namespace DataAccessLayer
                             while (dr.Read())
                             {
                                 student.Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id"));
+                                student.Email = dr.GetFieldValue<string>(dr.GetOrdinal("Email"));
                                 student.FirstName = dr.GetFieldValue<string>(dr.GetOrdinal("FirstName"));
                                 student.LastName = dr.GetFieldValue<string>(dr.GetOrdinal("LastName"));
                                 student.PhoneNumber = dr.GetFieldValue<string>(dr.GetOrdinal("PhoneNumber"));
-                                student.Email = dr.GetFieldValue<string>(dr.GetOrdinal("Email"));
                                 student.DateOfBirth = dr.GetFieldValue<DateTime>(dr.GetOrdinal("DateOfBirth"));
                                 student.Nationality = dr.GetFieldValue<string>(dr.GetOrdinal("Nationality"));
                                 student.EducationEndDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("EducationEndDate"));

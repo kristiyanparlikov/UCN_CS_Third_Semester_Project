@@ -24,9 +24,9 @@ namespace BusinessLayer
             return db.Remove(id);
         }
 
-        public StudentModel Get(int id)
+        public StudentModel Get(string email)
         {
-            return db.Find(id);
+            return db.Find(email);
         }
 
         public IEnumerable<StudentModel> GetAll()

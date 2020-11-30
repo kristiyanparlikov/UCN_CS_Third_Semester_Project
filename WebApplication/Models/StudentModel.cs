@@ -28,6 +28,10 @@ namespace WebApplication.Models
         [Display(Name = "Last name")]
         public string LastName { get; set; }
 
+        [Required(ErrorMessage = "Please enter phone number")]
+        [Display(Name = "Phone number")]
+        public string PhoneNumber { get; set; }
+
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
