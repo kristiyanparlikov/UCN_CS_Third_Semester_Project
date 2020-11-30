@@ -26,6 +26,7 @@ namespace ModelLayer
             Capacity = capacity;
             Area = area;
             Price = price;
+            //this.isAvailable = isAvailable;
         }
 
         public RoomModel(int id, int roomNumber, int floor, int capacity, double area, double price)
@@ -36,6 +37,7 @@ namespace ModelLayer
             Capacity = capacity;
             Area = area;
             Price = price;
+            //this.isAvailable = isAvailable;
         }
 
         public RoomModel()

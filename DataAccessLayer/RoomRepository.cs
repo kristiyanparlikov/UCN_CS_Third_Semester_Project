@@ -32,7 +32,7 @@ namespace DataAccessLayer
                         cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                         cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
                         cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
-                        cmd.Parameters.Add(new SqlParameter("@isAvailable", room.isAvailable));
+                        //cmd.Parameters.Add(new SqlParameter("@isAvailable", room.isAvailable));
 
                         // Set CommandType
                         cmd.CommandType = CommandType.Text;
