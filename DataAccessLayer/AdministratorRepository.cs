@@ -105,7 +105,7 @@ namespace DataAccessLayer
         public string GetAdministratorPassword(string email)
         {
             string password = null;
-            var sql = "SELECT [Password] FROM [Administrator] WHERE Email =@Email ";
+            var sql = "SELECT [Password] FROM [Administrators] WHERE Email =@Email ";
             try
             {
                 using (SqlConnection cnn = new SqlConnection(connString))
