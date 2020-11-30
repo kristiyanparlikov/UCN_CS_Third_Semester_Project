@@ -43,5 +43,10 @@ namespace BusinessLayer
         {
             return db.VerifyStudent(email, hashedPassword);
         }
+
+        public string GetStudentPassword(string email)
+        {
+            return db.GetStudentPassword(email);
+        }
     }
 }

@@ -43,7 +43,7 @@ namespace RESTWebAPI.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                adminHandler.Create(admin);
+                 //adminHandler.Create(admin);
                 Administrators.Add(admin);
                 return Ok("Success");
             }

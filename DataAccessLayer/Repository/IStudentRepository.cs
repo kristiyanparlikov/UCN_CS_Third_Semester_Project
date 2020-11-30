@@ -21,5 +21,7 @@ namespace DataAccessLayer.Repository
         int Remove(int id);
 
         bool VerifyStudent(string email, string hashedPassword);
+
+        string GetStudentPassword(string email);
     }
 }

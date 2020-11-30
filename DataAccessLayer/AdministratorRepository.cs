@@ -107,7 +107,32 @@ namespace DataAccessLayer
 
         public string GetAdministratorPassword(string email)
         {
-            throw new NotImplementedException();
+            string password = null;
+            var sql = "SELECT [Password] FROM [Administrators] WHERE Email =@Email ";
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Email", email));
+
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        password = (string)cmd.ExecuteScalar();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return password;
         }
     }
 

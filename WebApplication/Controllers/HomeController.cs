@@ -70,16 +70,15 @@ namespace WebApplication.Controllers
                 //HTTP POST
                 var postTask = client.PostAsync("Student/Register", data);
 
-
+                
                 var result = postTask.Result;
                 if (result.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Login");
                 }
             }
 
             ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
-
             return View(model);
         }
 
@@ -91,14 +90,24 @@ namespace WebApplication.Controllers
             {
                 client.BaseAddress = new Uri("https://localhost:44382/api/");
 
-                HttpResponseMessage login = client.PostAsync("/token", new FormUrlEncodedContent(new Dictionary<string, string> { { "grant_type", "password" }, { "username", model.Email }, { "password", model.Password } })).Result;
-                if (login.StatusCode == HttpStatusCode.OK)
-                {
-                    var result = login.Content.ReadAsStringAsync().Result;
-                    Dictionary<string, string> tokenDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
-                    string accessToken = tokenDictionary["access_token"];
+                var json = JsonConvert.SerializeObject(model);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
 
+                var postTask = client.PostAsync("Student/Login", data);
+                var result = postTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
                 }
+                //HttpResponseMessage login = client.PostAsync("/token", new FormUrlEncodedContent(new Dictionary<string, string> { { "grant_type", "password" }, { "username", model.Email }, { "password", model.Password } })).Result;
+                //if (login.StatusCode == HttpStatusCode.OK)
+                //{
+                //    var result = login.Content.ReadAsStringAsync().Result;
+                //    Dictionary<string, string> tokenDictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(result);
+                //    string accessToken = tokenDictionary["access_token"];
+
+                //    return RedirectToAction("Index");
+                // }
 
             }
             ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");

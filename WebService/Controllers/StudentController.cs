@@ -43,34 +43,44 @@ namespace WebService.Controllers
                 string mySalt = BCryptHelper.GenerateSalt();
                 var hashedPassword = BCryptHelper.HashPassword(model.Password, mySalt);
                 var result = studentHandler.Create(student, hashedPassword);
-                if (result != null)
-                {
-                    return Ok("Success");
-                }
-                else
-                {
-                    return Ok("Problem with database");
-                }
+                return Ok("Success");
             }
             catch (Exception)
             {
-                return Ok("Problem in api");
+                return Ok("Something went wrong");
             }
         }
-        public HttpResponseMessage Login(LogInUser model)
+        //public HttpResponseMessage Login(LogInUser model)
+        //{
+        //    //hash incoming password
+        //    string mySalt = BCryptHelper.GenerateSalt();
+        //    string hashedPassword = BCryptHelper.HashPassword(model.Password, mySalt);
+        //    if (studentHandler.VerifyStudentCredentials(model.Email, hashedPassword))
+        //    {
+        //        var user = studentHandler.Get(model.Email);
+        //        return Request.CreateResponse(HttpStatusCode.OK, TokenGenerator.CreateToken(user.Email));
+        //    }
+        //    else
+        //    {
+        //        return Request.CreateErrorResponse(HttpStatusCode.BadGateway, "Email or password is invalid");
+        //    }
+        //}
+
+        [HttpPost]
+        [Route("api/Student/LogIn")]
+        public IHttpActionResult Login([FromBody] LogInUser logInUser)
         {
-            //hash incoming password
-            string mySalt = BCryptHelper.GenerateSalt();
-            string hashedPassword = BCryptHelper.HashPassword(model.Password, mySalt);
-            if (studentHandler.VerifyStudentCredentials(model.Email, hashedPassword))
+            string realPassword = studentHandler.GetStudentPassword(logInUser.Email);
+            if (realPassword == null)
             {
-                var user = studentHandler.Get(model.Email);
-                return Request.CreateResponse(HttpStatusCode.OK, TokenGenerator.CreateToken(user.Email));
+                return Ok("Incorrect email");
             }
-            else
+            bool doesPasswordsMatch = BCryptHelper.CheckPassword(logInUser.Password, realPassword);
+            if (doesPasswordsMatch)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadGateway, "Email or password is invalid");
+                return Ok("ok");
             }
+            else return Ok("Incorrect password");
         }
     }
 }
