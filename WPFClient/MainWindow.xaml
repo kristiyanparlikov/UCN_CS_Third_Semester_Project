@@ -5,14 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFClient"
         xmlns:view_model="clr-namespace:WPFClient.view_model"
-        xmlns:views="clr-namespace:WPFClient.views"
+        xmlns:views="clr-namespace:WPFClient.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Name="registerViewTemplete" DataType="{x:Type view_model:RegisterViewModel}">
             <views:RegisterView DataContext="(Binding)"/>
         </DataTemplate>
+        <DataTemplate x:Name="logInViewTemplete" DataType="{x:Type view_model:LogInViewModel}">
+            <views:LogInView DataContext="(Binding)"/>
+        </DataTemplate>
     </Window.Resources>
+    <Window.DataContext>
+        <view_model:MainWindowViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="126*"/>
@@ -21,6 +27,7 @@
 
         <DockPanel Background="yellow" Grid.Column="0" Grid.RowSpan="1" Margin="0,0,1.4,0" Height="420" VerticalAlignment="Bottom">
             <Button x:Name="Register" Content="Register" HorizontalAlignment="Left" VerticalAlignment="Top" Width="123" Height="50" FontSize="20" Click="RegisterViewClicked" DockPanel.Dock="Top"/>
+            <Button Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Width="121" DockPanel.Dock="Top" Height="49" Click="Button_Click"/>
         </DockPanel>
 
         <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>

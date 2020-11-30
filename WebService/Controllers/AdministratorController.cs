@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Web.Http;
 using ModelLayer;
 using DevOne.Security.Cryptography.BCrypt;
-
+using WebService.Models;
 
 namespace WebService.Controllers
 {
@@ -69,18 +69,22 @@ namespace WebService.Controllers
         {
             Administrators.RemoveAll(x => x.Id == id);
         }
-    
 
-        
-        [HttpGet]
+
+
+        [HttpPost]
         [Route("api/Administrator/LogIn")]
-        public IHttpActionResult checkAdminLogIn(string email, string password)
+        public IHttpActionResult checkAdminLogIn([FromBody] LogInUser logInUser)
         {
-            string realPassword = adminHandler.getAdministratorPassword(email);
-            bool doesPasswordsMatch = BCryptHelper.CheckPassword(password, realPassword);
+            string realPassword = adminHandler.getAdministratorPassword(logInUser.Email);
+            if(realPassword == null)
+            {
+                return Ok("Incorrect email");
+            }
+            bool doesPasswordsMatch = BCryptHelper.CheckPassword(logInUser.Password, realPassword);
             if (doesPasswordsMatch)
             {
-                return Ok("Log in correct");
+                return Ok("ok");
             }
             else return Ok("Incorrect password");
         }

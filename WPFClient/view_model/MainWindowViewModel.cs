@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WPFClient.view_model
 {
-    public class RegisterViewModel
+    public class MainWindowViewModel
     {
-        public RegisterViewModel()
+        public MainWindowViewModel()
         {
 
         }

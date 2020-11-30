@@ -17,7 +17,7 @@ using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace WPFClient.views
+namespace WPFClient.Views
 {
     /// <summary>
     /// Interaction logic for RegisterView.xaml
@@ -25,11 +25,7 @@ namespace WPFClient.views
     public partial class RegisterView : UserControl
     {
 
-        string firstName;
-        string lastName;
-        string phoneNumber;
-        string email;
-        int employeeNumber;
+        
         HttpClient client = new HttpClient();
 
         public RegisterView()
@@ -43,18 +39,21 @@ namespace WPFClient.views
          */
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            string url = $"https://localhost:44302/api/Administrator/Register";
+            string url = $"https://localhost:44382//api/Administrator/Register";
             var registerContent = new JObject();
             registerContent.Add("employeeNumber", int.Parse(employeeNumbField.Text));
             registerContent.Add("firstName", fNameField.Text);
             registerContent.Add("lastName", lNameField.Text);
             registerContent.Add("phoneNumber", phoneNumberField.Text);
             registerContent.Add("email", emailField.Text);
+            registerContent.Add("password", password.Password);
             HttpContent content = new StringContent(registerContent.ToString(), Encoding.UTF8, "application/json");
             var responseBody = client.PostAsJsonAsync(url, registerContent).Result;
             returnBox.Content = await responseBody.Content.ReadAsStringAsync();
             
 
         }
+
+    
     }
 }
