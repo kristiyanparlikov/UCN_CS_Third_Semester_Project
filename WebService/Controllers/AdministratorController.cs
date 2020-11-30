@@ -51,6 +51,7 @@ namespace WebService.Controllers
                     FirstName = model.FirstName,
                     LastName = model.LastName,
                     PhoneNumber = model.PhoneNumber,
+                    EmployeeNumber = model.employeeNumber,
                 };
                 //password hash
                 string mySalt = BCryptHelper.GenerateSalt();
