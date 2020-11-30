@@ -37,5 +37,10 @@ namespace ModelLayer
             Area = area;
             Price = price;
         }
+
+        public RoomModel()
+        {
+            
+        }
     }
 }

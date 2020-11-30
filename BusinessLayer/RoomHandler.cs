@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer
 {
-    public class RoomHandler : ICRUD<RoomModel>
+    public class RoomHandler
     {
         IRoomRepository db = new RoomRepository();
 
-        public void Create(RoomModel entity)
+        public void Add(RoomModel entity)
         {
-            throw new NotImplementedException();
+            db.Add(entity);
         }
 
-        public bool Delete(int id)
+        public int Delete(int id)
         {
-            throw new NotImplementedException();
+            return db.Remove(id);
         }
 
         public RoomModel Get(int id)
         {
-            throw new NotImplementedException();
+            return db.Find(id);
         }
 
         public IEnumerable<RoomModel> GetAll()
@@ -33,9 +33,9 @@ namespace BusinessLayer
             return db.GetAll();
         }
 
-        public bool Update(RoomModel entity)
+        public int Update(RoomModel entity)
         {
-            throw new NotImplementedException();
+            return db.Update(entity);
         }
     }
 }

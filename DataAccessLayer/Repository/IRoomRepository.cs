@@ -13,10 +13,10 @@ namespace DataAccessLayer.Repository
 
         List<RoomModel> GetAll();
 
-        void Create(RoomModel admin);
+        RoomModel Add(RoomModel room);
 
-        bool Update(RoomModel booking);
+        int Update(RoomModel room);
 
-        bool Remove(int id);
+        int Remove(int id);
     }
 }
