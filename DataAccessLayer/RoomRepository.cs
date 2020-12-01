@@ -14,7 +14,8 @@ namespace DataAccessLayer
     public class RoomRepository : IRoomRepository
     {
 
-        private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
         public RoomModel Add(RoomModel room)
         {
@@ -32,7 +33,7 @@ namespace DataAccessLayer
                         cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                         cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
                         cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
-                        //cmd.Parameters.Add(new SqlParameter("@isAvailable", room.isAvailable));
+                        cmd.Parameters.Add(new SqlParameter("@isAvailable", room.IsAvailable));
 
                         // Set CommandType
                         cmd.CommandType = CommandType.Text;
@@ -75,9 +76,9 @@ namespace DataAccessLayer
                                 room.RoomNumber = dr.GetFieldValue<int>(dr.GetOrdinal("RoomNumber"));
                                 room.Floor = dr.GetFieldValue<int>(dr.GetOrdinal("Floor"));
                                 room.Capacity = dr.GetFieldValue<int>(dr.GetOrdinal("Capacity"));
-                                room.Area = dr.GetFieldValue<float>(dr.GetOrdinal("Area"));
-                                room.Price = dr.GetFieldValue<float>(dr.GetOrdinal("Price"));
-                                //room.isAvailable = dr.GetFieldValue<>(dr.GetOrdinal("isAvailable"));
+                                room.Area = dr.GetFieldValue<double>(dr.GetOrdinal("Area"));
+                                room.Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price"));
+                                room.IsAvailable = dr.GetBoolean(dr.GetOrdinal("isAvailable"));
 
                                 return room;
                             }
@@ -111,9 +112,9 @@ namespace DataAccessLayer
                                 RoomNumber = dr.GetFieldValue<int>(dr.GetOrdinal("RoomNumber")),
                                 Floor = dr.GetFieldValue<int>(dr.GetOrdinal("Floor")),
                                 Capacity = dr.GetFieldValue<int>(dr.GetOrdinal("Capacity")),
-                                Area = dr.GetFieldValue<float>(dr.GetOrdinal("Area")),
-                                Price = dr.GetFieldValue<float>(dr.GetOrdinal("Price")),
-                                //isAvailable = dr.GetFieldValue<bit>(dr.GetOrdinal("isAvailable")),
+                                Area = dr.GetFieldValue<double>(dr.GetOrdinal("Area")),
+                                Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price")),
+                                IsAvailable = dr.GetBoolean(dr.GetOrdinal("isAvailable")),
                             });
                         }
                     }
@@ -150,7 +151,7 @@ namespace DataAccessLayer
                     cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                     cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
                     cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
-                    cmd.Parameters.Add(new SqlParameter("@isAvailable", room.isAvailable));
+                    cmd.Parameters.Add(new SqlParameter("@isAvailable", room.IsAvailable));
 
                     cnn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
@@ -165,6 +166,36 @@ namespace DataAccessLayer
             rooms.Add(new RoomModel(1, 101, 1, 1, 50, 2500));
             rooms.Add(new RoomModel(1, 102, 1, 2, 100, 5000));
             rooms.Add(new RoomModel(1, 201, 2, 1, 70, 3000));
+            return rooms;
+        }
+
+        public IEnumerable<RoomModel> GetAllAvailable()
+        {
+            string query = "SELECT * FROM Rooms WHERE isAvailable=1";
+            List<RoomModel> rooms = new List<RoomModel>();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dr.Read())
+                        {
+                            rooms.Add(new RoomModel
+                            {
+                                Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id")),
+                                RoomNumber = dr.GetFieldValue<int>(dr.GetOrdinal("RoomNumber")),
+                                Floor = dr.GetFieldValue<int>(dr.GetOrdinal("Floor")),
+                                Capacity = dr.GetFieldValue<int>(dr.GetOrdinal("Capacity")),
+                                Area = dr.GetFieldValue<double>(dr.GetOrdinal("Area")),
+                                Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price")),
+                                IsAvailable = dr.GetBoolean(dr.GetOrdinal("IsAvailable")),
+                            });
+                        }
+                    }
+                }
+            }
             return rooms;
         }
     }

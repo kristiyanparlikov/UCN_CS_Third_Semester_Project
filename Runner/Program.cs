@@ -1,11 +1,8 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Repository;
-using Microsoft.Extensions.Configuration;
 using ModelLayer;
 using System;
-using System.Configuration;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using UCNThirdSemesterProject.ModelLayer;
 
@@ -34,6 +31,12 @@ namespace Runner
 
             //Insert_admin_should_add_new_entity();
 
+            //Insert_room_should_add_new_entity();
+
+            //Get_all_available_rooms_should_return_1_result();
+
+            Get_specific_room_should_return_1_result(1);
+
             Console.ReadLine();
         }
 
@@ -44,6 +47,66 @@ namespace Runner
         //       .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
         //    config = builder.Build();
         //}
+
+        static void Insert_room_should_add_new_entity()
+        {
+            //Arrange
+            var roomRepository = CreateRoomRepository();
+
+            //Act
+            var room = new RoomModel()
+            {
+                RoomNumber = 202,
+                Floor = 2,
+                Capacity = 1,
+                Area = 38,
+                Price = 2700,
+            };
+            roomRepository.Add(room);
+            //Assert
+            Debug.Assert(room.Id != 0);
+            if(room.Id != 0){
+                Console.WriteLine("***Room inserted***");
+            }
+            Console.WriteLine($"ID: {room.Id}");
+
+        }
+
+        private static void Get_all_available_rooms_should_return_1_result()
+        {
+            //arrange
+            var roomRepository = CreateRoomRepository();
+
+            //act
+            var availableRooms = roomRepository.GetAllAvailable();
+
+            var rooms = roomRepository.GetAll();
+
+            //assert
+            Console.WriteLine($"Count: {rooms.ToList().Count}");
+            //Debug.Assert(bookings.Count == 1);
+            rooms.Output();
+
+        }
+
+        private static void Get_specific_room_should_return_1_result(int id)
+        {
+            //arrange
+            var roomRepository = CreateRoomRepository();
+
+            //act
+            var room = roomRepository.Find(id);
+
+            //assert
+            Debug.Assert(room != null);
+            room.Output();
+
+        }
+
+        private static IRoomRepository CreateRoomRepository()
+        {
+            return new RoomRepository();
+        }
 
         private static IStudentRepository CreateStudentRepository()
         {

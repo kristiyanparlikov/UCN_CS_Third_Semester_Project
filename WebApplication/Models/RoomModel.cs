@@ -10,7 +10,7 @@ namespace WebApplication.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "RoomNumber")]
+        [Display(Name = "Room number")]
         public int RoomNumber { get; set; }
 
         [Display(Name = "Floor")]
@@ -22,10 +22,10 @@ namespace WebApplication.Models
         [Display(Name = "Area")]
         public double Area { get; set; }
 
-        [Display(Name = "price")]
+        [Display(Name = "Price")]
         public double Price { get; set; }
 
-        [Display(Name = "isAvailable")]
+        [Display(Name = "Available")]
         public bool isAvailable { get; set; }
 
         

@@ -37,5 +37,10 @@ namespace BusinessLayer
         {
             return db.Update(entity);
         }
+
+        public IEnumerable<RoomModel> GetAllAvailable()
+        {
+            return db.GetAllAvailable();
+        }
     }
 }
