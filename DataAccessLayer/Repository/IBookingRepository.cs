@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UCNThirdSemesterProject.ModelLayer;
 
 namespace DataAccessLayer.Repository
 {
@@ -12,11 +11,11 @@ namespace DataAccessLayer.Repository
     {
         BookingModel Find(int id);
 
-        List<BookingModel> GetAll();
+        IEnumerable<BookingModel> GetAll();
 
         BookingModel AddAnonymous(BookingModel booking);
 
-        BookingModel AddFull(BookingModel booking, StudentModel student);
+        BookingModel Add(BookingModel booking, StudentModel student);
 
         int Update(BookingModel booking);
 

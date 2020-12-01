@@ -1,40 +1,56 @@
 ﻿using DataAccessLayer.Repository;
+using ModelLayer;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq.Expressions;
-using UCNThirdSemesterProject.ModelLayer;
 using System.Linq;
-using Dapper;
-using ModelLayer;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
     public class BookingRepository : IBookingRepository
     {
-        
-        private IDbConnection db;
+        private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
 
-        public BookingRepository()
-        {
-            this.db = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-        }
-
-        //using dapper
         public BookingModel AddAnonymous(BookingModel booking)
         {
-            var sql = 
-                "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) VALUES (@MoveInDate, @MoveOutDate, @Status)" +
-                "SELECT CAST (SCOPE_IDENTITY() as int)";
-            var id = this.db.Query<int>(sql, booking).Single();
-            booking.Id = id;
+            var query = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) ";
+            query += "VALUES (@MoveInDate, @MoveOutDate, @Status) ";
+            query += "SELECT CAST (SCOPE_IDENTITY() as int)";
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@MoveInDate", booking.MoveInDate));
+                        cmd.Parameters.Add(new SqlParameter("@MoveOutDate", booking.MoveOutDate));
+                        cmd.Parameters.Add(new SqlParameter("@Status", booking.Status));
+
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        var id = cmd.ExecuteScalar();
+                        booking.Id = (int)id;
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return booking;
+
         }
 
-        //using ado.net
-        public BookingModel AddFull(BookingModel booking, StudentModel student)
+        public BookingModel Add(BookingModel booking, StudentModel student)
         {
             //SQL statement for Bookings table
             var query1 = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) ";
@@ -45,12 +61,13 @@ namespace DataAccessLayer
             var query2 = "INSERT INTO StudentBooking (StudentId, BookingId) VALUES (@StudentId, @BookingId)";
             try
             {
-                using (SqlConnection cnn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString))
+                using (SqlConnection cnn = new SqlConnection(connString))
                 {
                     //open connection
                     cnn.Open();
 
-                    using (SqlTransaction trn = cnn.BeginTransaction()) {
+                    using (SqlTransaction trn = cnn.BeginTransaction())
+                    {
                         try
                         {
                             using (SqlCommand cmd = new SqlCommand(query1, cnn))
@@ -89,7 +106,7 @@ namespace DataAccessLayer
                                 trn.Commit();
                             }
                         }
-                        catch(Exception ex) //catch block for transaction
+                        catch (Exception ex) //catch block for transaction
                         {
                             trn.Rollback();
                             Console.WriteLine(ex.Message);
@@ -97,42 +114,109 @@ namespace DataAccessLayer
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
             return booking;
         }
 
-        //using dapper
         public BookingModel Find(int id)
         {
-            return this.db.Query<BookingModel>("SELECT * FROM Bookings WHERE Id = @Id", new { id }).SingleOrDefault();
+            string query = "SELECT * FROM Bookings WHERE Id = @Id";
+            BookingModel booking = new BookingModel();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                booking.Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id"));
+                                booking.CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate"));
+                                booking.MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate"));
+                                booking.MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate"));
+                                booking.Status = dr.GetFieldValue<BookingStatus>(dr.GetOrdinal("Status"));
+                                return booking;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
-        //using dapper
-        public List<BookingModel> GetAll()
+        public IEnumerable<BookingModel> GetAll()
         {
-            return this.db.Query<BookingModel>("SELECT * FROM Bookings").ToList();
+            string query = "SELECT * FROM Bookings";
+            List<BookingModel> bookings = new List<BookingModel>();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cnn.Open();
+                    using(SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dr.Read())
+                        {
+                            bookings.Add(new BookingModel
+                            {
+                                Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id")),
+                                CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
+                                MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
+                                MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
+                                Status = dr.GetFieldValue<BookingStatus>(dr.GetOrdinal("Status")),
+                            });
+                        }
+                    }
+                }
+            }
+            return bookings;
         }
 
-        //using dapper
         public int Remove(int id)
         {
-            return this.db.Execute("DELETE FROM Bookings WHERE Id = @Id", new { id });
+            string query = "DELETE * FROM Bookings WHERE Id = '@Id'";
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                    cnn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected;
+                }
+            }
         }
 
-        //using dapper
         public int Update(BookingModel booking)
         {
-            var sql =
-                "UPDATE  Bookings " +
-                "SET MoveInDate = @MoveInDate, " +
-                "    MoveOutDate = @MoveOutDate, " +
-                "    Status = @Status " +
-                "WHERE Id = @Id";
-            return this.db.Execute(sql, booking);
-        }
+            string query = "UPDATE Bookings SET MoveInDate = @MoveInDate, MoveOutDate = @MoveOutDate, Status = @Status WHERE Id = @Id";
+            using(SqlConnection cnn = new SqlConnection(connString))
+            {
+                using(SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@MoveInDate", booking.MoveInDate));
+                    cmd.Parameters.Add(new SqlParameter("@MoveOutDate", booking.MoveOutDate));
+                    cmd.Parameters.Add(new SqlParameter("@Status", booking.Status));
+                    cmd.Parameters.Add(new SqlParameter("@Id", booking.Id));
 
+                    cnn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected;
+                }
+            }
+        }
     }
 }

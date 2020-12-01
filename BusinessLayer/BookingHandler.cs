@@ -1,17 +1,17 @@
 ﻿using DataAccessLayer;
 using DataAccessLayer.Repository;
+using ModelLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using UCNThirdSemesterProject.ModelLayer;
 
 namespace BusinessLayer
 {
     public class BookingHandler 
     {
-        IBookingRepository db = new BookingRepositoryAdoNet();
+        IBookingRepository db = new BookingRepository();
 
         public void Create(BookingModel entity)
         {

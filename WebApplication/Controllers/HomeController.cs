@@ -15,25 +15,18 @@ namespace WebApplication.Controllers
 {
     public class HomeController : Controller
     {
-        static IList<RoomModel> roomList = new List<RoomModel>{
-                new RoomModel() { RoomNumber=1, Floor=1,Capacity=2,Area=50,Price=3000, isAvailable=true  } ,
-                new RoomModel() {  RoomNumber=2, Floor=1,Capacity=1,Area=28,Price=1500, isAvailable=false} ,
-                new RoomModel() { RoomNumber=3, Floor=2,Capacity=1,Area=38,Price=2500, isAvailable=true } ,
+        //static IList<RoomModel> roomList = new List<RoomModel>{
+        //        new RoomModel() { RoomNumber=1, Floor=1,Capacity=2,Area=50,Price=3000, isAvailable=true  } ,
+        //        new RoomModel() {  RoomNumber=2, Floor=1,Capacity=1,Area=28,Price=1500, isAvailable=false} ,
+        //        new RoomModel() { RoomNumber=3, Floor=2,Capacity=1,Area=38,Price=2500, isAvailable=true } ,
                 
-            };
+        //    };
     
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult Room()
-        {
-            ViewBag.Message = "Your application description page.";
-
-
-            return View(roomList);
-        }
 
         public ActionResult Booking()
         {

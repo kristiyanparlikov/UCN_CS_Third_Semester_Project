@@ -11,7 +11,7 @@ namespace DataAccessLayer.Repository
     {
         RoomModel Find(int id);
 
-        List<RoomModel> GetAll();
+        IEnumerable<RoomModel> GetAll();
 
         RoomModel Add(RoomModel room);
 
@@ -20,5 +20,8 @@ namespace DataAccessLayer.Repository
         int Remove(int id);
 
         IEnumerable<RoomModel> GetAllAvailable();
+
+        //admin method
+        //IEnumerable<BookingModel> GetAllPendingBookingsOnRoom(RoomModel room);
     }
 }

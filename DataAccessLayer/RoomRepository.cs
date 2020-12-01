@@ -93,7 +93,7 @@ namespace DataAccessLayer
             return null;
         }
 
-        public List<RoomModel> GetAll()
+        public IEnumerable<RoomModel> GetAll()
         {
             string query = "SELECT * FROM Rooms";
             List<RoomModel> rooms = new List<RoomModel>();
