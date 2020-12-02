@@ -53,7 +53,7 @@
         </td>
         <td>
             @Html.ActionLink("Details", "Room", new { id=item.Id }) |
-            @Html.ActionLink("Book", "Book", "Booking" , new { id=item.Id })
+            @Html.ActionLink("Book", "Create", "Booking" , new { id=item.Id }, null)
         </td>
     </tr>
 }

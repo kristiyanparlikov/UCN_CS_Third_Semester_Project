@@ -13,12 +13,12 @@ namespace DataAccessLayer
 {
     public class BookingRepository : IBookingRepository
     {
-        private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
-
+        //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public BookingModel AddAnonymous(BookingModel booking)
         {
-            var query = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) ";
-            query += "VALUES (@MoveInDate, @MoveOutDate, @Status) ";
+            var query = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status, RoomId) ";
+            query += "VALUES (@MoveInDate, @MoveOutDate, @Status, @RoomId) ";
             query += "SELECT CAST (SCOPE_IDENTITY() as int)";
             try
             {
@@ -29,6 +29,7 @@ namespace DataAccessLayer
                         cmd.Parameters.Add(new SqlParameter("@MoveInDate", booking.MoveInDate));
                         cmd.Parameters.Add(new SqlParameter("@MoveOutDate", booking.MoveOutDate));
                         cmd.Parameters.Add(new SqlParameter("@Status", booking.Status));
+                        cmd.Parameters.Add(new SqlParameter("@RoomId", booking.RoomId));
 
                         // Set CommandType
                         cmd.CommandType = CommandType.Text;

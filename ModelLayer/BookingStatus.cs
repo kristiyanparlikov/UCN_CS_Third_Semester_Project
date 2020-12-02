@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace ModelLayer
 {
-    public enum BookingStatus
+    public enum BookingStatus : int
     {
-        New = 0,
-        Pending = 1,
-        Accepted = 2,
-        Cancelled = 3,
-        Living = 4
+        Pending = 0,
+        Accepted = 1,
+        Cancelled = 2,
+        Living = 3
     }
 }

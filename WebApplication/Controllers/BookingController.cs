@@ -1,13 +1,24 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
+    [Route("[controller]")]
     public class BookingController : Controller
     {
+
+        string Baseurl = "https://localhost:44382/api/";
+
+        static List<BookingModel> bookings = new List<BookingModel>();
+
         // GET: Booking
         public ActionResult Index()
         {
@@ -21,27 +32,37 @@ namespace WebApplication.Controllers
         }
 
         // GET: Booking/Create
-        public ActionResult Create()
+        [Route("{id}")]
+        [HttpGet]
+        public ActionResult Create(int id)
         {
+
             return View();
         }
 
         // POST: Booking/Create
+        [Route("{id}")]
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public async Task<ActionResult> Create(BookingModel booking, int id)
         {
-            try
+            using (var client = new HttpClient())
             {
-                // TODO: Add insert logic here
+                client.BaseAddress = new Uri(Baseurl);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
+                booking.RoomId = id;
+
+                var json = JsonConvert.SerializeObject(booking);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage Res = await client.PostAsync("Booking", data);
+
+                if(Res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+                return RedirectToAction("Rooms");
             }
         }
-
         // GET: Booking/Edit/5
         public ActionResult Edit(int id)
         {

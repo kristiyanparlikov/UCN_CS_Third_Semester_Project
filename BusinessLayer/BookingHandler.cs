@@ -13,9 +13,14 @@ namespace BusinessLayer
     {
         IBookingRepository db = new BookingRepository();
 
-        public void Create(BookingModel entity)
+        public void CreateWithoutStudent(BookingModel entity)
         {
             db.AddAnonymous(entity);
+        }
+
+        public void Create(BookingModel entity, StudentModel student)
+        {
+            db.Add(entity, student);
         }
 
         public void Delete(int id)
