@@ -8,6 +8,7 @@ namespace WebApplication.Models
 {
     public class RoomModel
     {
+     
         public int Id { get; set; }
 
         [Display(Name = "Room number")]
