@@ -123,9 +123,9 @@ namespace DataAccessLayer
             return rooms;
         }
 
-        public int Remove(int id)
+        public void Remove(int id)
         {
-            string query = "DELETE * FROM Rooms WHERE Id = '@Id'";
+            string query = "DELETE FROM Rooms WHERE Id =@Id";
             using (SqlConnection cnn = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
@@ -133,8 +133,7 @@ namespace DataAccessLayer
                     cmd.Parameters.Add(new SqlParameter("@Id", id));
 
                     cnn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected;
+                    cmd.ExecuteNonQuery();
                 }
             }
         }

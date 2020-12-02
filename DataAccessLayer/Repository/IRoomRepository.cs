@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repository
 
         int Update(RoomModel room);
 
-        int Remove(int id);
+        void Remove(int id);
 
         IEnumerable<RoomModel> GetAllAvailable();
 

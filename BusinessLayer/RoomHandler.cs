@@ -18,9 +18,9 @@ namespace BusinessLayer
             db.Add(entity);
         }
 
-        public int Delete(int id)
+        public void Delete(int id)
         {
-            return db.Remove(id);
+             db.Remove(id);
         }
 
         public RoomModel Get(int id)

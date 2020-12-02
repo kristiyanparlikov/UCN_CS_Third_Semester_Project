@@ -12,7 +12,13 @@
         <DataTemplate x:Name="roomCreationTemplate" DataType="{x:Type viewmodels:CreateRoomViewModel}">
             <views:CreateRoomView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="allRoomDisplayTemplate" DataType="{x:Type viewmodels:AllRoomViewModel}">
+            <views:AllRoomView DataContext="{Binding}"/>
+        </DataTemplate>        
     </Window.Resources>
+    <Window.DataContext>
+        <viewmodels:AllRoomViewModel/>
+    </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150*" />
@@ -21,6 +27,7 @@
 
         <DockPanel Background="Yellow" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1">
             <Button Content="Create a room" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="150" DockPanel.Dock="Top" Click="CreateRoom_Clicked"/>
+            <Button Content="See all rooms" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="150" DockPanel.Dock="Top" Click="Button_Click"/>
         </DockPanel>
 
         <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>

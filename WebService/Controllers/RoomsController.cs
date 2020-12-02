@@ -25,6 +25,13 @@ namespace WebService.Controllers
             return roomHandler.Get(id);
         }
 
+        //GET: api/Rooms/all
+        [Route("api/Rooms/all")]
+        public IEnumerable<RoomModel> GetAll()
+        {
+            return roomHandler.GetAll();
+        }
+
         //WPF admin endpoint
         // POST: api/Rooms
         public IHttpActionResult Post([FromBody]RoomModel model)
@@ -52,6 +59,7 @@ namespace WebService.Controllers
         // DELETE: api/Rooms/5
         public void Delete(int id)
         {
+            roomHandler.Delete(id);
         }
     }
 }

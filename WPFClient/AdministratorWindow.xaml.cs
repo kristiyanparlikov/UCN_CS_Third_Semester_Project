@@ -29,5 +29,10 @@ namespace WPFClient
         {
             DataContext = new CreateRoomViewModel();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new AllRoomViewModel();
+        }
     }
 }
