@@ -27,9 +27,21 @@ namespace WebService.Controllers
 
         //WPF admin endpoint
         // POST: api/Rooms
-        public void Post([FromBody]RoomModel model)
+        public IHttpActionResult Post([FromBody]RoomModel model)
         {
-
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                roomHandler.Add(model);
+                return Ok("Success");
+            }
+            catch (Exception)
+            {
+                return Ok("Something went wrong");
+            }
         }
 
         // PUT: api/Rooms/5

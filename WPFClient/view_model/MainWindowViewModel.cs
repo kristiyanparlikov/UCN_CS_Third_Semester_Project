@@ -8,9 +8,22 @@ namespace WPFClient.view_model
 {
     public class MainWindowViewModel
     {
-        public MainWindowViewModel()
+        private static readonly MainWindowViewModel instance = new MainWindowViewModel();
+        public Action CloseAction { get; set; }
+        
+        
+        private MainWindowViewModel()
         {
 
         }
+        public static MainWindowViewModel Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
     }
+
 }
+

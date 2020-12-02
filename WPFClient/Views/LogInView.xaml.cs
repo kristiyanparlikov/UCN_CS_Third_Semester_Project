@@ -16,7 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using WPFClient.Helpers;
+using WPFClient.view_model;
 
 namespace WPFClient.Views
 {
@@ -29,13 +29,13 @@ namespace WPFClient.Views
         public LogInView()
         {
             InitializeComponent();
-
+            
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-
+            MainWindowViewModel vm = MainWindowViewModel.Instance;
             string okMessage = "\"ok\"";
             string url = $"https://localhost:44382/api/Administrator/LogIn";
             var logInContent = new JObject();
@@ -48,6 +48,8 @@ namespace WPFClient.Views
             {
                 AdministratorWindow administratorWindow = new AdministratorWindow();
                 administratorWindow.Show();
+                vm.CloseAction();
+                
             }
             else
             {

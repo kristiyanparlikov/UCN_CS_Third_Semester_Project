@@ -7,15 +7,12 @@ using WPFClient.Helpers;
 
 namespace WPFClient.view_model
 {
-    public class LogInViewModel
+    public sealed class LogInViewModel
     {
-        private string email;
-        private string password;
-        private IApiHelper apiHelper;
-
+        
         public LogInViewModel()
         {
-            
+
         }
 
        /* public async Task LogIn(string email, string password)

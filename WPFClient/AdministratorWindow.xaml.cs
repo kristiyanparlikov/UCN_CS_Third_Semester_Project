@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFClient.view_model;
 
 namespace WPFClient
 {
@@ -22,6 +23,11 @@ namespace WPFClient
         public AdministratorWindow()
         {
             InitializeComponent();
+        }
+
+        private void CreateRoom_Clicked(object sender, RoutedEventArgs e)
+        {
+            DataContext = new CreateRoomViewModel();
         }
     }
 }

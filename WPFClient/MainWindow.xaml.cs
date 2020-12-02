@@ -24,6 +24,9 @@ namespace WPFClient
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowViewModel vm = MainWindowViewModel.Instance;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
 
         }
 
@@ -36,6 +39,12 @@ namespace WPFClient
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             DataContext = new LogInViewModel();
+        }
+
+        public void IsWindowOpen(AdministratorWindow admin)
+        {
+            if (admin != null)
+                this.Close();    
         }
     }
 }
