@@ -32,7 +32,7 @@ namespace Runner
 
             //Insert_room_should_add_new_entity();
 
-            //Get_all_available_rooms_should_return_1_result();
+            //Get_all_available_rooms_should_return_all();
 
             //Get_specific_room_should_return_1_result(1);
 
@@ -63,7 +63,7 @@ namespace Runner
 
         }
 
-        private static void Get_all_available_rooms_should_return_1_result()
+        private static void Get_all_available_rooms_should_return_all()
         {
             //arrange
             var roomRepository = CreateRoomRepository();
@@ -159,7 +159,7 @@ namespace Runner
             {
                 MoveInDate = DateTime.Parse("2021-12-21"),
                 MoveOutDate = DateTime.Parse("2022-11-11"),
-                Status = BookingStatus.New
+                Status = BookingStatus.Pending
             };
 
             //act

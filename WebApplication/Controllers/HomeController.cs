@@ -10,6 +10,8 @@ using Newtonsoft;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace WebApplication.Controllers
 {
@@ -77,21 +79,42 @@ namespace WebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(StudentLoginModel model)
+        public async Task<ActionResult> Login(StudentLoginModel model)
         {
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://localhost:44382/api/");
 
+                //var json = JsonConvert.SerializeObject(model);
+                //var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                //var postTask = client.PostAsync("Student/Login", data);
+                //var result = postTask.Result;
+                //if (result.IsSuccessStatusCode)
+                //{
+                //    return RedirectToAction("Index");
+                //}
+
+                client.DefaultRequestHeaders.Clear();
+
+                
                 var json = JsonConvert.SerializeObject(model);
+
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var postTask = client.PostAsync("Student/Login", data);
-                var result = postTask.Result;
-                if (result.IsSuccessStatusCode)
+                HttpResponseMessage Res = await client.PostAsync("Student/LogIn", data);
+
+                if(Res.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Index");
+                    var loginResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    StudentLoggedInModel student = JsonConvert.DeserializeObject<StudentLoggedInModel>(loginResponse);
+                    
+                    //Session["currentUser"] = student;
+                    LoggedInUserModel.user = student;
                 }
+
+
                 //HttpResponseMessage login = client.PostAsync("/token", new FormUrlEncodedContent(new Dictionary<string, string> { { "grant_type", "password" }, { "username", model.Email }, { "password", model.Password } })).Result;
                 //if (login.StatusCode == HttpStatusCode.OK)
                 //{
@@ -101,6 +124,8 @@ namespace WebApplication.Controllers
 
                 //    return RedirectToAction("Index");
                 // }
+
+
 
             }
             ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");

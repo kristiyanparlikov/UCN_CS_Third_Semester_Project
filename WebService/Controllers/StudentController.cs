@@ -19,7 +19,7 @@ namespace WebService.Controllers
 
         [HttpPost]
         [Route("api/Student/Register")]
-        public IHttpActionResult Register(StudentUser model)
+        public IHttpActionResult Register(StudentLoginUser model)
         {
             try
             {
@@ -68,19 +68,20 @@ namespace WebService.Controllers
 
         [HttpPost]
         [Route("api/Student/LogIn")]
-        public IHttpActionResult Login([FromBody] LogInUser logInUser)
+        public StudentModel Login([FromBody] LogInUser logInUser)
         {
             string realPassword = studentHandler.GetStudentPassword(logInUser.Email);
             if (realPassword == null)
             {
-                return Ok("Incorrect email");
+                return null;
             }
             bool doesPasswordsMatch = BCryptHelper.CheckPassword(logInUser.Password, realPassword);
             if (doesPasswordsMatch)
             {
-                return Ok("ok");
+                StudentModel loggedInStudentInformation = studentHandler.Get(logInUser.Email);
+                return loggedInStudentInformation;
             }
-            else return Ok("Incorrect password");
+            else return null;
         }
     }
 }

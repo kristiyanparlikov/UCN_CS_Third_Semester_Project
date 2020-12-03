@@ -16,4 +16,5 @@ namespace WPFClient.Models
         public double Price { get; set; }
         public bool IsAvailable { get; set; }
     }
+
 }

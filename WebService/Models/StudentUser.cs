@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebService.Models
 {
-    public class StudentUser
+    public class StudentLoginUser
     {
         public string Email { get; set; }
         public string Password { get; set; }
@@ -16,4 +16,5 @@ namespace WebService.Models
         public DateTime EducationEndDate { get; set; }
         public string Nationality { get; set; }
     }
+
 }

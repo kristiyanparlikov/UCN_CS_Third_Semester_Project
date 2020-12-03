@@ -57,4 +57,26 @@ namespace WebApplication.Models
         public string Password { get; set; }
     }
 
+    public class StudentLoggedInModel
+    {
+        public string Email { get; set; }
+
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string PhoneNumber { get; set; }
+
+        public string DateOfBirth { get; set; }
+
+        public string EducationEndDate { get; set; }
+
+        public string Nationality { get; set; }
+    }
+
+    public class LoggedInUserModel
+    {
+        public static StudentLoggedInModel user;
+    }
+
 }
