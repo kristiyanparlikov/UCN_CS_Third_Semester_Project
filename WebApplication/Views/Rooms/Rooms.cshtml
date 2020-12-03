@@ -7,7 +7,7 @@
 <h2>Currently available rooms</h2>
 
 
-@using (Html.BeginForm("Rooms","Rooms", FormMethod.Get))
+@using (Html.BeginForm("Rooms", "Rooms", FormMethod.Get))
 {
     <p>
         <h4>Find by price:</h4> @Html.TextBox("SearchString")
@@ -16,44 +16,40 @@
 }
 <table class="table table-bordered">
     <tr>
-
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            Picture
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Capacity)
         </th>
-
         <th>
-            @Html.DisplayNameFor(model => model.isAvailable)
+            @Html.DisplayNameFor(model => model.Price)
         </th>
-        
-        
+
+
     </tr>
 
     @foreach (var item in Model)
     {
-<tr>
+        <tr>
+            <td>
+                <img src="~/Pictures/room.jpg" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
 
-    <td>
-        @Html.DisplayFor(modelItem => item.Capacity)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.isAvailable)
-    </td>
 
-    <td>
-        @Html.ActionLink("Details", "Room", new { id = item.Id }) |
-        @Html.ActionLink("Book", "Create", "Booking", new { id = item.Id }, null)
-    </td>
-    <td>
-        <img src="~/Pictures/room.jpg" />
-    </td>
-</tr>
+            <td>
+                @Html.ActionLink("Details", "Room", new { id = item.Id }) |
+                @Html.ActionLink("Book", "Create", "Booking", new { id = item.Id }, null)
+            </td>
+
+        </tr>
     }
 
 </table>

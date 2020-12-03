@@ -30,10 +30,8 @@ namespace WebApplication.Controllers
         }
 
 
-        public ActionResult Booking()
+        public ActionResult UserAccount()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
 
         }
