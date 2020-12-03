@@ -152,8 +152,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Pictures\avatar.png" />
+    <Content Include="Pictures\dorm1.PNG" />
+    <Content Include="Pictures\dorm2.PNG" />
+    <Content Include="Pictures\dorm3.PNG" />
     <Content Include="Pictures\logo.png" />
     <Content Include="Pictures\room.jpg" />
+    <Content Include="Pictures\logo2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />

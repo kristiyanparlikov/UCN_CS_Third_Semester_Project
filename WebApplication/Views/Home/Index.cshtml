@@ -2,40 +2,81 @@
     ViewBag.Title = "Home Page";
 }
 
+<style>
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 5px;
+    }
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+        .button
+    
+</style>
 
-<h1 style="text-align:center;font-size:63px;padding-bottom:40px;padding-top:40px;">NAME OF DORMITORY</h1>
+
+
+<div class="jumbotron">
+    <h1 style="text-align:center;font-size:63px;padding-bottom:40px;padding-top:40px;">NAME OF THE DORMITORY</h1>
+    
+    <div class="column">
+        <img src="~/Pictures/dorm1.PNG" alt="Snow" style="width:100%">
+    </div>
+    <div class="column">
+        <img src="~/Pictures/dorm2.PNG" alt="Forest" style="width:100%">
+    </div>
+    <div class="column">
+        <img src="~/Pictures/dorm3.PNG" alt="Mountains" style="width:100%">
+    </div>
+</div>
 
 <div class="jumbotron">
 
+    <img style="display: block; margin-left: auto; margin-right: auto; width: 15%;" src="~/Pictures/logo.png"></img>
     <p class="lead">
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        Mostly all of the students are trying to find a room online. The biggest problem they are facing is non-user-friendly websites for booking a room in a dormitory.
+        On the other hand, dormitories are still doing most of the tasks manually, which is time-consuming.
+        We decided to create a system that will ease the booking process for students, and make the management of dormitories easier.
     </p>
 </div>
+
+
 
 <div style="padding-bottom:90px;" class="row">
     <div class="col-md-4">
         <h2>Rooms</h2>
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
+           Search for the rooms in the dormitory.
         </p>
         <p><a class="btn btn-warning" href="~/Rooms/Rooms">Search &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Not a user?</h2>
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
+            Want to book a room? Make an account!
         </p>
         <p><a class="btn btn-warning" href="~/Home/Register">Register &raquo;</a></p>
     </div>
     <div class="col-md-4">
         <h2>Log in</h2>
         <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.
-
+            Want to check your room information or booking.
         </p>
         <p><a class="btn btn-warning" href="~/Home/Login">Log in &raquo;</a></p>
     </div>
+
 </div>
+
+<div class="jumbotron">
+
+    <iframe width="1000" height="500" src="https://maps.google.com/maps?q=Sofiendelsvej&t=&z=13&ie=UTF8&iwloc=B&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+
+</div>
+
+
+
 
 
 
