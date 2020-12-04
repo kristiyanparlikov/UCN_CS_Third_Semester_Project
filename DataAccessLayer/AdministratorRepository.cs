@@ -102,7 +102,38 @@ namespace DataAccessLayer
 
         public AdministratorModel GetAdministratorInfo(string email)
         {
-            return db.Query<AdministratorModel>("SELECT[Password] FROM [Administrators] WHERE Email =@Email", new { email }).SingleOrDefault();
+            string query = "SELECT * FROM Administrators WHERE Email= @Email";
+            AdministratorModel admin = new AdministratorModel();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Email", email));
+
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                admin.Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id"));
+                                admin.Email = dr.GetFieldValue<string>(dr.GetOrdinal("Email"));
+                                admin.FirstName = dr.GetFieldValue<string>(dr.GetOrdinal("FirstName"));
+                                admin.LastName = dr.GetFieldValue<string>(dr.GetOrdinal("LastName"));
+                                admin.PhoneNumber = dr.GetFieldValue<string>(dr.GetOrdinal("PhoneNumber"));
+                                admin.EmployeeNumber = Convert.ToInt32(dr.GetFieldValue<string>(dr.GetOrdinal("EmployeeNumber")));
+                                return admin;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+            }
+            return null;
         }
 
         public string GetAdministratorPassword(string email)
@@ -133,6 +164,38 @@ namespace DataAccessLayer
                 Console.WriteLine(ex.Message);
             }
             return password;
+        }
+
+        public int checkEmailAvailability(string email)
+        {
+            int id = 0;
+            var sql = "SELECT Id FROM Administrators WHERE Email =@Email";
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Email", email));
+
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        id = (int)cmd.ExecuteScalar();
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return id;
         }
     }
 

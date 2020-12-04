@@ -25,9 +25,7 @@ namespace WPFClient
         {
             InitializeComponent();
             MainWindowViewModel vm = MainWindowViewModel.Instance;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(this.Close);
-
+            vm.CloseAction = new Action(this.Hide);
         }
 
 

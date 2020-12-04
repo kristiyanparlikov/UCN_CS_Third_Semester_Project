@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using WPFClient.Models;
 using WPFClient.view_model;
 
 namespace WPFClient.Views
@@ -46,10 +47,25 @@ namespace WPFClient.Views
             string response = await responseBody.Content.ReadAsStringAsync();
             if (okMessage.Equals(response))
             {
-                AdministratorWindow administratorWindow = new AdministratorWindow();
-                administratorWindow.Show();
-                vm.CloseAction();
-                
+                string uri = $"https://localhost:44382/api/Administrator/Info";
+                var email = new JObject();
+                email.Add("email", emailField.Text);
+                HttpContent content2 = new StringContent(email.ToString(), Encoding.UTF8, "application/json");
+                var response2 = client.PostAsync(uri, content2).Result;
+                if (response2.IsSuccessStatusCode)
+                {
+                    var responseJsonString = await response2.Content.ReadAsStringAsync();
+                    var deserialized = JsonConvert.DeserializeObject<AdministratorCast>(responseJsonString);
+                    AdminUserHelper adminHelper = AdminUserHelper.Instance;
+                    adminHelper.admin = deserialized;
+                    AdministratorWindow administratorWindow = new AdministratorWindow();
+                    administratorWindow.Show();
+                    vm.CloseAction();
+                }
+                else
+                {
+                    MessageBox.Show(response2.ReasonPhrase);
+                }
             }
             else
             {

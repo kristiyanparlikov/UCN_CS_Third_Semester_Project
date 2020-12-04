@@ -11,7 +11,6 @@ namespace WPFClient.view_model
         private static readonly MainWindowViewModel instance = new MainWindowViewModel();
         public Action CloseAction { get; set; }
         
-        
         private MainWindowViewModel()
         {
 

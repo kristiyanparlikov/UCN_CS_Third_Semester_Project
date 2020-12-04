@@ -37,9 +37,18 @@ namespace BusinessLayer
             return db.Update(administrator);
         }
 
+        public AdministratorModel getAdministratorInfo(string email)
+        {
+            return db.GetAdministratorInfo(email);
+        }
         public string getAdministratorPassword(string email)
         {
             return db.GetAdministratorPassword(email);
+        }
+
+        public int checkEmailAvailability(string email)
+        {
+            return db.checkEmailAvailability(email);
         }
     }
 }

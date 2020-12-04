@@ -15,6 +15,8 @@ namespace DataAccessLayer.Repository
         AdministratorModel GetSingleAdministrator(int id);
         bool Update(AdministratorModel administrator);
         bool Remove(int id);
+        AdministratorModel GetAdministratorInfo(string email);
         string GetAdministratorPassword(string email);
+        int checkEmailAvailability(string email);
     }
 }

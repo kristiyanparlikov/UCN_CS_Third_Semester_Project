@@ -44,20 +44,25 @@ namespace WebService.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                //administrator info
-                var administrator = new AdministratorModel()
+                int id = adminHandler.checkEmailAvailability(model.Email);
+                if (id == 0)
                 {
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
-                    PhoneNumber = model.PhoneNumber,
-                    EmployeeNumber = model.employeeNumber,
-                };
-                //password hash
-                string mySalt = BCryptHelper.GenerateSalt();
-                string hashedPassword = BCryptHelper.HashPassword(model.Password, mySalt);
-                adminHandler.Create(administrator, hashedPassword);
-                return Ok("Success");
+                    //administrator info
+                    var administrator = new AdministratorModel()
+                    {
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        PhoneNumber = model.PhoneNumber,
+                        EmployeeNumber = model.employeeNumber,
+                    };
+                    //password hash
+                    string mySalt = BCryptHelper.GenerateSalt();
+                    string hashedPassword = BCryptHelper.HashPassword(model.Password, mySalt);
+                    adminHandler.Create(administrator, hashedPassword);
+                    return Ok("Success");
+                }
+                else return Ok("Email taken");
             }
             catch (Exception)
             {
@@ -71,7 +76,12 @@ namespace WebService.Controllers
             Administrators.RemoveAll(x => x.Id == id);
         }
 
-
+        [HttpPost]
+        [Route("api/Administrator/Info")]
+        public AdministratorModel getAdministratorInfo([FromBody] StringModel email)
+        {
+            return adminHandler.getAdministratorInfo(email.email);
+        }
 
         [HttpPost]
         [Route("api/Administrator/LogIn")]
