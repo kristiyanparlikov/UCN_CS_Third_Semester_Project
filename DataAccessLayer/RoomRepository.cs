@@ -19,8 +19,8 @@ namespace DataAccessLayer
 
         public RoomModel Add(RoomModel room)
         {
-            var query = "INSERT INTO Rooms (RoomNumber, Floor, Capacity, Area, Price, isAvailable) ";
-            query += "VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @isAvailable) ";
+            var query = "INSERT INTO Rooms (RoomNumber, Floor, Capacity, Area, Price,Description, isAvailable) ";
+            query += "VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price,@Description @isAvailable) ";
             query += "SELECT CAST (SCOPE_IDENTITY() as int)";
             try
             {
@@ -33,6 +33,7 @@ namespace DataAccessLayer
                         cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                         cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
                         cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
+                        cmd.Parameters.Add(new SqlParameter("@Description", room.Description));
                         cmd.Parameters.Add(new SqlParameter("@isAvailable", room.IsAvailable));
 
                         // Set CommandType
@@ -78,6 +79,7 @@ namespace DataAccessLayer
                                 room.Capacity = dr.GetFieldValue<int>(dr.GetOrdinal("Capacity"));
                                 room.Area = dr.GetFieldValue<double>(dr.GetOrdinal("Area"));
                                 room.Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price"));
+                                room.Description = dr.GetFieldValue<string>(dr.GetOrdinal("Description"));
                                 room.IsAvailable = dr.GetBoolean(dr.GetOrdinal("isAvailable"));
 
                                 return room;
@@ -114,6 +116,7 @@ namespace DataAccessLayer
                                 Capacity = dr.GetFieldValue<int>(dr.GetOrdinal("Capacity")),
                                 Area = dr.GetFieldValue<double>(dr.GetOrdinal("Area")),
                                 Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price")),
+                                Description = dr.GetFieldValue<string>(dr.GetOrdinal("Description")),
                                 IsAvailable = dr.GetBoolean(dr.GetOrdinal("isAvailable")),
                             });
                         }
@@ -150,6 +153,7 @@ namespace DataAccessLayer
                     cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                     cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
                     cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
+                    cmd.Parameters.Add(new SqlParameter("@Description", room.Description));
                     cmd.Parameters.Add(new SqlParameter("@isAvailable", room.IsAvailable));
 
                     cnn.Open();
@@ -162,9 +166,9 @@ namespace DataAccessLayer
         public List<RoomModel> retrieveMockData()
         {
             List<RoomModel> rooms = new List<RoomModel>();
-            rooms.Add(new RoomModel(1, 101, 1, 1, 50, 2500));
-            rooms.Add(new RoomModel(1, 102, 1, 2, 100, 5000));
-            rooms.Add(new RoomModel(1, 201, 2, 1, 70, 3000));
+            rooms.Add(new RoomModel(1, 101, 1, 1, 50, 2500,"hhh"));
+            rooms.Add(new RoomModel(1, 102, 1, 2, 100, 5000, "hhh"));
+            rooms.Add(new RoomModel(1, 201, 2, 1, 70, 3000, "hhh"));
             return rooms;
         }
 
@@ -189,6 +193,7 @@ namespace DataAccessLayer
                                 Capacity = dr.GetFieldValue<int>(dr.GetOrdinal("Capacity")),
                                 Area = dr.GetFieldValue<double>(dr.GetOrdinal("Area")),
                                 Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price")),
+                                Description = dr.GetFieldValue<string>(dr.GetOrdinal("Description")),
                                 IsAvailable = dr.GetBoolean(dr.GetOrdinal("IsAvailable")),
                             });
                         }

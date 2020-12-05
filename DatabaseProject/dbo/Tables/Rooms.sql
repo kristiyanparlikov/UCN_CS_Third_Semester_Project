@@ -5,6 +5,7 @@
     [Floor] INT NOT NULL, 
     [Capacity] INT NOT NULL, 
     [Area] FLOAT NOT NULL, 
-    [Price] FLOAT NOT NULL, 
+    [Price] FLOAT NOT NULL,
+    [Description]         NVARCHAR (256) NOT NULL,
     [IsAvailable] BIT NOT NULL
 )

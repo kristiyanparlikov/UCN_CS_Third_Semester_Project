@@ -26,9 +26,12 @@ namespace WebApplication.Models
         [Display(Name = "Price")]
         public double Price { get; set; }
 
+        [Display(Name = "Description")]
+        public string Description { get; set; }
+
         [Display(Name = "Available")]
         public bool isAvailable { get; set; }
 
-        
+       
     }
 }
