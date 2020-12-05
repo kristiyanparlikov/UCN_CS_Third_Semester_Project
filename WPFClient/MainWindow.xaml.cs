@@ -24,7 +24,7 @@ namespace WPFClient
         public MainWindow()
         {
             InitializeComponent();
-            MainWindowViewModel vm = MainWindowViewModel.Instance;
+            MainWindowHelper vm = MainWindowHelper.Instance;
             vm.CloseAction = new Action(this.Hide);
         }
 

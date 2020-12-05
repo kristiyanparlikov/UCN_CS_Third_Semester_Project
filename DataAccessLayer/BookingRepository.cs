@@ -219,5 +219,66 @@ namespace DataAccessLayer
                 }
             }
         }
+
+        public IEnumerable<BookingModel> GetAllPendingBookings()
+        {
+            string query = "SELECT * FROM Bookings WHERE Status = 0";
+            List<BookingModel> bookings = new List<BookingModel>();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dr.Read())
+                        {
+                            bookings.Add(new BookingModel
+                            {
+                                Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id")),
+                                RoomId = dr.GetFieldValue<int>(dr.GetOrdinal("RoomId")),
+                                CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
+                                MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
+                                MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
+                                Status = 0,
+                            });
+                        }
+                    }
+                }
+            }
+            return bookings;
+        }
+
+        public int changeBookingStatus(BookingStatus bookingStatus, int id)
+        {
+            string query = "UPDATE Status = @Status WHERE Id = @Id";
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+                    if (bookingStatus == BookingStatus.Accepted)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Status", 1));
+                    }
+                    if (bookingStatus == BookingStatus.Cancelled)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Status", 2));
+                    }
+                    if (bookingStatus == BookingStatus.Living)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Status", 3));
+                    }
+                    if (bookingStatus == BookingStatus.Pending)
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Status", 0));
+                    }
+                    cnn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+                    return rowsAffected;
+                }
+            }
+            
+        }
     }
 }

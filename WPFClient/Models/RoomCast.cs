@@ -14,6 +14,7 @@ namespace WPFClient.Models
         public int Capacity { get; set; }
         public double Area { get; set; }
         public double Price { get; set; }
+        public string Description { get; set; }
         public bool IsAvailable { get; set; }
     }
 

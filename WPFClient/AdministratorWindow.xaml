@@ -7,7 +7,7 @@
         xmlns:viewmodels="clr-namespace:WPFClient.view_model"
         xmlns:views="clr-namespace:WPFClient.Views"
         mc:Ignorable="d"
-        Title="AdministratorWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="AdministratorWindow" Height="502.919" Width="1069.408" ResizeMode="NoResize">
     <Window.Resources>
         <DataTemplate x:Name="roomCreationTemplate" DataType="{x:Type viewmodels:CreateRoomViewModel}">
             <views:CreateRoomView DataContext="{Binding}"/>
@@ -17,6 +17,9 @@
         </DataTemplate>
         <DataTemplate x:Name="adminAccountDisplayTemplate" DataType="{x:Type viewmodels:AdminAccountViewModel}">
             <views:AdminAccountView DataContext="{Binding}"/>
+        </DataTemplate>
+        <DataTemplate x:Name="pendingBookingsDisplayTemplate" DataType="{x:Type viewmodels:PendingBookingsViewModel}">
+            <views:PendingBookingsView DataContext="{Binding}"/>
         </DataTemplate>
     </Window.Resources>
     <Window.DataContext>
@@ -29,10 +32,11 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel Background="Yellow" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1">
-            <Button Content="Create a room" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="150" DockPanel.Dock="Top" Click="CreateRoom_Clicked"/>
-            <Button Content="See all rooms" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="150" DockPanel.Dock="Top" Click="AllRooms_Clicked"/>
-            <Button Content="My account" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="150" DockPanel.Dock="Top" Click="MyAccount_Clicked"/>
-            <Button Content="Log off" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="150" RenderTransformOrigin="0.662,-0.795" DockPanel.Dock="Bottom" Click="LogOff_Clicked"/>
+            <Button Content="Create a room" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top" Click="CreateRoom_Clicked"/>
+            <Button Content="See all rooms" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="200" DockPanel.Dock="Top" Click="AllRooms_Clicked"/>
+            <Button Content="My account" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="200" DockPanel.Dock="Top" Click="MyAccount_Clicked"/>
+            <Button Content="Log off" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="200" RenderTransformOrigin="0.662,-0.795" DockPanel.Dock="Bottom" Click="LogOff_Clicked"/>
+            <Button Content="Pending bookings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="200" Click="Button_Click"/>
         </DockPanel>
 
         <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>

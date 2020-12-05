@@ -19,8 +19,8 @@ namespace DataAccessLayer
 
         public RoomModel Add(RoomModel room)
         {
-            var query = "INSERT INTO Rooms (RoomNumber, Floor, Capacity, Area, Price,Description, isAvailable) ";
-            query += "VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price,@Description @isAvailable) ";
+            var query = "INSERT INTO Rooms (RoomNumber, Floor, Capacity, Area, Price, Description, isAvailable) ";
+            query += "VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @Description @isAvailable) ";
             query += "SELECT CAST (SCOPE_IDENTITY() as int)";
             try
             {

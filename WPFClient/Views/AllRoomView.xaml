@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="White">
-        <ListView Name="RoomList" HorizontalAlignment="Left" Height="214" VerticalAlignment="Top" Width="410" Margin="14,171,0,0">
+        <ListView Name="RoomList" HorizontalAlignment="Left" Height="214" VerticalAlignment="Top" Width="540" Margin="14,171,0,0">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
@@ -15,6 +15,6 @@
             </ListView.View>
             <Button Content="Button" Width="75"/>
         </ListView>
-        <Button Content="Delete selected" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="499,378,0,0" Height="25" Click="Button_Click"/>
+        <Button Content="Delete selected" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,351,0,0" Height="25" Click="Button_Click"/>
     </Grid>
 </UserControl>

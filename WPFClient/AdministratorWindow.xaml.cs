@@ -49,7 +49,7 @@ namespace WPFClient
             MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Log off confirmation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                MainWindowViewModel vm = MainWindowViewModel.Instance;
+                MainWindowHelper vm = MainWindowHelper.Instance;
                 AdminUserHelper adminHelper = AdminUserHelper.Instance;
                 adminHelper.admin = null;
                 MainWindow mw = new MainWindow();
@@ -59,6 +59,11 @@ namespace WPFClient
 
 
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            DataContext = new PendingBookingsViewModel();
         }
     }
 }

@@ -88,7 +88,7 @@ namespace WebService.Controllers
         public IHttpActionResult checkAdminLogIn([FromBody] LogInUser logInUser)
         {
             string realPassword = adminHandler.getAdministratorPassword(logInUser.Email);
-            if(realPassword == null)
+            if (realPassword == null)
             {
                 return Ok("Incorrect email");
             }
@@ -103,4 +103,5 @@ namespace WebService.Controllers
 
     }
 }
-        
+
+

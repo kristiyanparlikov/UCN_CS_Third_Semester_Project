@@ -66,6 +66,11 @@ namespace WPFClient.Views
             });
             gridView.Columns.Add(new GridViewColumn
             {
+                Header = "Description",
+                DisplayMemberBinding = new Binding("Description")
+            });
+            gridView.Columns.Add(new GridViewColumn
+            {
                 Header = "Floor",
                 DisplayMemberBinding = new Binding("Floor")
             });

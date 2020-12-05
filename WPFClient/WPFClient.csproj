@@ -74,6 +74,8 @@
     <Compile Include="Helpers\IApiHelper.cs" />
     <Compile Include="Models\AdministratorCast.cs" />
     <Compile Include="Helpers\AdminUserHelper.cs" />
+    <Compile Include="Models\BookingCast.cs" />
+    <Compile Include="Models\BookingStatusCast.cs" />
     <Compile Include="Models\LogedInUser.cs" />
     <Compile Include="Models\RoomCast.cs" />
     <Compile Include="Views\AdminAccountView.xaml.cs">
@@ -88,6 +90,9 @@
     <Compile Include="Views\LogInView.xaml.cs">
       <DependentUpon>LogInView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PendingBookingsView.xaml.cs">
+      <DependentUpon>PendingBookingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegisterView.xaml.cs">
       <DependentUpon>RegisterView.xaml</DependentUpon>
     </Compile>
@@ -95,7 +100,8 @@
     <Compile Include="view_model\AllRoomViewModel.cs" />
     <Compile Include="view_model\CreateRoomViewModel.cs" />
     <Compile Include="view_model\LogInViewModel.cs" />
-    <Compile Include="view_model\MainWindowViewModel.cs" />
+    <Compile Include="Helpers\MainWindowHelper.cs" />
+    <Compile Include="view_model\PendingBookingsViewModel.cs" />
     <Compile Include="view_model\RegisterViewModel.cs" />
     <Page Include="AdministratorWindow.xaml">
       <SubType>Designer</SubType>
@@ -128,6 +134,10 @@
     <Page Include="Views\LogInView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PendingBookingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RegisterView.xaml">
       <Generator>MSBuild:Compile</Generator>

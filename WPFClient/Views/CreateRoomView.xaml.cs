@@ -35,7 +35,7 @@ namespace WPFClient.Views
             int capacityNbr;
             double areaNbr;
             double priceNbr;
-            string url = $"https://localhost:44382//api/Rooms";
+            string url = $"https://localhost:44382/api/Rooms";
             if (int.TryParse(roomNumberField.Text, out roomNbr))
             {
                 if (int.TryParse(floorField.Text, out floorNbr))
@@ -52,6 +52,8 @@ namespace WPFClient.Views
                                 registerContent.Add("Capacity", capacityNbr);
                                 registerContent.Add("Area", areaNbr);
                                 registerContent.Add("Price", priceNbr);
+                                registerContent.Add("Description", descriptionField.Text);
+                                registerContent.Add("isAvailable", 1);
                                 HttpContent content = new StringContent(registerContent.ToString(), Encoding.UTF8, "application/json");
                                 var responseBody = client.PostAsJsonAsync(url, registerContent).Result;
                                 responseField.Content = await responseBody.Content.ReadAsStringAsync();

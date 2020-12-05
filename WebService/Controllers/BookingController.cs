@@ -25,19 +25,36 @@ namespace WebService.Controllers
         }
 
         // POST: api/Booking
-        public void Post([FromBody]BookingModel booking)
+        public void Post([FromBody] BookingModel booking)
         {
             bookingHandler.CreateWithoutStudent(booking);
         }
 
         // PUT: api/Booking/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE: api/Booking/5
         public void Delete(int id)
         {
+        }
+
+        [Route("api/Bookings/AllPending")]
+        public IEnumerable<BookingModel> GetAllPendingBookings()
+        {
+            return bookingHandler.GetAllPendingBookings();
+        }
+
+        [Route("api/Bookings/UpdateStatus")]
+        public IHttpActionResult changeBookingStatus([FromBody] BookingStatus bookingStatus,[FromBody] int id)
+        {
+            int rowsAffected = bookingHandler.changeBookingStatus(bookingStatus, id);
+            if (rowsAffected == 1)
+                return Ok("All good");
+            if (rowsAffected == 0)
+                return Ok("Booking error");
+            return Ok("Wh... What?");
         }
     }
 }

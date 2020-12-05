@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace WPFClient.view_model
 {
-    public class MainWindowViewModel
+    public class MainWindowHelper
     {
-        private static readonly MainWindowViewModel instance = new MainWindowViewModel();
+        private static readonly MainWindowHelper instance = new MainWindowHelper();
         public Action CloseAction { get; set; }
         
-        private MainWindowViewModel()
+        private MainWindowHelper()
         {
 
         }
-        public static MainWindowViewModel Instance
+        public static MainWindowHelper Instance
         {
             get
             {

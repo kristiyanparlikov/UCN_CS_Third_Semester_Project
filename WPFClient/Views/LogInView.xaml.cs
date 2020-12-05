@@ -36,7 +36,7 @@ namespace WPFClient.Views
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            MainWindowViewModel vm = MainWindowViewModel.Instance;
+            MainWindowHelper vm = MainWindowHelper.Instance;
             string okMessage = "\"ok\"";
             string url = $"https://localhost:44382/api/Administrator/LogIn";
             var logInContent = new JObject();

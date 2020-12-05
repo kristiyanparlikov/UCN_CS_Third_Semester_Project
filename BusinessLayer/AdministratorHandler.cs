@@ -9,7 +9,7 @@ using DataAccessLayer.Repository;
 
 namespace BusinessLayer
 {
-    public class AdministratorHandler 
+    public class AdministratorHandler
     {
         IAdministratorRepository db = new AdministratorRepository();
         public AdministratorModel Create(AdministratorModel entity, string hashedPassword)
