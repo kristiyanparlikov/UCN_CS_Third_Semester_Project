@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Help";
+
+}
+
+<h2>DO YOU NEED A HELP WITH:</h2>
+<button class="accordion">Registering</button>
+<div class="panel">
+    <p>
+        To register as a student in the system. You have to click "Register" on the menu and then fill in all the required fields. Information will be used only throughout the system, external person won't be able to get the information about our users.
+
+    </p>
+</div>
+<button class="accordion">Loging in</button>
+<div class="panel">
+    <p>If you have problems with logging in to your account. Check if your credentials are correct, if not contact the administrator of the dormitory.</p>
+</div>
+<button class="accordion">Searching for a room</button>
+<div class="panel">
+    <p>If u want to search for a room with a specific price, you have to input the price in the search field and then click submit. It will list all the rooms at that price.</p>
+</div>
+<button class="accordion">Booking a room</button>
+<div class="panel">
+    <p>If you have found a room you want to book, click on the "book" button on the right side of int the row of the room.  After that, the system will ask you to input the move-in date and move-out date. After clicking the "Create" button, the administrator(s) will get be able to see the booking and accept/decline it.</p>
+</div>
+<button class="accordion">Other</button>
+<div class="panel">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+</div>
+
+<style>
+    .accordion {
+        background-color: #eee;
+        color: #444;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+        overflow: hidden;
+    }
+</style>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+

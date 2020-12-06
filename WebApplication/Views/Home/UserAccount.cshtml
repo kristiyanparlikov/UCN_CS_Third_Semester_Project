@@ -1,0 +1,248 @@
+﻿@model WebApplication.Models.RoomModel
+
+@{
+    ViewBag.Title = "UserAccount";
+}
+
+
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container bootstrap snippets bootdey">
+    <div class="row">
+        <div class="profile-nav col-md-3">
+            <div class="panel">
+                <div class="user-heading round">
+                    <a>
+                        <img src="~/Pictures/avatar.png">
+                    </a>
+
+                    @*this should get email of the person*@
+
+                    <p>namesurname@gmail.com</p>
+                </div>
+            </div>
+        </div>
+        <div class="profile-info col-md-9">
+
+            <div class="panel">
+                <div class="prof-graph-heading">
+                    Welcome to the STUDO. Here you can see all of your information.
+                </div>
+                <div class="panel-body prof-graph-info">
+                    <h1>Profile Information</h1>
+                    <div class="row">
+                        <div class="prof-row">
+                            <label asp-for="Input.FirstName">First name</label>
+                            <input asp-for="Input.FirstName" class="form-control" />
+                            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                        </div>
+                        <div class="prof-row">
+                            <label asp-for="Input.LastName">Last name</label>
+                            <input asp-for="Input.FirstName" class="form-control" />
+                            <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                        </div>
+                        <div class="prof-row">
+                            <label asp-for="Input.Email">Email</label>
+                            <input asp-for="Input.Email" class="form-control" />
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="prof-row">
+                            <label asp-for="Input.PhoneNumber">Phone number</label>
+                            <input asp-for="Input.PhoneNumber" class="form-control" />
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="prof-row">
+                            <label asp-for="Input.DateOfBirth">Date of birth</label>
+                            <input asp-for="Input.DateOfBirth" class="form-control" />
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="prof-row">
+                            <label asp-for="Input.Nationality">Nationality</label>
+                            <input asp-for="Input.Nationality" class="form-control" />
+                            <span asp-validation-for="Input.Nationality" class="text-danger"></span>
+                        </div>
+                        <div class="prof-row">
+                            <label asp-for="Input.EducationEndDate">Education end date</label>
+                            <input asp-for="Input.EducationEndDate" class="form-control" />
+                            <span asp-validation-for="Input.EducationEndDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <input type="submit" value="Submit changes" class="btn btn-warning" />
+                </div>
+
+
+            </div>
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-body">
+
+                                <div class="prof-desk">
+                                    <h2>ROOM</h2>
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.RoomNumber)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Capacity)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Floor)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Area)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Price)
+                                            </th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="panel">
+                            <div class="panel-body">
+
+                                <div class="prof-desk">
+                                    <h2>BOOKING</h2>
+                                    <p>HERE SHOULD BE DISPLAYED A BOOKING AND BOOKING STATUS OF A ROOM</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    body {
+        color: #797979;
+        background: #f1f2f7;
+        font-family: 'Open Sans', sans-serif;
+        padding: 0px !important;
+        margin: 0px !important;
+        font-size: 13px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+    }
+
+    .profile-nav, .profile-info {
+        margin-top: 30px;
+    }
+
+        .profile-nav .user-heading {
+            background: #ddecfa;
+            color: #797979;
+            border-radius: 4px 4px 0 0;
+            -webkit-border-radius: 4px 4px 0 0;
+            padding: 30px;
+            text-align: center;
+        }
+
+            .profile-nav .user-heading.round a {
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+                border: 10px solid rgba(255,255,255,0.3);
+                display: inline-block;
+            }
+
+            .profile-nav .user-heading a img {
+                width: 112px;
+                height: 112px;
+                border-radius: 50%;
+                -webkit-border-radius: 50%;
+            }
+
+            .profile-nav .user-heading h1 {
+                font-size: 22px;
+                font-weight: 300;
+                margin-bottom: 5px;
+            }
+
+            .profile-nav .user-heading p {
+                font-size: 12px;
+            }
+
+    .r-activity {
+        margin: 6px 0 0;
+        font-size: 12px;
+    }
+
+    .p-text-area, .p-text-area:focus {
+        border: none;
+        font-weight: 300;
+        box-shadow: none;
+        color: #c3c3c3;
+        font-size: 16px;
+    }
+
+    .profile-info .panel-footer ul li a {
+        color: #7a7a7a;
+    }
+
+    .prof-graph-heading {
+        background: #ddecfa;
+        color: #797979;
+        text-align: center;
+        font-style: italic;
+        padding: 40px 110px;
+        border-radius: 4px 4px 0 0;
+        -webkit-border-radius: 4px 4px 0 0;
+        font-size: 16px;
+        font-weight: 300;
+    }
+
+    .prof-graph-info {
+        color: #89817e;
+    }
+
+        .prof-graph-info h1 {
+            font-size: 22px;
+            font-weight: 300;
+            margin: 0 0 20px;
+        }
+
+    .prof-row {
+        width: 50%;
+        float: left;
+        margin-bottom: 10px;
+        padding: 0 15px;
+    }
+
+        .prof-row p span {
+            width: 100px;
+            display: inline-block;
+        }
+
+    .prof-desk {
+        float: left;
+        width: 100%;
+    }
+
+        .prof-desk h4 {
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+    .file-pos {
+        margin: 6px 0 10px 0;
+    }
+
+    .profile-activity h5 {
+        font-weight: 300;
+        margin-top: 0;
+        color: #c3c3c3;
+    }
+</style>

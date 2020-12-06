@@ -36,6 +36,11 @@ namespace WebApplication.Controllers
 
         }
 
+        public ActionResult HelpPage()
+        {
+            return View();
+        }
+
         public ActionResult Register()
         {
 
