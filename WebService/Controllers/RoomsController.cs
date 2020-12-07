@@ -34,6 +34,7 @@ namespace WebService.Controllers
 
         //WPF admin endpoint
         // POST: api/Rooms
+        [HttpPost]
         public IHttpActionResult Post([FromBody]RoomModel model)
         {
             try
@@ -42,8 +43,10 @@ namespace WebService.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                roomHandler.Add(model);
-                return Ok("Success");
+                int response = roomHandler.Add(model);
+                if (response == 1)
+                    return Ok("Success");
+                else return Ok("Not Ok");
             }
             catch (Exception)
             {

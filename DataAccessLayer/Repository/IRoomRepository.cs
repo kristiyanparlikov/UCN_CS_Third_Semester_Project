@@ -13,7 +13,7 @@ namespace DataAccessLayer.Repository
 
         IEnumerable<RoomModel> GetAll();
 
-        RoomModel Add(RoomModel room);
+        int Add(RoomModel room);
 
         int Update(RoomModel room);
 

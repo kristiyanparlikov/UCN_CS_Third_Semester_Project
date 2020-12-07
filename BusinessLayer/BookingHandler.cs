@@ -50,7 +50,7 @@ namespace BusinessLayer
 
         public int changeBookingStatus(BookingStatus bookingStatus, int id)
         {
-            return db.changeBookingStatus(bookingStatus, id);
+            return  db.changeBookingStatus(bookingStatus, id);
         }
     }
 }

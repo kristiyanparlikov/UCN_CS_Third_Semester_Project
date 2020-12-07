@@ -251,7 +251,8 @@ namespace DataAccessLayer
 
         public int changeBookingStatus(BookingStatus bookingStatus, int id)
         {
-            string query = "UPDATE Status = @Status WHERE Id = @Id";
+            int rowsAffected = 0;
+            string query = "UPDATE Bookings SET Status =@Status WHERE Id =@Id";
             using (SqlConnection cnn = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
@@ -274,11 +275,10 @@ namespace DataAccessLayer
                         cmd.Parameters.Add(new SqlParameter("@Status", 0));
                     }
                     cnn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected;
+                    rowsAffected = cmd.ExecuteNonQuery();
                 }
             }
-            
+            return rowsAffected;
         }
     }
 }

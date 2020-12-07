@@ -13,9 +13,9 @@ namespace BusinessLayer
     {
         IRoomRepository db = new RoomRepository();
 
-        public void Add(RoomModel entity)
+        public int Add(RoomModel entity)
         {
-            db.Add(entity);
+            return db.Add(entity);
         }
 
         public void Delete(int id)

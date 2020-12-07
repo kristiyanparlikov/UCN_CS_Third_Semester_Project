@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebService.Models;
 
 namespace WebService.Controllers
 {
@@ -46,10 +47,11 @@ namespace WebService.Controllers
             return bookingHandler.GetAllPendingBookings();
         }
 
+        [HttpPost]
         [Route("api/Bookings/UpdateStatus")]
-        public IHttpActionResult changeBookingStatus([FromBody] BookingStatus bookingStatus,[FromBody] int id)
+        public IHttpActionResult changeBookingStatus([FromBody] BookingStatusUpdateModel bookingStatus)
         {
-            int rowsAffected = bookingHandler.changeBookingStatus(bookingStatus, id);
+            int rowsAffected = bookingHandler.changeBookingStatus(bookingStatus.BookingStatus, bookingStatus.Id);
             if (rowsAffected == 1)
                 return Ok("All good");
             if (rowsAffected == 0)

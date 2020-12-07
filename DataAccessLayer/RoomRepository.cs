@@ -17,11 +17,11 @@ namespace DataAccessLayer
         //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public RoomModel Add(RoomModel room)
+        public int Add(RoomModel room)
         {
-            var query = "INSERT INTO Rooms (RoomNumber, Floor, Capacity, Area, Price, Description, isAvailable) ";
-            query += "VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @Description @isAvailable) ";
-            query += "SELECT CAST (SCOPE_IDENTITY() as int)";
+            int rowsAffected = 0;
+            var query = "INSERT INTO Rooms VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @isAvailable,  @Description) " +
+                "SELECT CAST (SCOPE_IDENTITY() as int)"; 
             try
             {
                 using (SqlConnection cnn = new SqlConnection(connString))
@@ -32,9 +32,9 @@ namespace DataAccessLayer
                         cmd.Parameters.Add(new SqlParameter("@Floor", room.Floor));
                         cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                         cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
-                        cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
-                        cmd.Parameters.Add(new SqlParameter("@Description", room.Description));
+                        cmd.Parameters.Add(new SqlParameter("@Price", room.Price)); 
                         cmd.Parameters.Add(new SqlParameter("@isAvailable", room.IsAvailable));
+                        cmd.Parameters.Add(new SqlParameter("@Description", room.Description));
 
                         // Set CommandType
                         cmd.CommandType = CommandType.Text;
@@ -43,8 +43,8 @@ namespace DataAccessLayer
                         cnn.Open();
 
                         // Execute the first statement
-                        var id = cmd.ExecuteScalar();
-                        room.Id = (int)id;
+                        rowsAffected = cmd.ExecuteNonQuery();
+                        cnn.Close();
                     }
                 }
             }
@@ -52,7 +52,7 @@ namespace DataAccessLayer
             {
                 Console.WriteLine(ex.Message);
             }
-            return room;
+            return rowsAffected;
         }
         
 
@@ -121,6 +121,7 @@ namespace DataAccessLayer
                             });
                         }
                     }
+                    cnn.Close();
                 }
             }
             return rooms;

@@ -10,12 +10,16 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFClient.Models;
+using Binding = System.Windows.Data.Binding;
+using MessageBox = System.Windows.Forms.MessageBox;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace WPFClient.Views
 {
@@ -71,9 +75,24 @@ namespace WPFClient.Views
             });
         }
 
-        private void AproveBooking_Clicked(object sender, RoutedEventArgs e)
+        private async void AproveBooking_Clicked(object sender, RoutedEventArgs e)
         {
-
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Log off confirmation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                using var client = new HttpClient();
+                {
+                    BookingCast bm = (BookingCast)BookingList.SelectedItem;
+                    string url = "https://localhost:44382/api/Bookings/UpdateStatus";
+                    var bookingStatusUpdate = new JObject();
+                    bookingStatusUpdate.Add("BookingStatus", "Accepted");
+                    bookingStatusUpdate.Add("Id", bm.Id);
+                    HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
+                    var response = client.PostAsync(url, content).Result;
+                    responseBox.Content = await response.Content.ReadAsStringAsync();
+                }
+            }
+            GetAllPendingBookings();
         }
 
     }

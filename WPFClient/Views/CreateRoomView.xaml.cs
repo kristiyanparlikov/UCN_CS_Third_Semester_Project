@@ -55,7 +55,7 @@ namespace WPFClient.Views
                                 registerContent.Add("Description", descriptionField.Text);
                                 registerContent.Add("isAvailable", 1);
                                 HttpContent content = new StringContent(registerContent.ToString(), Encoding.UTF8, "application/json");
-                                var responseBody = client.PostAsJsonAsync(url, registerContent).Result;
+                                var responseBody = client.PostAsync(url, content).Result;
                                 responseField.Content = await responseBody.Content.ReadAsStringAsync();
                             }
                             else responseField.Content = "Price can not contain letters!";

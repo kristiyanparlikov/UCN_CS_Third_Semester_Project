@@ -184,6 +184,7 @@
     </Compile>
     <Compile Include="Helper\TokenGenerator.cs" />
     <Compile Include="Models\AdministratorUser.cs" />
+    <Compile Include="Models\BookingStatusUpdateModel.cs" />
     <Compile Include="Models\LogInUser.cs" />
     <Compile Include="Models\StringModel.cs" />
     <Compile Include="Models\StudentUser.cs" />
