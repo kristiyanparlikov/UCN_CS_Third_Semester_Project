@@ -185,7 +185,9 @@ namespace DataAccessLayer
                         cnn.Open();
 
                         // Execute the first statement
-                        id = (int)cmd.ExecuteScalar();
+                        var result = cmd.ExecuteScalar();
+                        if (result != null)
+                            id = Convert.ToInt32(result);
                     }
 
                 }
