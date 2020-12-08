@@ -40,6 +40,12 @@ namespace WebApplication.Controllers
             return View();
         }
 
+        public ActionResult Message()
+        {
+
+            return View();
+        }
+
         // POST: Booking/Create
         [Route("{id}")]
         [HttpPost]
@@ -58,7 +64,7 @@ namespace WebApplication.Controllers
 
                 if(Res.IsSuccessStatusCode)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Message");
                 }
                 return RedirectToAction("Rooms");
             }

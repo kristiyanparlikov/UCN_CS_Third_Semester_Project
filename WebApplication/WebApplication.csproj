@@ -152,6 +152,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Pictures\avatar.png" />
+    <Content Include="Pictures\booking.PNG" />
     <Content Include="Pictures\dorm1.PNG" />
     <Content Include="Pictures\dorm2.PNG" />
     <Content Include="Pictures\dorm3.PNG" />
@@ -191,6 +192,7 @@
     <Content Include="Views\Rooms\Room.cshtml" />
     <Content Include="Views\Booking\Create.cshtml" />
     <Content Include="Views\Home\HelpPage.cshtml" />
+    <Content Include="Views\Booking\Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
