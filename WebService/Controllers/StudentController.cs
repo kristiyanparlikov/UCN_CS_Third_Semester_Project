@@ -78,7 +78,7 @@ namespace WebService.Controllers
             bool doesPasswordsMatch = BCryptHelper.CheckPassword(logInUser.Password, realPassword);
             if (doesPasswordsMatch)
             {
-                StudentModel loggedInStudentInformation = studentHandler.Get(logInUser.Email);
+                StudentModel loggedInStudentInformation = studentHandler.GetByEmail(logInUser.Email);
                 return loggedInStudentInformation;
             }
             else return null;

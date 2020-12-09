@@ -58,7 +58,7 @@ namespace DataAccessLayer
 
         }
 
-        public StudentModel Find(string email)
+        public StudentModel FindByEmail(string email)
         {
             string query = "SELECT * FROM Students WHERE Email=@Email";
             StudentModel student = new StudentModel();
@@ -67,6 +67,43 @@ namespace DataAccessLayer
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Email", email));
+
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                student.Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id"));
+                                student.Email = dr.GetFieldValue<string>(dr.GetOrdinal("Email"));
+                                student.FirstName = dr.GetFieldValue<string>(dr.GetOrdinal("FirstName"));
+                                student.LastName = dr.GetFieldValue<string>(dr.GetOrdinal("LastName"));
+                                student.PhoneNumber = dr.GetFieldValue<string>(dr.GetOrdinal("PhoneNumber"));
+                                student.DateOfBirth = dr.GetFieldValue<DateTime>(dr.GetOrdinal("DateOfBirth"));
+                                student.Nationality = dr.GetFieldValue<string>(dr.GetOrdinal("Nationality"));
+                                student.EducationEndDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("EducationEndDate"));
+                                return student;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public StudentModel FindById(int id)
+        {
+            string query = "SELECT * FROM Students WHERE Id=@Id";
+            StudentModel student = new StudentModel();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Id", id));
 
                     cnn.Open();
                     using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))

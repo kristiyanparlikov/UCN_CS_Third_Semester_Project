@@ -9,7 +9,9 @@ namespace DataAccessLayer.Repository
 {
     public interface IStudentRepository
     {
-        StudentModel Find(string email);
+        StudentModel FindByEmail(string email);
+
+        StudentModel FindById(int id);
 
         List<StudentModel> GetAll();
 
