@@ -39,6 +39,7 @@ namespace WPFClient.Views
             MainWindowHelper vm = MainWindowHelper.Instance;
             string okMessage = "\"ok\"";
             string url = $"https://localhost:44382/api/Administrator/LogIn";
+
             var logInContent = new JObject();
             logInContent.Add("Email", emailField.Text);
             logInContent.Add("Password", passwordField.Password);

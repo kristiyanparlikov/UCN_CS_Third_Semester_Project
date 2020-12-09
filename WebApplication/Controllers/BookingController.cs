@@ -14,8 +14,11 @@ namespace WebApplication.Controllers
     [Route("[controller]")]
     public class BookingController : Controller
     {
+        //web service
+        //string Baseurl = "https://localhost:44382/api/";
 
-        string Baseurl = "https://localhost:44382/api/";
+        //web service core
+        string Baseurl = "https://localhost:44374/api/";
 
         static List<BookingModel> bookings = new List<BookingModel>();
 

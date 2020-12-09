@@ -13,12 +13,15 @@ namespace WebApplication.Controllers
 {
     public class RoomsController : Controller
     {
-        string Baseurl = "https://localhost:44382/api/";
+        //string Baseurl = "https://localhost:44382/api/";
+
+        //web core service
+        string Baseurl = "https://localhost:44374/api/";
 
         static List<RoomModel> rooms = new List<RoomModel>();
 
         // GET: Rooms with a search filter attribute
-        public async Task<ActionResult> Rooms(string searchString)
+        public async Task<ActionResult> Rooms(string searchString, string searchDescription)
         {
             using (var client = new HttpClient())
             {
@@ -44,6 +47,11 @@ namespace WebApplication.Controllers
                     // The rooms array is filtered with the search string if the string is not null, empty or whitespace
                     if (!string.IsNullOrEmpty(searchString) && !string.IsNullOrWhiteSpace(searchString))
                         rooms = rooms.FindAll(room => room.Price.ToString().Equals(searchString));
+                    if (!string.IsNullOrEmpty(searchDescription) && !string.IsNullOrWhiteSpace(searchDescription))
+                        rooms = rooms.FindAll(room => room.Description.Contains(searchDescription));
+                    
+
+
                 }
             }
             //returning the rooms list to view 
@@ -84,48 +92,7 @@ namespace WebApplication.Controllers
         }
 
 
-        /*
-        [HttpPost]
-        public ActionResult Filter(string SelectedPrice, string SelectedCapacity)
-        {
-
-            var rawData = (from r in rooms
-                           select r);
-
-            var room = from r in rawData
-                       select r;
-
-            if (!String.IsNullOrEmpty(SelectedPrice))
-            {
-                room = room.Where(r => r.Price.ToString().Trim().Equals(SelectedPrice.Trim()));
-
-            }
-            if (!String.IsNullOrEmpty(SelectedCapacity))
-            {
-                room = room.Where(r => r.Price.ToString().Trim().Equals(SelectedCapacity.Trim()));
-
-            }
-
-            var UniquePrice = from r in room
-                              group r by r.Price into newGroup
-                              where newGroup.Key != null
-                              orderby newGroup.Key
-                              select new { Price = newGroup.Key };
-            ViewBag.UniquePrice = UniquePrice.Select(m => new SelectListItem { Value = m.Price.ToString(), Text = m.Price.ToString() }).ToList();
-
-            var UniqueCapacity = from r in room
-                                 group r by r.Capacity into newGroup
-                                 where newGroup.Key != null
-                                 orderby newGroup.Key
-                                 select new { Capacity = newGroup.Key };
-            ViewBag.UniqueCapacity = UniqueCapacity.Select(m => new SelectListItem { Value = m.Capacity.ToString(), Text = m.Capacity.ToString() }).ToList();
-
-            ViewBag.SelectedPrice = SelectedPrice;
-            ViewBag.SelectedCapacity = SelectedCapacity;
-
-            return View(room);
-        */
-
+       
     }
 
 }    

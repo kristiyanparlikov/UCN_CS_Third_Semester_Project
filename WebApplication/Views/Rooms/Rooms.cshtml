@@ -1,8 +1,14 @@
 ﻿@model IEnumerable<WebApplication.Models.RoomModel>
 
+
 @{
     ViewBag.Title = "Rooms";
+
+
+
 }
+
+
 
 <h2>Currently available rooms</h2>
 
@@ -10,10 +16,22 @@
 @using (Html.BeginForm("Rooms", "Rooms", FormMethod.Get))
 {
     <p>
-        <h4>Find by price:</h4> @Html.TextBox("SearchString")
-        <input type="submit" class="btn btn-warning" />
+    <h4>Find by price:</h4> @Html.TextBox("SearchString")
+    <input type="submit" class="btn btn-warning" />
+    <h4>Find by price:</h4> @Html.TextBox("SearchDescription")
+    <input type="submit" class="btn btn-warning" />
+
+    @Html.ActionLink("Show all rooms", "Rooms")
+
+
+
     </p>
+
+                
 }
+
+
+
 <table class="table table-bordered">
     <tr>
         <th>
@@ -34,28 +52,33 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        <img src="~/Pictures/room.jpg" />
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Capacity)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Price)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
+        <tr>
+            <td>
+                <img src="~/Pictures/room.jpg" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
 
 
 
-    <td>
-        @Html.ActionLink("Details", "Room", new { id = item.Id }) |
-        @Html.ActionLink("Book", "Create", "Booking", new { id = item.Id }, null)
-    </td>
+            <td>
+                @Html.ActionLink("Details", "Room", new { id = item.Id }) |
+                @Html.ActionLink("Book", "Create", "Booking", new { id = item.Id }, null)
+            </td>
 
-</tr>
+        </tr>
     }
 
 </table>
+
+
+
+
+

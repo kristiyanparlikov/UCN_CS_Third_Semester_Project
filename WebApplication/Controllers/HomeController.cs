@@ -61,7 +61,10 @@ namespace WebApplication.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44382/api/");
+                //client.BaseAddress = new Uri("https://localhost:44382/api/");
+
+                //web core service
+                client.BaseAddress = new Uri("https://localhost:44374/api/");
                 var json = JsonConvert.SerializeObject(model);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -86,8 +89,10 @@ namespace WebApplication.Controllers
         {
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://localhost:44382/api/");
+                //client.BaseAddress = new Uri("https://localhost:44382/api/");
 
+                //web service core
+                client.BaseAddress = new Uri("https://localhost:44374/api/");
                 //var json = JsonConvert.SerializeObject(model);
                 //var data = new StringContent(json, Encoding.UTF8, "application/json");
 
