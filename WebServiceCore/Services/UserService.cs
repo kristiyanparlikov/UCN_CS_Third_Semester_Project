@@ -48,7 +48,7 @@ namespace WebServiceCore.Services
             }
             if(BCrypt.Net.BCrypt.Verify(model.Password, realPassword))
             {
-                var user = studentHandler.Get(model.Email);
+                var user = studentHandler.GetByEmail(model.Email);
 
                 if (user == null) return null;
 
@@ -78,7 +78,7 @@ namespace WebServiceCore.Services
 
         public StudentModel GetById(int id)
         {
-            throw new NotImplementedException();
+            return studentHandler.GetById(id);
         }
 
         //helper methods
