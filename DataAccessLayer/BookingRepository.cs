@@ -220,14 +220,15 @@ namespace DataAccessLayer
             }
         }
 
-        public IEnumerable<BookingModel> GetAllPendingBookings()
+        public IEnumerable<BookingModel> GetAllBookingsOfStatus(int status)
         {
-            string query = "SELECT * FROM Bookings WHERE Status = 0";
+            string query = "SELECT * FROM Bookings WHERE Status = @Status";
             List<BookingModel> bookings = new List<BookingModel>();
             using (SqlConnection cnn = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
                 {
+                    cmd.Parameters.Add(new SqlParameter("@Status", status));
                     cnn.Open();
                     using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
@@ -240,7 +241,7 @@ namespace DataAccessLayer
                                 CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
                                 MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
                                 MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
-                                Status = 0,
+                                Status = (BookingStatus)status,
                             });
                         }
                     }
@@ -255,6 +256,7 @@ namespace DataAccessLayer
             string query = "UPDATE Bookings SET Status =@Status WHERE Id =@Id";
             using (SqlConnection cnn = new SqlConnection(connString))
             {
+                int pending = 0;
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
                 {
                     cmd.Parameters.Add(new SqlParameter("@Id", id));
@@ -272,13 +274,31 @@ namespace DataAccessLayer
                     }
                     if (bookingStatus == BookingStatus.Pending)
                     {
-                        cmd.Parameters.Add(new SqlParameter("@Status", 0));
+                        cmd.Parameters.Add(new SqlParameter("@Status", pending));
                     }
                     cnn.Open();
                     rowsAffected = cmd.ExecuteNonQuery();
                 }
             }
             return rowsAffected;
+        }
+
+        public int getBookingStatus(int id)
+        {
+            int status = -1;
+            string query = "SELECT Status FROM Bookings WHERE Id = @Id";
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Id", id));
+                    cnn.Open();
+                    var response = cmd.ExecuteScalar();
+                    if (response != null)
+                        status = Convert.ToInt32(response);
+                }
+            }
+            return status;
         }
     }
 }

@@ -84,6 +84,9 @@
     <Compile Include="Views\AllRoomView.xaml.cs">
       <DependentUpon>AllRoomView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ApprovedBookingsView.xaml.cs">
+      <DependentUpon>ApprovedBookingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CreateRoomView.xaml.cs">
       <DependentUpon>CreateRoomView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +101,7 @@
     </Compile>
     <Compile Include="view_model\AdminAccountViewModel.cs" />
     <Compile Include="view_model\AllRoomViewModel.cs" />
+    <Compile Include="view_model\ApprovedBookingsViewModel.cs" />
     <Compile Include="view_model\CreateRoomViewModel.cs" />
     <Compile Include="view_model\LogInViewModel.cs" />
     <Compile Include="Helpers\MainWindowHelper.cs" />
@@ -124,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AllRoomView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ApprovedBookingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

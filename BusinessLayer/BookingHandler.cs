@@ -43,14 +43,19 @@ namespace BusinessLayer
             return db.Update(entity);
         }
 
-        public IEnumerable<BookingModel> GetAllPendingBookings()
+        public IEnumerable<BookingModel> GetAllBookingsOfStatus(int status)
         {
-            return db.GetAllPendingBookings();
+            return db.GetAllBookingsOfStatus(status);
         }
 
         public int changeBookingStatus(BookingStatus bookingStatus, int id)
         {
             return  db.changeBookingStatus(bookingStatus, id);
+        }
+
+        public int getBookingStatus(int id)
+        {
+            return db.getBookingStatus(id);
         }
     }
 }

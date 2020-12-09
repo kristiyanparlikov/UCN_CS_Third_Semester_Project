@@ -21,9 +21,11 @@ namespace DataAccessLayer.Repository
 
         int Remove(int id);
 
-        IEnumerable<BookingModel> GetAllPendingBookings();
+        IEnumerable<BookingModel> GetAllBookingsOfStatus(int status);
 
         int changeBookingStatus(BookingStatus bookingStatus, int id);
+
+        int getBookingStatus(int id);
 
     }
 }

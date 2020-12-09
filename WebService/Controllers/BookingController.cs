@@ -41,10 +41,10 @@ namespace WebService.Controllers
         {
         }
 
-        [Route("api/Bookings/AllPending")]
-        public IEnumerable<BookingModel> GetAllPendingBookings()
+        [Route("api/Bookings/AllOfStatus")]
+        public IEnumerable<BookingModel> GetAllBookingsOfType(int status)
         {
-            return bookingHandler.GetAllPendingBookings();
+            return bookingHandler.GetAllBookingsOfStatus(status);
         }
 
         [HttpPost]
@@ -57,6 +57,40 @@ namespace WebService.Controllers
             if (rowsAffected == 0)
                 return Ok("Booking error");
             return Ok("Wh... What?");
+        }
+
+        [Route("api/Bookings/CheckStatus")]
+        public IHttpActionResult checkBookingStatus([FromBody] BookingStatusUpdateModel bookingStatus)
+        {
+            int status = bookingHandler.getBookingStatus(bookingStatus.Id);
+            int realStatus = -2;
+            if (bookingStatus.BookingStatus == BookingStatus.Pending)
+            {
+                realStatus = 0;
+            }
+            if (bookingStatus.BookingStatus == BookingStatus.Accepted)
+            {
+                realStatus = 1;
+            }
+            if (bookingStatus.BookingStatus == BookingStatus.Cancelled)
+            {
+                realStatus = 2;
+            }
+            if (bookingStatus.BookingStatus == BookingStatus.Living)
+            {
+                realStatus = 3;
+            }
+            if (realStatus == status)
+                return Ok("ok");
+            else if (status == 0)
+                return Ok("Booking status was changed to pending");
+            else if (status == 1)
+                return Ok("Booking was already approved");
+            else if (status == 2)
+                return Ok("Booking was cancelled");
+            else if (status == 3)
+                return Ok("Booking is already confirmed by student");
+            return Ok("Booking does not exist");
         }
     }
 }

@@ -10,37 +10,33 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WPFClient.Models;
-using Binding = System.Windows.Data.Binding;
-using MessageBox = System.Windows.Forms.MessageBox;
-using UserControl = System.Windows.Controls.UserControl;
 
 namespace WPFClient.Views
 {
     /// <summary>
-    /// Interaction logic for PendingBookingsView.xaml
+    /// Interaction logic for ApprovedBookingsView.xaml
     /// </summary>
-    public partial class PendingBookingsView : UserControl
+    public partial class ApprovedBookingsView : UserControl
     {
-        public PendingBookingsView()
+        public ApprovedBookingsView()
         {
             InitializeComponent();
             createTable();
-            GetAllPendingBookings();
+            GetAllApprovedBookings();
         }
 
-        public async void GetAllPendingBookings()
+        public async void GetAllApprovedBookings()
         {
 
             using var client = new HttpClient();
             {
-                string url = "https://localhost:44382//api/Bookings/AllOfStatus?status=0";
+                string url = "https://localhost:44382//api/Bookings/AllOfStatus?status=1"; 
                 var response = await client.GetAsync(url);
                 var responseJsonString = await response.Content.ReadAsStringAsync();
                 var deserialized = JsonConvert.DeserializeObject<IEnumerable<BookingCast>>(responseJsonString);
@@ -75,18 +71,18 @@ namespace WPFClient.Views
             });
         }
 
-        private async void AproveBooking_Clicked(object sender, RoutedEventArgs e)
+        private async void CancelBooking_Clicked(object sender, RoutedEventArgs e)
         {
             string okMessage = "\"ok\"";
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking approval confirmation", System.Windows.MessageBoxButton.YesNo);
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking cancelation", System.Windows.MessageBoxButton.YesNo);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 using var client = new HttpClient();
                 {
                     BookingCast bm = (BookingCast)BookingList.SelectedItem;
                     string url = "https://localhost:44382/api/Bookings/CheckStatus";
-                    var statusCheck= new JObject();
-                    statusCheck.Add("BookingStatus", "Pending");
+                    var statusCheck = new JObject();
+                    statusCheck.Add("BookingStatus", "Accepted");
                     statusCheck.Add("Id", bm.Id);
                     HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
                     var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
@@ -95,7 +91,7 @@ namespace WPFClient.Views
                     {
                         string uri = "https://localhost:44382/api/Bookings/UpdateStatus";
                         var bookingStatusUpdate = new JObject();
-                        bookingStatusUpdate.Add("BookingStatus", "Accepted");
+                        bookingStatusUpdate.Add("BookingStatus", "Cancelled");
                         bookingStatusUpdate.Add("Id", bm.Id);
                         HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
                         var response = client.PostAsync(uri, content).Result;
@@ -104,7 +100,39 @@ namespace WPFClient.Views
                     else responseBox.Content = readableResponse;
                 }
             }
-            GetAllPendingBookings();
+            GetAllApprovedBookings();
+        }
+
+        private async void MoveToPending_Clicked(object sender, RoutedEventArgs e)
+        {
+            string okMessage = "\"ok\"";
+            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking cancelation", System.Windows.MessageBoxButton.YesNo);
+            if (messageBoxResult == MessageBoxResult.Yes)
+            {
+                using var client = new HttpClient();
+                {
+                    BookingCast bm = (BookingCast)BookingList.SelectedItem;
+                    string url = "https://localhost:44382/api/Bookings/CheckStatus";
+                    var statusCheck = new JObject();
+                    statusCheck.Add("BookingStatus", "Accepted");
+                    statusCheck.Add("Id", bm.Id);
+                    HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
+                    var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
+                    string readableResponse = await statusCheckResponse.Content.ReadAsStringAsync();
+                    if (okMessage.Equals(readableResponse))
+                    {
+                        string uri = "https://localhost:44382/api/Bookings/UpdateStatus";
+                        var bookingStatusUpdate = new JObject();
+                        bookingStatusUpdate.Add("BookingStatus", "Pending");
+                        bookingStatusUpdate.Add("Id", bm.Id);
+                        HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
+                        var response = client.PostAsync(uri, content).Result;
+                        responseBox.Content = await response.Content.ReadAsStringAsync();
+                    }
+                    else responseBox.Content = readableResponse;
+                }
+            }
+            GetAllApprovedBookings();
         }
 
     }

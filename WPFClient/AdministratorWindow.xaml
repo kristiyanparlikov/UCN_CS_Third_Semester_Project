@@ -21,25 +21,31 @@
         <DataTemplate x:Name="pendingBookingsDisplayTemplate" DataType="{x:Type viewmodels:PendingBookingsViewModel}">
             <views:PendingBookingsView DataContext="{Binding}"/>
         </DataTemplate>
+        <DataTemplate x:Name="approvedBookingsDisplayTemplate" DataType="{x:Type viewmodels:ApprovedBookingsViewModel}">
+            <views:ApprovedBookingsView DataContext="{Binding}"/>
+        </DataTemplate>
     </Window.Resources>
     <Window.DataContext>
         <viewmodels:AllRoomViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="150*" />
-            <ColumnDefinition Width="643*"/>
+            <ColumnDefinition Width="200*" />
+            <ColumnDefinition Width="863*"/>
         </Grid.ColumnDefinitions>
 
-        <DockPanel Background="Yellow" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1">
+        <DockPanel Background="Yellow" Grid.Row="0" Grid.Column="0" Grid.RowSpan="1" >
             <Button Content="Create a room" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="200" DockPanel.Dock="Top" Click="CreateRoom_Clicked"/>
             <Button Content="See all rooms" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="200" DockPanel.Dock="Top" Click="AllRooms_Clicked"/>
             <Button Content="My account" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="200" DockPanel.Dock="Top" Click="MyAccount_Clicked"/>
             <Button Content="Log off" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="25" Width="200" RenderTransformOrigin="0.662,-0.795" DockPanel.Dock="Bottom" Click="LogOff_Clicked"/>
             <Button Content="Pending bookings" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="200" Click="Button_Click"/>
+
         </DockPanel>
 
-        <ContentControl Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1" Content="{Binding}"/>
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="2" Grid.RowSpan="1" Content="{Binding}" Margin="200,0,0.2,-0.4"/>
+        <Button Content="Approved bookings" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50" Width="200" Margin="0,198,0,0" Click="ApprovedBookings_Clicked"/>
+
     </Grid>
 
 

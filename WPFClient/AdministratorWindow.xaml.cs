@@ -65,5 +65,10 @@ namespace WPFClient
         {
             DataContext = new PendingBookingsViewModel();
         }
+
+        private void ApprovedBookings_Clicked(object sender, RoutedEventArgs e)
+        {
+            DataContext = new ApprovedBookingsViewModel();
+        }
     }
 }
