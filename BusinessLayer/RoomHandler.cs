@@ -13,7 +13,7 @@ namespace BusinessLayer
     {
         IRoomRepository db = new RoomRepository();
 
-        public int Add(RoomModel entity)
+        public RoomModel Add(RoomModel entity)
         {
             return db.Add(entity);
         }

@@ -43,10 +43,10 @@ namespace WebService.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                int response = roomHandler.Add(model);
-                if (response == 1)
-                    return Ok("Success");
-                else return Ok("Not Ok");
+                var response = roomHandler.Add(model);
+                if (response.Id == 0)
+                    return Ok("Not Ok");
+                else return Ok("Success");
             }
             catch (Exception)
             {

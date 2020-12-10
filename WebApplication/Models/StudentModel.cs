@@ -77,6 +77,27 @@ namespace WebApplication.Models
     public class LoggedInUserModel
     {
         public static StudentLoggedInModel user;
+        public static string token;
+
+        private static readonly LoggedInUserModel instance = new LoggedInUserModel();
+
+        public static LoggedInUserModel Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+
+        public StudentLoggedInModel getLoggedInStudent()
+        {
+            return user;
+        }
+
+        public string getLoggedInStudentToken()
+        {
+            return token;
+        }
     }
 
 }

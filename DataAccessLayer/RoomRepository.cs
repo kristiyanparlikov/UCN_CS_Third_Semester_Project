@@ -17,9 +17,8 @@ namespace DataAccessLayer
         //private readonly string connString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
         private readonly string connString = "Data Source = hildur.ucn.dk; Initial Catalog = dmaj0919_1081489; User ID = dmaj0919_1081489; Password=Password1!;Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public int Add(RoomModel room)
+        public RoomModel Add(RoomModel room)
         {
-            int rowsAffected = 0;
             var query = "INSERT INTO Rooms VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @isAvailable,  @Description) " +
                 "SELECT CAST (SCOPE_IDENTITY() as int)"; 
             try
@@ -42,9 +41,9 @@ namespace DataAccessLayer
                         // Open connection
                         cnn.Open();
 
-                        // Execute the first statement
-                        rowsAffected = cmd.ExecuteNonQuery();
-                        cnn.Close();
+                        // Execute the statement
+                        var id = cmd.ExecuteScalar();
+                        room.Id = (int)id;
                     }
                 }
             }
@@ -52,7 +51,7 @@ namespace DataAccessLayer
             {
                 Console.WriteLine(ex.Message);
             }
-            return rowsAffected;
+            return room;
         }
         
 
