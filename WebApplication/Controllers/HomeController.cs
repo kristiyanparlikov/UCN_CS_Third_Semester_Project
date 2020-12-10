@@ -43,15 +43,16 @@ namespace WebApplication.Controllers
 
         public ActionResult Register()
         {
-
+            ViewBag.Name = "Register";
             return View();
 
         }
 
         public ActionResult Login()
         {
-
+            ViewBag.Name = "Login";
             return View();
+           
 
         }
 
