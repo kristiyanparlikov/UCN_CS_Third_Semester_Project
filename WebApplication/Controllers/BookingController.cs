@@ -15,10 +15,8 @@ namespace WebApplication.Controllers
     public class BookingController : Controller
     {
         //web service
-        //string Baseurl = "https://localhost:44382/api/";
+        string Baseurl = "https://localhost:44382/api/";
 
-        //web service core
-        string Baseurl = "https://localhost:44374/api/";
 
         static List<BookingModel> bookings = new List<BookingModel>();
 
@@ -39,8 +37,15 @@ namespace WebApplication.Controllers
         [HttpGet]
         public ActionResult Create(int id)
         {
-
-            return View();
+            if(Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            
         }
 
         public ActionResult Message()
@@ -59,6 +64,7 @@ namespace WebApplication.Controllers
                 client.BaseAddress = new Uri(Baseurl);
 
                 booking.RoomId = id;
+                booking.UserId = Convert.ToInt32(Session["UserId"]);
 
                 var json = JsonConvert.SerializeObject(booking);
                 var data = new StringContent(json, Encoding.UTF8, "application/json");

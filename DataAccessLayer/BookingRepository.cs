@@ -51,11 +51,11 @@ namespace DataAccessLayer
 
         }
 
-        public BookingModel Add(BookingModel booking, StudentModel student)
+        public BookingModel Add(BookingModel booking, int studentId)
         {
             //SQL statement for Bookings table
-            var query1 = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status) ";
-            query1 += "VALUES (@MoveInDate, @MoveOutDate, @Status) ";
+            var query1 = "INSERT INTO Bookings (MoveInDate, MoveOutDate, Status, RoomId) ";
+            query1 += "VALUES (@MoveInDate, @MoveOutDate, @Status, @RoomId) ";
             query1 += "SELECT CAST (SCOPE_IDENTITY() as int)";
 
             //SQL statement for StudentBooking table
@@ -80,6 +80,7 @@ namespace DataAccessLayer
                                 cmd.Parameters.Add(new SqlParameter("@MoveInDate", booking.MoveInDate));
                                 cmd.Parameters.Add(new SqlParameter("@MoveOutDate", booking.MoveOutDate));
                                 cmd.Parameters.Add(new SqlParameter("@Status", booking.Status));
+                                cmd.Parameters.Add(new SqlParameter("@RoomId", booking.RoomId));
 
                                 // Set CommandType
                                 cmd.CommandType = CommandType.Text;
@@ -97,7 +98,7 @@ namespace DataAccessLayer
                                 cmd.Parameters.Clear();
 
                                 // Create input parameters 
-                                cmd.Parameters.AddWithValue("@StudentId", student.Id);
+                                cmd.Parameters.AddWithValue("@StudentId", studentId);
                                 cmd.Parameters.AddWithValue("@BookingId", booking.Id);
 
                                 // Execute the second statement

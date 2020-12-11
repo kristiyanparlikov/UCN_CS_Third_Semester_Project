@@ -20,41 +20,47 @@ namespace ModelLayer
 
         public int RoomId { get; set; }
 
+        public int UserId { get; set; }
+
         public BookingModel()
         {
 
         }
 
-        public BookingModel(int id, DateTime creationDate, DateTime moveInDate, BookingStatus status)
+        public BookingModel(int id, DateTime creationDate, DateTime moveInDate, BookingStatus status, int userId)
         {
             Id = id;
             CreationDate = creationDate;
             MoveInDate = moveInDate;
             Status = status;
+            UserId = userId;
         }
 
-        public BookingModel(int id, DateTime creationDate, DateTime moveInDate, BookingStatus status, int roomId)
+        public BookingModel(int id, DateTime creationDate, DateTime moveInDate, BookingStatus status, int roomId, int userId)
         {
             Id = id;
             CreationDate = creationDate;
             MoveInDate = moveInDate;
             Status = status;
             RoomId = roomId;
+            UserId = userId;
         }
 
-        public BookingModel(DateTime creationDate, DateTime moveInDate, BookingStatus status)
+        public BookingModel(DateTime creationDate, DateTime moveInDate, BookingStatus status, int userId)
         {
             CreationDate = creationDate;
             MoveInDate = moveInDate;
             Status = status;
+            UserId = userId;
         }
 
-        public BookingModel(DateTime creationDate, DateTime moveInDate, BookingStatus status, int roomId)
+        public BookingModel(DateTime creationDate, DateTime moveInDate, BookingStatus status, int roomId, int userId)
         {
             CreationDate = creationDate;
             MoveInDate = moveInDate;
             Status = status;
             RoomId = roomId;
+            UserId = userId;
         }
 
 

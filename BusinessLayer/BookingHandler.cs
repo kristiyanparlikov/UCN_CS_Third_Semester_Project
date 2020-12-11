@@ -18,9 +18,9 @@ namespace BusinessLayer
             db.AddAnonymous(entity);
         }
 
-        public void Create(BookingModel entity, StudentModel student)
+        public void Create(BookingModel entity, int studentId)
         {
-            db.Add(entity, student);
+            db.Add(entity, studentId);
         }
 
         public void Delete(int id)

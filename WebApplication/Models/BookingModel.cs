@@ -25,14 +25,15 @@ namespace WebApplication.Models
         public BookingStatus Status { get; set; }
 
         public int RoomId { get; set; }
+
+        public int UserId { get; set; }
     }
 
     public enum BookingStatus
     {
-        New = 0,
-        Pending = 1,
-        Accepted = 2,
-        Cancelled = 3,
-        Living = 4
+        Pending,
+        Accepted,
+        Cancelled,
+        Living
     }
 }

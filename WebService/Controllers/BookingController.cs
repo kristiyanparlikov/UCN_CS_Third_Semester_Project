@@ -12,7 +12,9 @@ namespace WebService.Controllers
 {
     public class BookingController : ApiController
     {
+        RoomHandler roomHandler = new RoomHandler();
         BookingHandler bookingHandler = new BookingHandler();
+
         // GET: api/Booking
         public IEnumerable<BookingModel> Get()
         {
@@ -26,9 +28,17 @@ namespace WebService.Controllers
         }
 
         // POST: api/Booking
-        public void Post([FromBody] BookingModel booking)
+        public IHttpActionResult Post([FromBody] BookingModel booking)
         {
-            bookingHandler.CreateWithoutStudent(booking);
+            if (roomHandler.isAvailable(booking.RoomId)){
+                bookingHandler.Create(booking, booking.UserId);
+                return Ok();
+            }
+            else
+            {
+                return Ok("Couldn't be booked");
+            }
+            
         }
 
         // PUT: api/Booking/5

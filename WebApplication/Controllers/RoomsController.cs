@@ -13,10 +13,8 @@ namespace WebApplication.Controllers
 {
     public class RoomsController : Controller
     {
-        //string Baseurl = "https://localhost:44382/api/";
+        string Baseurl = "https://localhost:44382/api/";
 
-        //web core service
-        string Baseurl = "https://localhost:44374/api/";
 
         static List<RoomModel> rooms = new List<RoomModel>();
 

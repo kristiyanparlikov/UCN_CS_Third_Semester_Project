@@ -15,7 +15,7 @@ namespace DataAccessLayer.Repository
 
         BookingModel AddAnonymous(BookingModel booking);
 
-        BookingModel Add(BookingModel booking, StudentModel student);
+        BookingModel Add(BookingModel booking, int studentId);
 
         int Update(BookingModel booking);
 

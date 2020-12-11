@@ -182,7 +182,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helper\TokenGenerator.cs" />
     <Compile Include="Helper\TokenValidationHelper.cs" />
     <Compile Include="Models\AdministratorUser.cs" />
     <Compile Include="Models\BookingStatusUpdateModel.cs" />

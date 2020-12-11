@@ -42,5 +42,18 @@ namespace BusinessLayer
         {
             return db.GetAllAvailable();
         }
+
+        public bool isAvailable(int id)
+        {
+            RoomModel room = db.Find(id);
+            if(room.IsAvailable == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
