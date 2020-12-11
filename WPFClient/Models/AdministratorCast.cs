@@ -15,6 +15,7 @@ namespace WPFClient.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public int EmployeeNumber { get; set; }
+        public DateTime modificationDate { get; set; }
 
 
         public AdministratorCast()

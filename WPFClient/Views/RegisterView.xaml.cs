@@ -26,7 +26,7 @@ namespace WPFClient.Views
     public partial class RegisterView : UserControl
     {
 
-        
+        string baseUrl = "https://localhost:44382//api/Administrator/";
         HttpClient client = new HttpClient();
 
         public RegisterView()
@@ -51,7 +51,7 @@ namespace WPFClient.Views
                 {
                     if (password.Password == repeatPassword.Password)
                     {
-                        string url = $"https://localhost:44382//api/Administrator/Register";
+                        string url = baseUrl + "Register";
                         var registerContent = new JObject();
                         registerContent.Add("employeeNumber", empNumb);
                         registerContent.Add("firstName", fNameField.Text);

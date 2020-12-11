@@ -86,17 +86,38 @@ namespace DataAccessLayer
 
         public bool Update(AdministratorModel administrator)
         {
-            int rowsAffected = this.db.Execute(
-                        "UPDATE [Students] SET [FirstName] = @FirstName ,[LastName] = @LastName," +
-                        "[PhoneNumber] = @PhoneNumber ,[Email] = @Email," +
-                        "[EmployeeNumber] = @EmployeeNumber  WHERE Id = " +
-                        administrator.Id, administrator);
-
-            if (rowsAffected > 0)
+            var sql = "UPDATE Administrators SET Email = @Email, FirstName = @FirstName, LastName = @LastName, PhoneNumber = @PhoneNumber WHERE Id = @Id";
+            try
             {
-                return true;
-            }
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Id", administrator.Id));
+                        cmd.Parameters.Add(new SqlParameter("@Email", administrator.Email));
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", administrator.FirstName));
+                        cmd.Parameters.Add(new SqlParameter("@LastName", administrator.LastName));
+                        cmd.Parameters.Add(new SqlParameter("@PhoneNumber", administrator.PhoneNumber));
 
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        var rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
             return false;
         }
 
@@ -123,6 +144,7 @@ namespace DataAccessLayer
                                 admin.LastName = dr.GetFieldValue<string>(dr.GetOrdinal("LastName"));
                                 admin.PhoneNumber = dr.GetFieldValue<string>(dr.GetOrdinal("PhoneNumber"));
                                 admin.EmployeeNumber = Convert.ToInt32(dr.GetFieldValue<string>(dr.GetOrdinal("EmployeeNumber")));
+                                admin.modificationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("ModifiedDate"));
                                 return admin;
                             }
                         }
@@ -198,6 +220,43 @@ namespace DataAccessLayer
                 throw;
             }
             return id;
+        }
+
+        public bool checkDateOfModification(DateTime dateTime, int id)
+        {
+            DateTime modDate;
+            var sql = "SELECT ModifiedDate FROM Administrators WHERE Id = @Id";
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        var result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            modDate = Convert.ToDateTime(result);
+                            if (dateTime == modDate)
+                                return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return false;
         }
     }
 

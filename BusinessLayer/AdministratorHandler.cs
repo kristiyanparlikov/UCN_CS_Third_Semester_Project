@@ -50,5 +50,10 @@ namespace BusinessLayer
         {
             return db.checkEmailAvailability(email);
         }
+
+        public bool checkModificationDate(DateTime dateTime, int id)
+        {
+            return db.checkDateOfModification(dateTime, id);
+        }
     }
 }

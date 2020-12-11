@@ -143,18 +143,20 @@ namespace DataAccessLayer
 
         public int Update(RoomModel room)
         {
-            string query = "UPDATE Rooms SET @RoomNumber=RoomNumber, @Floor=Floor, @Capacity=Capacity, @Area=Area, @Price=Price, @isAvailable=isAvailable WHERE Id = @Id";
+            string query = "UPDATE Rooms SET RoomNumber = @RoomNumber, Floor = @Floor, Capacity = @Capacity, Area = @Area, Price = @Price, isAvailable = @isAvailable, description = @description  WHERE Id = @Id";
             using (SqlConnection cnn = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
                 {
+                    cmd.Parameters.Add(new SqlParameter("@Id", room.Id));
                     cmd.Parameters.Add(new SqlParameter("@RoomNumber", room.RoomNumber));
                     cmd.Parameters.Add(new SqlParameter("@Floor", room.Floor));
                     cmd.Parameters.Add(new SqlParameter("@Capacity", room.Capacity));
                     cmd.Parameters.Add(new SqlParameter("@Area", room.Area));
                     cmd.Parameters.Add(new SqlParameter("@Price", room.Price));
-                    cmd.Parameters.Add(new SqlParameter("@Description", room.Description));
                     cmd.Parameters.Add(new SqlParameter("@isAvailable", room.IsAvailable));
+                    cmd.Parameters.Add(new SqlParameter("@description", room.Description));
+
 
                     cnn.Open();
                     int rowsAffected = cmd.ExecuteNonQuery();
