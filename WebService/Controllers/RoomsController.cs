@@ -65,7 +65,26 @@ namespace WebService.Controllers
             roomHandler.Delete(id);
         }
 
-        
-        
+        [Route("api/Rooms/Update")]
+        public IHttpActionResult Update([FromBody] RoomModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                int response = roomHandler.Update(model);
+                if (response == 1)
+                    return Ok("ok");
+                else return Ok("Not Ok");
+            }
+            catch (Exception)
+            {
+                return Ok("Something went wrong");
+            }
+        }
+
+
     }
 }

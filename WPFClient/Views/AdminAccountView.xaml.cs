@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,9 @@ namespace WPFClient.Views
     /// </summary>
     public partial class AdminAccountView : UserControl
     {
+        string baseUrl = "https://localhost:44382//api/Administrator/";
+        HttpClient client = new HttpClient();
+        AdminUserHelper ah = AdminUserHelper.Instance;
         public AdminAccountView()
         {
             InitializeComponent();
@@ -31,14 +35,37 @@ namespace WPFClient.Views
 
         public void getData()
         {
-
-            AdminUserHelper adminHelper = AdminUserHelper.Instance;
-            AdministratorCast admin = adminHelper.getAdministrator();
+            AdministratorCast admin = ah.getAdministrator();
             firstNameField.Content = admin.FirstName;
             lastNameField.Content = admin.LastName;
             phoneNumberField.Content = admin.PhoneNumber;
             emailField.Content = admin.Email;
             employeeNumberField.Content = admin.EmployeeNumber;   
+        }
+
+        private async void Button_Click(object sender, RoutedEventArgs e)
+        {
+            AdministratorCast admin = ah.getAdministrator();
+            AdminInfoChange am = new AdminInfoChange();
+            am.firstNameField.Text = firstNameField.Content.ToString();
+            am.lastNameField.Text = lastNameField.Content.ToString();
+            am.emailField.Text = emailField.Content.ToString();
+            am.phoneNumberField.Text = phoneNumberField.Content.ToString();
+            am.employeeNumberField.Content = employeeNumberField.Content;
+            am.ShowDialog();
+            string uri = baseUrl + "Info";
+            var email = new JObject();
+            email.Add("email", admin.Email);
+            HttpContent content2 = new StringContent(email.ToString(), Encoding.UTF8, "application/json");
+            var response2 = client.PostAsync(uri, content2).Result;
+            if (response2.IsSuccessStatusCode)
+            {
+                var responseJsonString = await response2.Content.ReadAsStringAsync();
+                var deserialized = JsonConvert.DeserializeObject<AdministratorCast>(responseJsonString);
+                admin = deserialized;
+                ah.admin = admin;
+            }
+            getData();
         }
     }
 }

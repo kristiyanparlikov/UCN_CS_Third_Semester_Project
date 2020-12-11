@@ -28,10 +28,10 @@ namespace WPFClient.Views
     /// </summary>
     public partial class AllRoomView : UserControl
     {
+        string baseUrl = "https://localhost:44382//api/Rooms/";
         public AllRoomView()
         {
-            InitializeComponent();
-            
+            InitializeComponent();  
             createTable();
             GetAllRooms();
         }
@@ -41,7 +41,7 @@ namespace WPFClient.Views
             
             using var client = new HttpClient();
             {
-                string url = "https://localhost:44382//api/Rooms/all";
+                string url = baseUrl + "all";
                 var response = await client.GetAsync(url);
                 var responseJsonString = await response.Content.ReadAsStringAsync();
                 var deserialized = JsonConvert.DeserializeObject<IEnumerable<RoomCast>>(responseJsonString);
@@ -103,7 +103,7 @@ namespace WPFClient.Views
                 RoomCast rm = (RoomCast)RoomList.SelectedItem;
                 using var client = new HttpClient();
                 {
-                    string url = "https://localhost:44382//api/Rooms/" + rm.Id;
+                    string url = baseUrl + rm.Id;
                     var response = await client.DeleteAsync(url);
                     if (response.IsSuccessStatusCode)
                     {
@@ -115,6 +115,20 @@ namespace WPFClient.Views
                     }
                 }
             }
+        }
+
+        private void EditRoom_Clicked(object sender, RoutedEventArgs e)
+        {
+            EditRoomInfoWindow er = new EditRoomInfoWindow();
+            RoomCast rm = (RoomCast)RoomList.SelectedItem;
+            er.idField.Content = rm.Id;
+            er.roomNumberField.Text = rm.RoomNumber.ToString();
+            er.floorField.Text = rm.Floor.ToString();
+            er.capacityField.Text = rm.Capacity.ToString();
+            er.areaField.Text = rm.Area.ToString();
+            er.priceField.Text = rm.Price.ToString();
+            er.descriptionField.Text = rm.Description;
+            er.Show();
         }
     }
 }

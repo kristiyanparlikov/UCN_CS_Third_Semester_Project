@@ -28,6 +28,7 @@ namespace WPFClient.Views
     /// </summary>
     public partial class PendingBookingsView : UserControl
     {
+        string baseUrl = "https://localhost:44382/api/Bookings/";
         public PendingBookingsView()
         {
             InitializeComponent();
@@ -40,7 +41,7 @@ namespace WPFClient.Views
 
             using var client = new HttpClient();
             {
-                string url = "https://localhost:44382//api/Bookings/AllOfStatus?status=0";
+                string url = baseUrl + "AllOfStatus?status=0";
                 var response = await client.GetAsync(url);
                 var responseJsonString = await response.Content.ReadAsStringAsync();
                 var deserialized = JsonConvert.DeserializeObject<IEnumerable<BookingCast>>(responseJsonString);
@@ -84,7 +85,7 @@ namespace WPFClient.Views
                 using var client = new HttpClient();
                 {
                     BookingCast bm = (BookingCast)BookingList.SelectedItem;
-                    string url = "https://localhost:44382/api/Bookings/CheckStatus";
+                    string url = baseUrl + "CheckStatus";
                     var statusCheck= new JObject();
                     statusCheck.Add("BookingStatus", "Pending");
                     statusCheck.Add("Id", bm.Id);
@@ -93,7 +94,7 @@ namespace WPFClient.Views
                     string readableResponse = await statusCheckResponse.Content.ReadAsStringAsync();
                     if (okMessage.Equals(readableResponse))
                     {
-                        string uri = "https://localhost:44382/api/Bookings/UpdateStatus";
+                        string uri = baseUrl + "UpdateStatus";
                         var bookingStatusUpdate = new JObject();
                         bookingStatusUpdate.Add("BookingStatus", "Accepted");
                         bookingStatusUpdate.Add("Id", bm.Id);

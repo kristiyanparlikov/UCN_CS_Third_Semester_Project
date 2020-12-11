@@ -100,6 +100,16 @@ namespace WebService.Controllers
             else return Ok("Incorrect password");
         }
 
+        public IHttpActionResult updateInfo([FromBody] AdministratorModel admin)
+        {
+            bool checkForUpdates = adminHandler.checkModificationDate(admin.modificationDate, admin.Id);
+            if (checkForUpdates == false)
+                return Ok("Updates Happend, close this window to see changes");
+            bool response = adminHandler.Update(admin);
+            if (response)
+                return Ok("ok");
+            return Ok("Something went wrong");
+        }
 
     }
 }

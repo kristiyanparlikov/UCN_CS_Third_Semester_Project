@@ -1,12 +1,11 @@
-﻿using System;
+﻿using BusinessLayer;
+using ModelLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using BusinessLayer;
-using ModelLayer;
 using System.Net;
 using System.Net.Http;
-using Microsoft.AspNetCore.Mvc;
+using System.Web.Http;
 
 namespace WebServiceCore.Controllers
 {
@@ -35,25 +34,14 @@ namespace WebServiceCore.Controllers
 
         //WPF admin endpoint
         // POST: api/Rooms
-       [HttpPost]
-        public ActionResult Post([FromBody] RoomModel model)
+       /*[HttpPost]
+        public IHttpActionResult Post([FromBody] RoomModel model)
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                }
-                int response = roomHandler.Add(model);
-                if (response == 1)
-                    return Ok("Success");
-                else return Ok("Not Ok");
-            }
-            catch (Exception)
-            {
-                return Ok("Something went wrong");
-            }
-        }
+            int response = roomHandler.Add(model);
+            if (response == 1)
+                return Ok("Success");
+            else return Ok("Something went wrong");
+        }*/
        
 
         // PUT: api/Rooms/5

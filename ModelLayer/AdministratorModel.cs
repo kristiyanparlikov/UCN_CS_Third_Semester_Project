@@ -9,6 +9,7 @@ namespace ModelLayer
     public class AdministratorModel : UserModel
     {
         public int EmployeeNumber { get; set; }
+        public DateTime modificationDate { get; set; }
 
         //blank constructor
         public AdministratorModel()

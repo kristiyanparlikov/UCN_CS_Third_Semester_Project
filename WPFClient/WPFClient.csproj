@@ -67,8 +67,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdminInfoChange.xaml.cs">
+      <DependentUpon>AdminInfoChange.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="EditRoomInfoWindow.xaml.cs">
+      <DependentUpon>EditRoomInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\ApiHelper.cs" />
     <Compile Include="Helpers\IApiHelper.cs" />
@@ -107,7 +113,15 @@
     <Compile Include="Helpers\MainWindowHelper.cs" />
     <Compile Include="view_model\PendingBookingsViewModel.cs" />
     <Compile Include="view_model\RegisterViewModel.cs" />
+    <Page Include="AdminInfoChange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdministratorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="EditRoomInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

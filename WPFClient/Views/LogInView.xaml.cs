@@ -26,6 +26,7 @@ namespace WPFClient.Views
     /// </summary>
     public partial class LogInView : UserControl
     {
+        string baseUrl = "https://localhost:44382/api/Administrator/";
         HttpClient client = new HttpClient();
         public LogInView()
         {
@@ -38,7 +39,7 @@ namespace WPFClient.Views
 
             MainWindowHelper vm = MainWindowHelper.Instance;
             string okMessage = "\"ok\"";
-            string url = $"https://localhost:44382/api/Administrator/LogIn";
+            string url = baseUrl + "LogIn";
             var logInContent = new JObject();
             logInContent.Add("Email", emailField.Text);
             logInContent.Add("Password", passwordField.Password);
@@ -47,7 +48,7 @@ namespace WPFClient.Views
             string response = await responseBody.Content.ReadAsStringAsync();
             if (okMessage.Equals(response))
             {
-                string uri = $"https://localhost:44382/api/Administrator/Info";
+                string uri = baseUrl + "Info";
                 var email = new JObject();
                 email.Add("email", emailField.Text);
                 HttpContent content2 = new StringContent(email.ToString(), Encoding.UTF8, "application/json");

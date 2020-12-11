@@ -68,7 +68,7 @@ namespace WebServiceCore.Controllers
         //    }
         //}
 
-        [HttpPost]
+        /*[HttpPost]
         [Route("api/Student/LogIn")]
         public StudentModel Login([FromBody] LogInUser logInUser)
         {
@@ -84,6 +84,6 @@ namespace WebServiceCore.Controllers
                 return loggedInStudentInformation;
             }
             else return null;
-        }
+        }*/
     }
 }
