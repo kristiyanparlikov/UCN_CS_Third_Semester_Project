@@ -8,7 +8,6 @@ using System.Net;
 using System.Net.Http;
 using BusinessLayer;
 using ModelLayer;
-using WebServiceCore.Models;
 using BC = BCrypt.Net.BCrypt;
 
 namespace WebServiceCore.Controllers
@@ -80,7 +79,7 @@ namespace WebServiceCore.Controllers
             bool doesPasswordsMatch = BC.Verify(logInUser.Password, realPassword);
             if (doesPasswordsMatch)
             {
-                StudentModel loggedInStudentInformation = studentHandler.Get(logInUser.Email);
+                StudentModel loggedInStudentInformation = studentHandler.GetByEmail(logInUser.Email);
                 return loggedInStudentInformation;
             }
             else return null;

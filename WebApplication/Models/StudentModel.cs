@@ -59,6 +59,8 @@ namespace WebApplication.Models
 
     public class StudentLoggedInModel
     {
+        public int Id { get; set; }
+
         public string Email { get; set; }
 
         public string FirstName { get; set; }
@@ -72,12 +74,13 @@ namespace WebApplication.Models
         public string EducationEndDate { get; set; }
 
         public string Nationality { get; set; }
+
+        public string Token { get; set; }
     }
 
     public class LoggedInUserModel
     {
         public static StudentLoggedInModel user;
-        public static string token;
 
         private static readonly LoggedInUserModel instance = new LoggedInUserModel();
 
@@ -87,6 +90,7 @@ namespace WebApplication.Models
             {
                 return instance;
             }
+
         }
 
         public StudentLoggedInModel getLoggedInStudent()
@@ -94,10 +98,6 @@ namespace WebApplication.Models
             return user;
         }
 
-        public string getLoggedInStudentToken()
-        {
-            return token;
-        }
     }
 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebService.Helper;
 
 namespace WebService
 {
@@ -19,6 +20,8 @@ namespace WebService
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.MessageHandlers.Add(new TokenValidationHandler());
         }
     }
 }

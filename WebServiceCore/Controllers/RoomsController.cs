@@ -7,6 +7,7 @@ using ModelLayer;
 using System.Net;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 
 namespace WebServiceCore.Controllers
 {

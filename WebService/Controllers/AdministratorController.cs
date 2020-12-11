@@ -85,14 +85,14 @@ namespace WebService.Controllers
 
         [HttpPost]
         [Route("api/Administrator/LogIn")]
-        public IHttpActionResult checkAdminLogIn([FromBody] LogInUser logInUser)
+        public IHttpActionResult checkAdminLogIn([FromBody] LoginRequest login)
         {
-            string realPassword = adminHandler.getAdministratorPassword(logInUser.Email);
+            string realPassword = adminHandler.getAdministratorPassword(login.Email);
             if (realPassword == null)
             {
                 return Ok("Incorrect email");
             }
-            bool doesPasswordsMatch = BCryptHelper.CheckPassword(logInUser.Password, realPassword);
+            bool doesPasswordsMatch = BCryptHelper.CheckPassword(login.Password, realPassword);
             if (doesPasswordsMatch)
             {
                 return Ok("ok");
