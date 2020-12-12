@@ -14,7 +14,7 @@ namespace Runner
         {
             //Initialize();
 
-            Get_all_should_return_all_entities();
+            //Get_all_should_return_all_entities();
 
             //Insert_should_assign_identity_to_new_entity();
 
@@ -36,7 +36,23 @@ namespace Runner
 
             //Get_specific_room_should_return_1_result(1);
 
+            Get_All_Student_Bookings(3);
+
             Console.ReadLine();
+        }
+
+        static void Get_All_Student_Bookings(int studentId)
+        {
+            //Arrange 
+            var bookingRepository = CreateBookingRepository();
+
+            //Act
+            var bookings = bookingRepository.GetAll(studentId);
+
+            //assert
+            Console.WriteLine($"Count: {bookings.ToList().Count}");
+            Debug.Assert(bookings.ToList().Count == 2);
+            bookings.Output();
         }
 
         static void Insert_room_should_add_new_entity()
@@ -110,7 +126,7 @@ namespace Runner
         //}
 
 
-        private static IBookingRepository CreateBookingRepositoryAdoNet()
+        private static IBookingRepository CreateBookingRepository()
         {
             return new BookingRepository();
         }
@@ -121,7 +137,7 @@ namespace Runner
         {
             //arrange
             //var studentRepository = CreateStudentRepository();
-            var bookingRepository = CreateBookingRepositoryAdoNet();
+            var bookingRepository = CreateBookingRepository();
 
             //act
             var bookings = bookingRepository.GetAll();
@@ -140,7 +156,7 @@ namespace Runner
         private static void Find_should_retrieve_existing_entity(int id)
         {
             //arrange 
-            var bookingRepository = CreateBookingRepositoryAdoNet();
+            var bookingRepository = CreateBookingRepository();
 
             //act
             var booking = bookingRepository.Find(id);
@@ -154,7 +170,7 @@ namespace Runner
         private static int Insert_should_add_new_entity()
         {
             //arrange
-            var bookingRepository = CreateBookingRepositoryAdoNet();
+            var bookingRepository = CreateBookingRepository();
             var booking = new BookingModel
             {
                 MoveInDate = DateTime.Parse("2021-12-21"),

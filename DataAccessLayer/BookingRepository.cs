@@ -177,8 +177,41 @@ namespace DataAccessLayer
                                 CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
                                 MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
                                 MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
-                                Status = dr.GetFieldValue<BookingStatus>(dr.GetOrdinal("Status")),
+                                Status = (BookingStatus)dr.GetFieldValue<int>(dr.GetOrdinal("Status")),
                             });
+                        }
+                    }
+                }
+            }
+            return bookings;
+        }
+
+        public IEnumerable<BookingModel> GetAll(int studentId)
+        {
+            string query = "SELECT Bookings.Id, CreationDate, MoveInDate, MoveOutDate, Status, RoomId, StudentId FROM Bookings ";
+            query += "Join StudentBooking ON Bookings.Id = StudentBooking.BookingId WHERE StudentId = @StudentId";
+            List<BookingModel> bookings = new List<BookingModel>();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@StudentId", studentId));
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dr.Read())
+                        {
+                            
+                            bookings.Add(new BookingModel
+                            {
+                                Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id")),
+                                CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
+                                MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
+                                MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
+                                Status = (BookingStatus)dr.GetFieldValue<int>(dr.GetOrdinal("Status")),
+                                RoomId = dr.GetFieldValue<int>(dr.GetOrdinal("RoomId")),
+                                UserId = dr.GetFieldValue<int>(dr.GetOrdinal("StudentId"))
+                            }) ;
                         }
                     }
                 }
@@ -242,7 +275,7 @@ namespace DataAccessLayer
                                 CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
                                 MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
                                 MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
-                                Status = (BookingStatus)status,
+                                Status = (BookingStatus)status
                             });
                         }
                     }
@@ -301,5 +334,7 @@ namespace DataAccessLayer
             }
             return status;
         }
+
+       
     }
 }
