@@ -12,26 +12,24 @@
 
 
 <h2>Currently available rooms</h2>
-
+<div class="jumbotron">
+    @using (Html.BeginForm("Rooms", "Rooms", FormMethod.Get))
+    {
+        <p>Use the keywords to search for the room</p>
+        <p>#furnished  #terrace #bathroom </p>
+        <p>IMPORTANT: Don't use capital letters</p>
+        @Html.TextBox("SearchDescription")
+        <input type="submit" class="btn btn-warning" />
+    }
+</div>
 
 @using (Html.BeginForm("Rooms", "Rooms", FormMethod.Get))
 {
-    <p>
     <h4>Find by price:</h4> @Html.TextBox("SearchString")
     <input type="submit" class="btn btn-warning" />
-    <h4>Find by price:</h4> @Html.TextBox("SearchDescription")
-    <input type="submit" class="btn btn-warning" />
-
-    @Html.ActionLink("Show all rooms", "Rooms")
-
-
-
-    </p>
-
-                
 }
 
-
+@Html.ActionLink("Show all rooms", "Rooms")
 
 <table class="table table-bordered">
     <tr>
