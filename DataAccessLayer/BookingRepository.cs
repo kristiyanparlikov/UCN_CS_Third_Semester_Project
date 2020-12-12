@@ -177,7 +177,7 @@ namespace DataAccessLayer
                                 CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
                                 MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
                                 MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
-                                Status = dr.GetFieldValue<BookingStatus>(dr.GetOrdinal("Status"))
+                                Status = (BookingStatus)dr.GetFieldValue<int>(dr.GetOrdinal("Status")),
                             });
                         }
                     }
@@ -201,16 +201,17 @@ namespace DataAccessLayer
                     {
                         while (dr.Read())
                         {
+                            
                             bookings.Add(new BookingModel
                             {
                                 Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id")),
                                 CreationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("CreationDate")),
                                 MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate")),
                                 MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate")),
-                                Status = dr.GetFieldValue<BookingStatus>(dr.GetOrdinal("Status")),
+                                Status = (BookingStatus)dr.GetFieldValue<int>(dr.GetOrdinal("Status")),
                                 RoomId = dr.GetFieldValue<int>(dr.GetOrdinal("RoomId")),
                                 UserId = dr.GetFieldValue<int>(dr.GetOrdinal("StudentId"))
-                            });
+                            }) ;
                         }
                     }
                 }
