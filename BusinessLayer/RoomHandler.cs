@@ -55,5 +55,10 @@ namespace BusinessLayer
                 return false;
             }
         }
+
+        public bool CheckDateOfModification(DateTime dateTime, int id)
+        {
+            return db.CheckDateOfModification(dateTime, id);
+        }
     }
 }

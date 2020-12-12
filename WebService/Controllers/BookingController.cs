@@ -59,9 +59,9 @@ namespace WebService.Controllers
 
         [HttpPost]
         [Route("api/Bookings/UpdateStatus")]
-        public IHttpActionResult changeBookingStatus([FromBody] BookingStatusUpdateModel bookingStatus)
+        public IHttpActionResult ChangeBookingStatus([FromBody] BookingStatusUpdateModel bookingStatus)
         {
-            int rowsAffected = bookingHandler.changeBookingStatus(bookingStatus.BookingStatus, bookingStatus.Id);
+            int rowsAffected = bookingHandler.ChangeBookingStatus(bookingStatus.BookingStatus, bookingStatus.Id);
             if (rowsAffected == 1)
                 return Ok("All good");
             if (rowsAffected == 0)
@@ -72,7 +72,7 @@ namespace WebService.Controllers
         [Route("api/Bookings/CheckStatus")]
         public IHttpActionResult checkBookingStatus([FromBody] BookingStatusUpdateModel bookingStatus)
         {
-            int status = bookingHandler.getBookingStatus(bookingStatus.Id);
+            int status = bookingHandler.GetBookingStatus(bookingStatus.Id);
             int realStatus = -2;
             if (bookingStatus.BookingStatus == BookingStatus.Pending)
             {

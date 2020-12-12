@@ -16,6 +16,7 @@ namespace ModelLayer
         public double Price { get; set; }
         public string Description { get; set; }
         public bool IsAvailable { get; set; } = true;
+        public DateTime modificationDate { get; set; }
 
 
         List<BookingModel> bookings;

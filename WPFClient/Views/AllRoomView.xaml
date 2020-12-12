@@ -15,7 +15,7 @@
             </ListView.View>
             <Button Content="Button" Width="75"/>
         </ListView>
-        <Button Content="Delete selected" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,351,0,0" Height="25" Click="Button_Click"/>
-        <Button Content="Edit room info" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,312,0,0" Click="EditRoom_Clicked"/>
+        <Button Content="Delete selected" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,351,0,0" Height="25" Click="button_Click"/>
+        <Button Content="Edit room info" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,312,0,0" Click="editRoom_Clicked"/>
     </Grid>
 </UserControl>

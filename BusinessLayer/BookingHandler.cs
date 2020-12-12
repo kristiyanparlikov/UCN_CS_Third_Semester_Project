@@ -48,14 +48,14 @@ namespace BusinessLayer
             return db.GetAllBookingsOfStatus(status);
         }
 
-        public int changeBookingStatus(BookingStatus bookingStatus, int id)
+        public int ChangeBookingStatus(BookingStatus bookingStatus, int id)
         {
-            return  db.changeBookingStatus(bookingStatus, id);
+            return  db.ChangeBookingStatus(bookingStatus, id);
         }
 
-        public int getBookingStatus(int id)
+        public int GetBookingStatus(int id)
         {
-            return db.getBookingStatus(id);
+            return db.GetBookingStatus(id);
         }
     }
 }

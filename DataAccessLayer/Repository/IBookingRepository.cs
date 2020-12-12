@@ -23,9 +23,9 @@ namespace DataAccessLayer.Repository
 
         IEnumerable<BookingModel> GetAllBookingsOfStatus(int status);
 
-        int changeBookingStatus(BookingStatus bookingStatus, int id);
+        int ChangeBookingStatus(BookingStatus bookingStatus, int id);
 
-        int getBookingStatus(int id);
+        int GetBookingStatus(int id);
 
     }
 }

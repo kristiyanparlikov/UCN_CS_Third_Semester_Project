@@ -19,7 +19,7 @@ namespace DataAccessLayer
 
         public RoomModel Add(RoomModel room)
         {
-            var query = "INSERT INTO Rooms VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @isAvailable,  @Description) " +
+            var query = "INSERT INTO Rooms  (RoomNumber, Floor, Capacity, Area, Price, isAvailable, Description) VALUES (@RoomNumber, @Floor, @Capacity, @Area, @Price, @isAvailable,  @Description) " +
                 "SELECT CAST (SCOPE_IDENTITY() as int)"; 
             try
             {
@@ -117,6 +117,7 @@ namespace DataAccessLayer
                                 Price = dr.GetFieldValue<double>(dr.GetOrdinal("Price")),
                                 Description = dr.GetFieldValue<string>(dr.GetOrdinal("Description")),
                                 IsAvailable = dr.GetBoolean(dr.GetOrdinal("isAvailable")),
+                                modificationDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("ModifiedDate")),
                             });
                         }
                     }
@@ -144,6 +145,7 @@ namespace DataAccessLayer
         public int Update(RoomModel room)
         {
             string query = "UPDATE Rooms SET RoomNumber = @RoomNumber, Floor = @Floor, Capacity = @Capacity, Area = @Area, Price = @Price, isAvailable = @isAvailable, description = @description  WHERE Id = @Id";
+            int rowsAffected = 0;
             using (SqlConnection cnn = new SqlConnection(connString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, cnn))
@@ -159,7 +161,7 @@ namespace DataAccessLayer
 
 
                     cnn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
+                    rowsAffected = cmd.ExecuteNonQuery();
                     return rowsAffected;
                 }
             }
@@ -203,6 +205,43 @@ namespace DataAccessLayer
                 }
             }
             return rooms;
+        }
+
+        public bool CheckDateOfModification(DateTime dateTime, int id)
+        {
+            DateTime modDate;
+            var sql = "SELECT ModifiedDate FROM Rooms WHERE Id = @Id";
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@Id", id));
+
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        var result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            modDate = Convert.ToDateTime(result);
+                            if (dateTime == modDate)
+                                return true;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return false;
         }
     }
 }

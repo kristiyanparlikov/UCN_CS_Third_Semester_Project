@@ -34,7 +34,7 @@ namespace WPFClient.Views
             
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
 
             MainWindowHelper vm = MainWindowHelper.Instance;

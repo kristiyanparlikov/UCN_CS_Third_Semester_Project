@@ -19,7 +19,7 @@ namespace WPFClient.Models
             }
         }
 
-        public AdministratorCast getAdministrator()
+        public AdministratorCast GetAdministrator()
         {
             return admin;
         }

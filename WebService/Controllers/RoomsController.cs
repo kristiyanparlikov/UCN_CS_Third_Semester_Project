@@ -74,10 +74,13 @@ namespace WebService.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                int response = roomHandler.Update(model);
-                if (response == 1)
-                    return Ok("ok");
-                else return Ok("Not Ok");
+                if (roomHandler.CheckDateOfModification(model.modificationDate, model.Id))
+                {
+                    int response = roomHandler.Update(model);
+                    if (response == 2)
+                        return Ok("ok");
+                }
+                return Ok("Updates were already made, close window to see them");
             }
             catch (Exception)
             {

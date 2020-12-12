@@ -251,7 +251,7 @@ namespace DataAccessLayer
             return bookings;
         }
 
-        public int changeBookingStatus(BookingStatus bookingStatus, int id)
+        public int ChangeBookingStatus(BookingStatus bookingStatus, int id)
         {
             int rowsAffected = 0;
             string query = "UPDATE Bookings SET Status =@Status WHERE Id =@Id";
@@ -284,7 +284,7 @@ namespace DataAccessLayer
             return rowsAffected;
         }
 
-        public int getBookingStatus(int id)
+        public int GetBookingStatus(int id)
         {
             int status = -1;
             string query = "SELECT Status FROM Bookings WHERE Id = @Id";

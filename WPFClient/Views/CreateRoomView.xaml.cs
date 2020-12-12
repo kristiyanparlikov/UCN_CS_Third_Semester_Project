@@ -29,7 +29,7 @@ namespace WPFClient.Views
             InitializeComponent();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
             int roomNbr;
             int floorNbr;

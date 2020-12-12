@@ -15,7 +15,7 @@
         <Label Content="E-mail:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="80" Margin="223,179,0,0" FontSize="18" Grid.ColumnSpan="2"/>
         <Label Content="Password:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="35" Width="222" Margin="199,215,0,0" FontSize="18" Grid.ColumnSpan="2"/>
         <PasswordBox Name="passwordField" HorizontalAlignment="Left" VerticalAlignment="Top" Height="24" Width="137" Grid.Column="1" Margin="80,220,0,0"/>
-        <Button Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Grid.Column="1" Margin="250,300,0,0" Height="41" Click="Button_Click"/>
+        <Button Content="Log In" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Grid.Column="1" Margin="250,300,0,0" Height="41" Click="button_Click"/>
         <Label Name="responseBox" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="93,308,0,0" Grid.ColumnSpan="2" Height="120" Width="416"/>
 
     </Grid>

@@ -44,7 +44,7 @@ namespace WebService.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                int id = adminHandler.checkEmailAvailability(model.Email);
+                int id = adminHandler.CheckEmailAvailability(model.Email);
                 if (id == 0)
                 {
                     //administrator info
@@ -78,16 +78,16 @@ namespace WebService.Controllers
 
         [HttpPost]
         [Route("api/Administrator/Info")]
-        public AdministratorModel getAdministratorInfo([FromBody] StringModel email)
+        public AdministratorModel GetAdministratorInfo([FromBody] StringModel email)
         {
-            return adminHandler.getAdministratorInfo(email.email);
+            return adminHandler.GetAdministratorInfo(email.email);
         }
 
         [HttpPost]
         [Route("api/Administrator/LogIn")]
-        public IHttpActionResult checkAdminLogIn([FromBody] LoginRequest login)
+        public IHttpActionResult CheckAdminLogIn([FromBody] LoginRequest login)
         {
-            string realPassword = adminHandler.getAdministratorPassword(login.Email);
+            string realPassword = adminHandler.GetAdministratorPassword(login.Email);
             if (realPassword == null)
             {
                 return Ok("Incorrect email");
@@ -102,7 +102,7 @@ namespace WebService.Controllers
 
         public IHttpActionResult updateInfo([FromBody] AdministratorModel admin)
         {
-            bool checkForUpdates = adminHandler.checkModificationDate(admin.modificationDate, admin.Id);
+            bool checkForUpdates = adminHandler.CheckModificationDate(admin.modificationDate, admin.Id);
             if (checkForUpdates == false)
                 return Ok("Updates Happend, close this window to see changes");
             bool response = adminHandler.Update(admin);

@@ -72,68 +72,74 @@ namespace WPFClient.Views
             });
         }
 
-        private async void CancelBooking_Clicked(object sender, RoutedEventArgs e)
+        private async void cancelBooking_Clicked(object sender, RoutedEventArgs e)
         {
-            string okMessage = "\"ok\"";
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking cancelation", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            if (BookingList.SelectedItem != null)
             {
-                using var client = new HttpClient();
+                string okMessage = "\"ok\"";
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking cancelation", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    BookingCast bm = (BookingCast)BookingList.SelectedItem;
-                    string url = baseUrl + "CheckStatus";
-                    var statusCheck = new JObject();
-                    statusCheck.Add("BookingStatus", "Accepted");
-                    statusCheck.Add("Id", bm.Id);
-                    HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
-                    var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
-                    string readableResponse = await statusCheckResponse.Content.ReadAsStringAsync();
-                    if (okMessage.Equals(readableResponse))
+                    using var client = new HttpClient();
                     {
-                        string uri = baseUrl + "UpdateStatus";
-                        var bookingStatusUpdate = new JObject();
-                        bookingStatusUpdate.Add("BookingStatus", "Cancelled");
-                        bookingStatusUpdate.Add("Id", bm.Id);
-                        HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
-                        var response = client.PostAsync(uri, content).Result;
-                        responseBox.Content = await response.Content.ReadAsStringAsync();
+                        BookingCast bm = (BookingCast)BookingList.SelectedItem;
+                        string url = baseUrl + "CheckStatus";
+                        var statusCheck = new JObject();
+                        statusCheck.Add("BookingStatus", "Accepted");
+                        statusCheck.Add("Id", bm.Id);
+                        HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
+                        var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
+                        string readableResponse = await statusCheckResponse.Content.ReadAsStringAsync();
+                        if (okMessage.Equals(readableResponse))
+                        {
+                            string uri = baseUrl + "UpdateStatus";
+                            var bookingStatusUpdate = new JObject();
+                            bookingStatusUpdate.Add("BookingStatus", "Cancelled");
+                            bookingStatusUpdate.Add("Id", bm.Id);
+                            HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
+                            var response = client.PostAsync(uri, content).Result;
+                            responseBox.Content = await response.Content.ReadAsStringAsync();
+                        }
+                        else responseBox.Content = readableResponse;
                     }
-                    else responseBox.Content = readableResponse;
                 }
+                GetAllApprovedBookings();
             }
-            GetAllApprovedBookings();
         }
 
-        private async void MoveToPending_Clicked(object sender, RoutedEventArgs e)
+        private async void moveToPending_Clicked(object sender, RoutedEventArgs e)
         {
-            string okMessage = "\"ok\"";
-            MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking cancelation", System.Windows.MessageBoxButton.YesNo);
-            if (messageBoxResult == MessageBoxResult.Yes)
+            if (BookingList.SelectedItem != null)
             {
-                using var client = new HttpClient();
+                string okMessage = "\"ok\"";
+                MessageBoxResult messageBoxResult = System.Windows.MessageBox.Show("Are you sure?", "Booking cancelation", System.Windows.MessageBoxButton.YesNo);
+                if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    BookingCast bm = (BookingCast)BookingList.SelectedItem;
-                    string url = baseUrl + "CheckStatus";
-                    var statusCheck = new JObject();
-                    statusCheck.Add("BookingStatus", "Accepted");
-                    statusCheck.Add("Id", bm.Id);
-                    HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
-                    var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
-                    string readableResponse = await statusCheckResponse.Content.ReadAsStringAsync();
-                    if (okMessage.Equals(readableResponse))
+                    using var client = new HttpClient();
                     {
-                        string uri = baseUrl + "UpdateStatus";
-                        var bookingStatusUpdate = new JObject();
-                        bookingStatusUpdate.Add("BookingStatus", "Pending");
-                        bookingStatusUpdate.Add("Id", bm.Id);
-                        HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
-                        var response = client.PostAsync(uri, content).Result;
-                        responseBox.Content = await response.Content.ReadAsStringAsync();
+                        BookingCast bm = (BookingCast)BookingList.SelectedItem;
+                        string url = baseUrl + "CheckStatus";
+                        var statusCheck = new JObject();
+                        statusCheck.Add("BookingStatus", "Accepted");
+                        statusCheck.Add("Id", bm.Id);
+                        HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
+                        var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
+                        string readableResponse = await statusCheckResponse.Content.ReadAsStringAsync();
+                        if (okMessage.Equals(readableResponse))
+                        {
+                            string uri = baseUrl + "UpdateStatus";
+                            var bookingStatusUpdate = new JObject();
+                            bookingStatusUpdate.Add("BookingStatus", "Pending");
+                            bookingStatusUpdate.Add("Id", bm.Id);
+                            HttpContent content = new StringContent(bookingStatusUpdate.ToString(), Encoding.UTF8, "application/json");
+                            var response = client.PostAsync(uri, content).Result;
+                            responseBox.Content = await response.Content.ReadAsStringAsync();
+                        }
+                        else responseBox.Content = readableResponse;
                     }
-                    else responseBox.Content = readableResponse;
                 }
+                GetAllApprovedBookings();
             }
-            GetAllApprovedBookings();
         }
 
     }

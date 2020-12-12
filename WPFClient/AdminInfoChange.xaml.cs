@@ -33,7 +33,7 @@ namespace WPFClient
             InitializeComponent();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
             string okResponse = "\"ok\"";
             AdministratorCast admin = ah.admin;

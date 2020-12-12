@@ -30,12 +30,12 @@ namespace WPFClient.Views
         public AdminAccountView()
         {
             InitializeComponent();
-            getData();
+            GetData();
         }
 
-        public void getData()
+        public void GetData()
         {
-            AdministratorCast admin = ah.getAdministrator();
+            AdministratorCast admin = ah.GetAdministrator();
             firstNameField.Content = admin.FirstName;
             lastNameField.Content = admin.LastName;
             phoneNumberField.Content = admin.PhoneNumber;
@@ -45,7 +45,7 @@ namespace WPFClient.Views
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            AdministratorCast admin = ah.getAdministrator();
+            AdministratorCast admin = ah.GetAdministrator();
             AdminInfoChange am = new AdminInfoChange();
             am.firstNameField.Text = firstNameField.Content.ToString();
             am.lastNameField.Text = lastNameField.Content.ToString();
@@ -65,7 +65,7 @@ namespace WPFClient.Views
                 admin = deserialized;
                 ah.admin = admin;
             }
-            getData();
+            GetData();
         }
     }
 }

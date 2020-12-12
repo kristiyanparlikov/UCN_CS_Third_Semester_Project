@@ -20,6 +20,7 @@ using UserControl = System.Windows.Controls.UserControl;
 using Binding = System.Windows.Data.Binding;
 using System.Windows;
 using MessageBox = System.Windows.Forms.MessageBox;
+using WPFClient.Helpers;
 
 namespace WPFClient.Views
 {
@@ -34,6 +35,7 @@ namespace WPFClient.Views
             InitializeComponent();  
             createTable();
             GetAllRooms();
+
         }
 
         public async void GetAllRooms()
@@ -41,10 +43,12 @@ namespace WPFClient.Views
             
             using var client = new HttpClient();
             {
+                SelectedRoomHelper rh = SelectedRoomHelper.Instance;
                 string url = baseUrl + "all";
                 var response = await client.GetAsync(url);
                 var responseJsonString = await response.Content.ReadAsStringAsync();
                 var deserialized = JsonConvert.DeserializeObject<IEnumerable<RoomCast>>(responseJsonString);
+                rh.rooms = deserialized;
                 RoomList.ItemsSource = deserialized;
             }
         }
@@ -96,39 +100,41 @@ namespace WPFClient.Views
             });
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void button_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show("Do you really want to delete the selected room?","Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (RoomList.SelectedItem != null)
             {
-                RoomCast rm = (RoomCast)RoomList.SelectedItem;
-                using var client = new HttpClient();
+                if (MessageBox.Show("Do you really want to delete the selected room?", "Message", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
-                    string url = baseUrl + rm.Id;
-                    var response = await client.DeleteAsync(url);
-                    if (response.IsSuccessStatusCode)
+                    RoomCast rm = (RoomCast)RoomList.SelectedItem;
+                    using var client = new HttpClient();
                     {
-                        GetAllRooms();
-                    }
-                    else
-                    {
-                        MessageBox.Show(response.ReasonPhrase);
+                        string url = baseUrl + rm.Id;
+                        var response = await client.DeleteAsync(url);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            GetAllRooms();
+                        }
+                        else
+                        {
+                            MessageBox.Show(response.ReasonPhrase);
+                        }
                     }
                 }
             }
         }
 
-        private void EditRoom_Clicked(object sender, RoutedEventArgs e)
+        private void editRoom_Clicked(object sender, RoutedEventArgs e)
         {
-            EditRoomInfoWindow er = new EditRoomInfoWindow();
-            RoomCast rm = (RoomCast)RoomList.SelectedItem;
-            er.idField.Content = rm.Id;
-            er.roomNumberField.Text = rm.RoomNumber.ToString();
-            er.floorField.Text = rm.Floor.ToString();
-            er.capacityField.Text = rm.Capacity.ToString();
-            er.areaField.Text = rm.Area.ToString();
-            er.priceField.Text = rm.Price.ToString();
-            er.descriptionField.Text = rm.Description;
-            er.Show();
+            if (RoomList.SelectedItem != null)
+            {
+                EditRoomInfoWindow er = new EditRoomInfoWindow();
+                RoomCast rm = (RoomCast)RoomList.SelectedItem;
+                er.idField.Content = rm.Id;
+                er.getSelectedRoomInfo();
+                er.ShowDialog();
+                GetAllRooms();
+            }
         }
     }
 }

@@ -37,23 +37,23 @@ namespace BusinessLayer
             return db.Update(administrator);
         }
 
-        public AdministratorModel getAdministratorInfo(string email)
+        public AdministratorModel GetAdministratorInfo(string email)
         {
             return db.GetAdministratorInfo(email);
         }
-        public string getAdministratorPassword(string email)
+        public string GetAdministratorPassword(string email)
         {
             return db.GetAdministratorPassword(email);
         }
 
-        public int checkEmailAvailability(string email)
+        public int CheckEmailAvailability(string email)
         {
-            return db.checkEmailAvailability(email);
+            return db.CheckEmailAvailability(email);
         }
 
-        public bool checkModificationDate(DateTime dateTime, int id)
+        public bool CheckModificationDate(DateTime dateTime, int id)
         {
-            return db.checkDateOfModification(dateTime, id);
+            return db.CheckDateOfModification(dateTime, id);
         }
     }
 }

@@ -188,7 +188,7 @@ namespace DataAccessLayer
             return password;
         }
 
-        public int checkEmailAvailability(string email)
+        public int CheckEmailAvailability(string email)
         {
             int id = 0;
             var sql = "SELECT Id FROM Administrators WHERE Email =@Email";
@@ -222,7 +222,7 @@ namespace DataAccessLayer
             return id;
         }
 
-        public bool checkDateOfModification(DateTime dateTime, int id)
+        public bool CheckDateOfModification(DateTime dateTime, int id)
         {
             DateTime modDate;
             var sql = "SELECT ModifiedDate FROM Administrators WHERE Id = @Id";

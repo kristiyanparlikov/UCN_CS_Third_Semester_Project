@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repository
         bool Remove(int id);
         AdministratorModel GetAdministratorInfo(string email);
         string GetAdministratorPassword(string email);
-        int checkEmailAvailability(string email);
-        bool checkDateOfModification(DateTime dateTime, int id);
+        int CheckEmailAvailability(string email);
+        bool CheckDateOfModification(DateTime dateTime, int id);
     }
 }

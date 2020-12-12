@@ -78,6 +78,7 @@
     </Compile>
     <Compile Include="Helpers\ApiHelper.cs" />
     <Compile Include="Helpers\IApiHelper.cs" />
+    <Compile Include="Helpers\SelectedRoomHelper.cs" />
     <Compile Include="Models\AdministratorCast.cs" />
     <Compile Include="Helpers\AdminUserHelper.cs" />
     <Compile Include="Models\BookingCast.cs" />
