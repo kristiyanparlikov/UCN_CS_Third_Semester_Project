@@ -57,5 +57,10 @@ namespace BusinessLayer
         {
             return db.GetBookingStatus(id);
         }
+
+        public IEnumerable<BookingModel> GetAllStudentBookings(int studentId)
+        {
+            return db.GetAll(studentId);
+        }
     }
 }

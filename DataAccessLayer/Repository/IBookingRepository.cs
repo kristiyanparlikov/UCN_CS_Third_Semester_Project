@@ -13,6 +13,8 @@ namespace DataAccessLayer.Repository
 
         IEnumerable<BookingModel> GetAll();
 
+        IEnumerable<BookingModel> GetAll(int studentId);
+
         BookingModel AddAnonymous(BookingModel booking);
 
         BookingModel Add(BookingModel booking, int studentId);

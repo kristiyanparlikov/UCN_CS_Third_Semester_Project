@@ -36,6 +36,7 @@ namespace ModelLayer
             UserId = userId;
         }
 
+
         public BookingModel(int id, DateTime creationDate, DateTime moveInDate, BookingStatus status, int roomId, int userId)
         {
             Id = id;
