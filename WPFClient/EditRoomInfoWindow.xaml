@@ -20,7 +20,7 @@
         <TextBox Name="priceField" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="510,100,0,0"/>
         <TextBox Name="descriptionField" HorizontalAlignment="Left" Height="97" TextWrapping="Wrap" VerticalAlignment="Top" Width="191" Margin="510,150,0,0"/>
         <Button Content="Apply changes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="122" Margin="605,302,0,0" Height="28" Click="button_Click"/>
-        <Label Name="responseField" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="120,249,0,0" Height="94" Width="271"/>
+        <Label Name="responseField" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="62,249,0,0" Height="94" Width="430"/>
         <Label Name="idField" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="139,6,0,0"/>
         <Label Content="Room Id:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="86,6,0,0"/>
 

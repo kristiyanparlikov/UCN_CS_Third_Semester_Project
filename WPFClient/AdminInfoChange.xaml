@@ -18,7 +18,7 @@
         <TextBox Name="emailField" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="250,170,0,0"/>
         <TextBox Name="phoneNumberField" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="250,220,0,0"/>
         <Button Content="Submint changes" HorizontalAlignment="Left" VerticalAlignment="Top" Width="137" Margin="453,340,0,0" Height="32" Click="button_Click"/>
-        <Label Name="responseField" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="228" Margin="174,317,0,0"/>
+        <Label Name="responseField" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="414" Margin="25,317,0,0"/>
 
     </Grid>
 </Window>

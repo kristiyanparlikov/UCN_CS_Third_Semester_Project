@@ -124,7 +124,7 @@ namespace WPFClient.Views
                         BookingCast bm = (BookingCast)BookingList.SelectedItem;
                         string url = baseUrl + "CheckStatus";
                         var statusCheck = new JObject();
-                        statusCheck.Add("BookingStatus", "Accepted");
+                        statusCheck.Add("BookingStatus", "Pending");
                         statusCheck.Add("Id", bm.Id);
                         HttpContent statusCheckContent = new StringContent(statusCheck.ToString(), Encoding.UTF8, "application/json");
                         var statusCheckResponse = client.PostAsync(url, statusCheckContent).Result;
