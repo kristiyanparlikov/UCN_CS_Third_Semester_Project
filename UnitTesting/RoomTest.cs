@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using WebApplication.Models;
 using System.Linq;
 using RoomModel = ModelLayer.RoomModel;
-
+using System.Threading.Tasks;
 
 namespace UnitTesting
 {
@@ -25,7 +25,14 @@ namespace UnitTesting
         {
             roomDb = new RoomRepository();
         }
-            
+
+        public void RoomControllerTest()
+        {
+            Assert.AreEqual("RoomsController", "RoomsController");
+        }
+       
+
+        //Test for creating a room
         [TestMethod]
         public void CreateRoomTest()
         {
@@ -42,8 +49,11 @@ namespace UnitTesting
             roomDb.Add(room);
             //Assert
             Assert.IsNotNull(room);
-        }       
+        }
 
+        
+
+        //Test method for getting all rooms in the database
         [TestMethod]
         public void GetRoomsTest()
         {
@@ -59,8 +69,25 @@ namespace UnitTesting
             Assert.IsTrue(roomsTotal > 0);
         }
 
+        //Test method for getting all available rooms in the database
         [TestMethod]
-        public void GetRoomById()
+        public void GetAllAvailableRoomsTest()
+        {
+            //Arrange
+            List<ModelLayer.RoomModel> rooms = (List<ModelLayer.RoomModel>)roomDb.GetAllAvailable();
+            //Act
+            int roomsTotal = 0;
+            if (rooms is List<ModelLayer.RoomModel>)
+            {
+                roomsTotal = rooms.Count;
+            }
+            //Assert
+            Assert.IsTrue(roomsTotal > 0);
+        }
+
+        //Test method for geting a room with its id
+        [TestMethod]
+        public void GetRoomByIdTest()
         {
             //Arrange
             List<ModelLayer.RoomModel> rooms = (List<ModelLayer.RoomModel>)roomDb.GetAll();
@@ -72,14 +99,48 @@ namespace UnitTesting
             Assert.AreEqual(room.Id, id);
         }
 
+        //Test method for updating a room
         [TestMethod]
-        public void RemoveRoom()
+        public void UpdateRoomTest()
         {
-                      
-
-
-
+            //Arrange
+            List<ModelLayer.RoomModel> rooms = (List<ModelLayer.RoomModel>)roomDb.GetAll();
+            //Act
+            int total = rooms.Count;
+            int id = rooms[total - 1].Id;
+            ModelLayer.RoomModel room = roomDb.Find(id);
+            room.Price = 1800;
+            roomDb.Update(room);
+            //Assert
+            Assert.IsNotNull(room);
         }
 
+        //Test method for removing a room from the database
+        [TestMethod]
+        public void RemoveRoomTest()
+        {
+            //Arrange
+            List<ModelLayer.RoomModel> rooms = (List<ModelLayer.RoomModel>)roomDb.GetAll();
+            //Act
+            int total = rooms.Count;
+            int id = rooms[total - 1].Id;
+            var room = new RoomModel();
+            roomDb.Remove(room.Id);
+            //Assert
+            Assert.AreNotEqual(room.Id, id);
+        }
+
+        //Test method for testing the view returned by the controller
+        [TestMethod]
+        public void RoomsViewTest()
+        {
+            Task.Run(async () =>
+            {
+                RoomsController roomscontroller = new RoomsController();
+                var rooms = await roomscontroller.Rooms("", "");
+                //assert
+            }).GetAwaiter().GetResult();
+            
+        }
     }
 }
