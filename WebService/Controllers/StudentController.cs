@@ -105,7 +105,7 @@ namespace WebService.Controllers
             else return false;
         }
 
-        private string createToken(string email)
+        public string createToken(string email)
         {
             //Set issued at date
             DateTime issuedAt = DateTime.UtcNow;

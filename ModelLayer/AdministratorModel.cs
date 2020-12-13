@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ModelLayer
 {
@@ -11,6 +12,8 @@ namespace ModelLayer
         public int EmployeeNumber { get; set; }
         public DateTime modificationDate { get; set; }
 
+        [JsonIgnore]
+        public String Password { get; set; }
         //blank constructor
         public AdministratorModel()
         {

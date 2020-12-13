@@ -9,6 +9,8 @@ using System.Web.Http;
 using ModelLayer;
 using DevOne.Security.Cryptography.BCrypt;
 using WebService.Models;
+using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace WebService.Controllers
 {
@@ -68,6 +70,63 @@ namespace WebService.Controllers
             {
                 return Ok("Something went wrong");
             }
+        }
+
+        [HttpPost]
+        public IHttpActionResult Authenticate([FromBody] LoginRequest login)
+        {
+            StudentController studentController = new StudentController();
+            var loginResponse = new LoginResponse { };
+
+            bool isEmailPasswordValid = false;
+
+            if (login != null)
+                isEmailPasswordValid = validateEmailPassword(login.Email, login.Password);
+
+            //if credentials are valid
+            if (isEmailPasswordValid)
+            {
+                //create response object with the user information and the token
+                //token
+                loginResponse.Token = studentController.createToken(login.Email);
+                //user info
+                AdministratorModel administrator = adminHandler.GetByEmail(login.Email);
+                loginResponse.Id = administrator.Id;
+                loginResponse.Email = administrator.Email;
+                loginResponse.FirstName = administrator.FirstName;
+                loginResponse.LastName = administrator.LastName;
+                loginResponse.PhoneNumber = administrator.PhoneNumber;
+                //loginResponse.EmployeeNumber = administrator.EmployeeNumber;
+               
+
+                //return the token
+                return Ok(loginResponse);
+            }
+            else
+            {
+                // if credentials are not valid send unauthorized status code in response
+                //loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
+                //response = ResponseMessage(loginResponse.responseMsg);
+                //return response;
+                return Unauthorized();
+            }
+        }
+
+        private bool validateEmailPassword(string email, string password)
+        {
+            //get the hashed password from the database
+            string realPassword = adminHandler.GetAdministratorPassword(email);
+            if (realPassword == null)
+            {
+                return false;
+            }
+            //check if the hashed password in the database matches with the input password
+            bool doesPasswordsMatch = BCryptHelper.CheckPassword(password, realPassword);
+            if (doesPasswordsMatch)
+            {
+                return true;
+            }
+            else return false;
         }
 
         // DELETE: api/Administrator/5

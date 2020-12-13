@@ -258,6 +258,44 @@ namespace DataAccessLayer
             }
             return false;
         }
+
+        public AdministratorModel FindByEmail(string email)
+        {
+            string query = "SELECT * FROM Administrators WHERE Email=@Email";
+            AdministratorModel administartor = new AdministratorModel();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Email", email));
+
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                administartor.Id = dr.GetFieldValue<int>(dr.GetOrdinal("Id"));
+                                administartor.Email = dr.GetFieldValue<string>(dr.GetOrdinal("Email"));
+                                administartor.FirstName = dr.GetFieldValue<string>(dr.GetOrdinal("FirstName"));
+                                administartor.LastName = dr.GetFieldValue<string>(dr.GetOrdinal("LastName"));
+                                administartor.PhoneNumber = dr.GetFieldValue<string>(dr.GetOrdinal("PhoneNumber"));
+                                administartor.EmployeeNumber = dr.GetFieldValue<int>(dr.GetOrdinal("EmployeeNumber"));
+                                return administartor;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                    }
+                }
+            }
+            return null;
+        }
     }
+
+    
 
 }

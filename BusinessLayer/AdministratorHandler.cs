@@ -27,6 +27,11 @@ namespace BusinessLayer
             return db.Find(id);
         }
 
+        public AdministratorModel GetByEmail(string email)
+        {
+            return db.FindByEmail(email);
+        }
+
         public IEnumerable<AdministratorModel> GetAll()
         {
             return db.GetAll();

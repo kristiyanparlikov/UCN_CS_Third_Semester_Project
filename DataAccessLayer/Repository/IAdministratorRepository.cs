@@ -19,5 +19,6 @@ namespace DataAccessLayer.Repository
         string GetAdministratorPassword(string email);
         int CheckEmailAvailability(string email);
         bool CheckDateOfModification(DateTime dateTime, int id);
+        AdministratorModel FindByEmail(string email);
     }
 }
