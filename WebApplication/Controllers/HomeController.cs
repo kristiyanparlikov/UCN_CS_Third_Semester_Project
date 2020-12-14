@@ -160,5 +160,46 @@ namespace WebApplication.Controllers
             return RedirectToAction("Login");
 
         }
+
+        [HttpPut]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> UpdateInfo()
+        {
+            string userId = (Session["UserId"]).ToString();
+            using (var client = new HttpClient())
+            {
+                //Passing service base url
+                client.BaseAddress = new Uri(_baseAddress);
+
+                client.DefaultRequestHeaders.Clear();
+
+                //Define request data format  
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage Res = await client.GetAsync("Student/UpdateInfo/" + userId);
+
+                //Checking the response is successful or not which is sent using HttpClient  
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                
+                    var updateResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    StudentLoggedInModel student = JsonConvert.DeserializeObject<StudentLoggedInModel>(updateResponse);
+
+                    //create user session
+                    Session["UserID"] = student.Id.ToString();
+                    Session["UserEmail"] = student.Email.ToString();
+                    Session["UserFirstName"] = student.FirstName.ToString();
+                    Session["UserLastName"] = student.LastName.ToString();
+                    Session["UserPhoneNumber"] = student.PhoneNumber.ToString();
+                    Session["UserDateOfBirth"] = student.DateOfBirth.ToString();
+                    Session["UserNationality"] = student.Nationality.ToString();
+                    Session["UserToken"] = student.Token.ToString();
+
+                }
+            }
+            return View("UserAccount");
+        }
     }
 }

@@ -136,6 +136,27 @@ namespace WebService.Controllers
 
             return tokenString;
         }
+
+        [HttpPut]
+        [Route("api/Student/UpdateInfo")]
+        public IHttpActionResult UpdateInfo([FromBody] StudentModel student)
+        {
+            try
+            {
+                bool operation = studentHandler.Update(student);
+                if (operation)
+                {
+                    return Ok("Update was successful");
+                }
+                return NotFound();
+
+            }
+            catch (Exception)
+            {
+                return Ok("Something went wrong");
+            }
+        }
+
     }
 }
 

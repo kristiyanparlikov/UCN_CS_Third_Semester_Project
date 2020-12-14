@@ -17,7 +17,7 @@ namespace DataAccessLayer.Repository
 
         StudentModel Add(StudentModel student, string hashedPassword);
 
-        int Update(StudentModel student);
+        bool Update(StudentModel studentModel);
 
         int Remove(int id);
 
