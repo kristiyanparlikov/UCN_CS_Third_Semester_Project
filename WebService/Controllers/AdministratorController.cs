@@ -90,7 +90,7 @@ namespace WebService.Controllers
                 //token
                 loginResponse.Token = studentController.createToken(login.Email);
                 //user info
-                AdministratorModel administrator = adminHandler.GetByEmail(login.Email);
+                AdministratorModel administrator = adminHandler.GetAdministratorInfo(login.Email);
                 loginResponse.Id = administrator.Id;
                 loginResponse.Email = administrator.Email;
                 loginResponse.FirstName = administrator.FirstName;
