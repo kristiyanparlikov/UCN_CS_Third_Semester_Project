@@ -51,6 +51,12 @@ namespace WebService.Controllers
         {
         }
 
+        [Route("api/Bookings/AllStudentBookings/{studentId}")]
+        public IEnumerable<BookingModel> GetAllStudentBookings(int studentId)
+        {
+            return bookingHandler.GetAllStudentBookings(studentId);
+        }
+
         [Route("api/Bookings/AllOfStatus")]
         public IEnumerable<BookingModel> GetAllBookingsOfType(int status)
         {
