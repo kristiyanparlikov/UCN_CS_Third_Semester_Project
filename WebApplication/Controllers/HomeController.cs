@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
 
         public ActionResult UserAccount()
         {
-            return View();
+            return View(new List<Models.BookingModel>());
 
         }
 

@@ -1,5 +1,5 @@
-﻿@model WebApplication.Models.RoomModel
-   
+﻿@model IEnumerable<WebApplication.Models.BookingModel>
+
 
 @{
     ViewBag.Title = "UserAccount";
@@ -30,7 +30,7 @@
                     Welcome to STUDO. Here you can see all your information.
                 </div>
                 <div class="panel-body prof-graph-info">
-                    <h1>Profile Information</h1>
+                    <h1>PPROFILE INFORMATION</h1>
                     <div class="row">
                         <div class="prof-row">
                             <label asp-for="Input.FirstName">First name</label>
@@ -44,12 +44,12 @@
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.Email">Email</label>
-                            <input asp-for="Input.Email" class="form-control" value=@Session["UserEmail"].ToString()/>
+                            <input asp-for="Input.Email" class="form-control" value=@Session["UserEmail"].ToString() />
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.PhoneNumber">Phone number</label>
-                            <input asp-for="Input.PhoneNumber" class="form-control" value=@Session["UserPhoneNumber"].ToString()/>
+                            <input asp-for="Input.PhoneNumber" class="form-control" value=@Session["UserPhoneNumber"].ToString() />
                             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
@@ -59,71 +59,86 @@
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.Nationality">Nationality</label>
-                            <input asp-for="Input.Nationality" class="form-control" value=@Session["UserNationality"].ToString()/>
+                            <input asp-for="Input.Nationality" class="form-control" value=@Session["UserNationality"].ToString() />
                             <span asp-validation-for="Input.Nationality" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.EducationEndDate">Education end date</label>
-                            <input asp-for="Input.EducationEndDate" class="form-control" value=@Session["UserEducationEndDate"].ToString()/>
+                            <input asp-for="Input.EducationEndDate" class="form-control" value=@Session["UserEducationEndDate"].ToString() />
                             <span asp-validation-for="Input.EducationEndDate" class="text-danger"></span>
                         </div>
 
                     </div>
                     <input type="submit" value="Submit changes" class="btn btn-warning" />
+                    
+                    
                 </div>
 
 
             </div>
-            <div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel">
-                            <div class="panel-body">
 
-                                <div class="prof-desk">
-                                    <h2>ROOM</h2>
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.RoomNumber)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Capacity)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Floor)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Area)
-                                            </th>
-                                            <th>
-                                                @Html.DisplayNameFor(model => model.Price)
-                                            </th>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div class="panel">
-                            <div class="panel-body">
 
-                                <div class="prof-desk">
-                                    <h2>BOOKING</h2>
-                                    <p>HERE SHOULD BE DISPLAYED A BOOKING AND BOOKING STATUS OF A ROOM</p>
 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        </div>
+        <div class="profile-info col-md-9">
 
+            <div style="width:1140px;" class="panel">
+                
+                <div class="panel-body prof-graph-info">
+                    <h2>BOOKING</h2>
+                    <p>
+                        @Html.ActionLink("Create new booking", "Rooms", "Rooms")
+                    </p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CreationDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MoveInDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MoveOutDate)
+                            </th>
+                           
+
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                         {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CreationDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MoveInDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MoveOutDate)
+                                </td>
+                                
+                                <td>
+                                    @Html.ActionLink("Room", "Room", new { id = item.Id }) |
+                                    @Html.ActionLink("Cancel", "Cancel", new { id = item.Id }, null)
+                                </td>
+                            </tr>
+                         }
+
+                    </table>
                 </div>
+
+
             </div>
+
+
+
+
         </div>
     </div>
 </div>
+
 
 
 <style>
