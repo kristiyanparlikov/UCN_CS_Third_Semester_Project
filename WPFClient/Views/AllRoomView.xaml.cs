@@ -122,6 +122,7 @@ namespace WPFClient.Views
                     }
                 }
             }
+            else responseBox.Content = "Select a room from the list bellow and try again";
         }
 
         private void editRoom_Clicked(object sender, RoutedEventArgs e)
@@ -135,6 +136,7 @@ namespace WPFClient.Views
                 er.ShowDialog();
                 GetAllRooms();
             }
+            else responseBox.Content = "Select a room from the list bellow and try again";
         }
     }
 }

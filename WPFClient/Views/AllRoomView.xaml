@@ -16,5 +16,6 @@
         </ListView>
         <Button Content="Delete selected" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,351,0,0" Height="25" Click="button_Click"/>
         <Button Content="Edit room info" HorizontalAlignment="Left" VerticalAlignment="Top" Width="126" Margin="592,312,0,0" Click="editRoom_Clicked"/>
+        <Label Name="responseBox" FontSize="20" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,96,0,0" Height="72" Width="544"/>
     </Grid>
 </UserControl>

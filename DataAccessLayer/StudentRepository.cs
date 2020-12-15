@@ -273,6 +273,41 @@ namespace DataAccessLayer
             }
             return password;
         }
+
+        public StudentModel FindByBookingId(int bookingId)
+        {
+            string query = "SELECT StudentId, FirstName, LastName, Email FROM Students ";
+            query += "Join StudentBooking ON Students.Id = StudentBooking.StudentId WHERE BookingId = @BookingId";
+            StudentModel student = new StudentModel();
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@BookingId", bookingId));
+
+                    cnn.Open();
+                    using (SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        if (dr.HasRows)
+                        {
+                            while (dr.Read())
+                            {
+                                student.Id = dr.GetFieldValue<int>(dr.GetOrdinal("StudentId"));
+                                student.Email = dr.GetFieldValue<string>(dr.GetOrdinal("Email"));
+                                student.FirstName = dr.GetFieldValue<string>(dr.GetOrdinal("FirstName"));
+                                student.LastName = dr.GetFieldValue<string>(dr.GetOrdinal("LastName"));
+                                return student;
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No rows found.");
+                        }
+                        return student;
+                    }
+                }
+            }
+        }
     }
 
 

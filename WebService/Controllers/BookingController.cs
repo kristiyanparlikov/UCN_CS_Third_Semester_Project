@@ -70,7 +70,7 @@ namespace WebService.Controllers
         {
             int rowsAffected = bookingHandler.ChangeBookingStatus(bookingStatus.BookingStatus, bookingStatus.Id);
             if (rowsAffected == 1)
-                return Ok("All good");
+                return Ok("Booking status changed.");
             if (rowsAffected == 0)
                 return Ok("Booking error");
             return Ok("Wh... What?");

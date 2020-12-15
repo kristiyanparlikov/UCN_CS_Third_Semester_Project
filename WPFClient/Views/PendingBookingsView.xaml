@@ -23,6 +23,7 @@
         <Button Content="Approve Booking" HorizontalAlignment="Left" VerticalAlignment="Top" Width="142" Height="28" Margin="635,302,0,0" Click="aproveBooking_Clicked"/>
         <Button Content="Cancel Booking" HorizontalAlignment="Left" VerticalAlignment="Top" Width="145" Height="28" Margin="635,352,0,0" Click="cancelBooking_Clicked" />
         <Label Name="responseBox" FontSize="20" Foreground="Red" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="43,94,0,0" Height="72" Width="544"/>
+        
 
     </Grid>
 </UserControl>

@@ -61,7 +61,7 @@ namespace WPFClient.Views
             BookingList.View = gridView;
             gridView.Columns.Add(new GridViewColumn
             {
-                Header = "Room Number",
+                Header = "Room Id",
                 DisplayMemberBinding = new Binding("RoomId")
             });
             gridView.Columns.Add(new GridViewColumn
@@ -79,6 +79,7 @@ namespace WPFClient.Views
                 Header = "Date of creation",
                 DisplayMemberBinding = new Binding("CreationDate")
             });
+            CollectionView view = (CollectionView)CollectionViewSource.GetDefaultView(BookingList.ItemsSource);
         }
 
         private async void aproveBooking_Clicked(object sender, RoutedEventArgs e)
@@ -112,8 +113,9 @@ namespace WPFClient.Views
                         else responseBox.Content = readableResponse;
                     }
                 }
-                GetAllPendingBookings();
             }
+            else responseBox.Content = "Select a booking from the list bellow and try again";
+            GetAllPendingBookings();
         }
 
         private async void cancelBooking_Clicked(object sender, RoutedEventArgs e)
@@ -147,14 +149,9 @@ namespace WPFClient.Views
                         else responseBox.Content = readableResponse;
                     }
                 }
+                else responseBox.Content = "Select a booking from the list bellow and try again";
                 GetAllPendingBookings();
             }
-        }
-
-        private void PharmDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            BookingAdvancedInfo bk = new BookingAdvancedInfo();
-            bk.ShowDialog();
         }
 
         private async void informationBooking_Clicked(object sender, RoutedEventArgs e)
@@ -187,11 +184,10 @@ namespace WPFClient.Views
                     bk.ShowDialog();
 
                 }
-                
-                GetAllPendingBookings();
             }
+            else responseBox.Content = "Select a booking from the list bellow and try again";
+            GetAllPendingBookings();
 
-            
 
         }
     }

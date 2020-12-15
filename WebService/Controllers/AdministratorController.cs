@@ -109,14 +109,14 @@ namespace WebService.Controllers
             string realPassword = adminHandler.GetAdministratorPassword(login.Email);
             if (realPassword == null)
             {
-                return Ok("Incorrect email");
+                return Ok("Incorrect credentials");
             }
             bool doesPasswordsMatch = BCryptHelper.CheckPassword(login.Password, realPassword);
             if (doesPasswordsMatch)
             {
                 return Ok("ok");
             }
-            else return Ok("Incorrect password");
+            else return Ok("Incorrect credentials");
         }
 
         [Authorize(Roles ="Admin")]

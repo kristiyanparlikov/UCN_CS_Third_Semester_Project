@@ -46,8 +46,8 @@ namespace WebService.Controllers
                 }
                 var response = roomHandler.Add(model);
                 if (response.Id == 0)
-                    return Ok("Not Ok");
-                else return Ok("Success");
+                    return Ok("Something went wrong");
+                else return Ok("Room created");
             }
             catch (Exception)
             {

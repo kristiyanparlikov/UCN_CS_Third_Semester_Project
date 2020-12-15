@@ -57,7 +57,7 @@ namespace WPFClient.Views
             BookingList.View = gridView;
             gridView.Columns.Add(new GridViewColumn
             {
-                Header = "Room Number",
+                Header = "Room Id",
                 DisplayMemberBinding = new Binding("RoomId")
             });
             gridView.Columns.Add(new GridViewColumn
@@ -110,6 +110,7 @@ namespace WPFClient.Views
                 }
                 GetAllApprovedBookings();
             }
+            else responseBox.Content = "Select a booking from the list bellow and try again";
         }
 
         private async void moveToPending_Clicked(object sender, RoutedEventArgs e)
@@ -145,6 +146,7 @@ namespace WPFClient.Views
                 }
                 GetAllApprovedBookings();
             }
+            else responseBox.Content = "Select a booking from the list bellow and try again";
         }
 
         private async void informationBooking_Clicked(object sender, RoutedEventArgs e)
@@ -180,6 +182,7 @@ namespace WPFClient.Views
 
                 GetAllApprovedBookings();
             }
+            else responseBox.Content = "Select a booking from the list bellow and try again";
 
 
 
