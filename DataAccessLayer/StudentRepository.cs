@@ -181,31 +181,46 @@ namespace DataAccessLayer
             }
         }
 
-        public int Update(StudentModel student)
+        public bool Update(StudentModel studentModel)
         {
-            string query = "UPDATE Students SET FirstName = @FirstName ,LastName = @LastName," +
+            var sql = "UPDATE Students SET FirstName = @FirstName ,LastName = @LastName," +
                     "PhoneNumber = @PhoneNumber ,Email = @Email," +
                     "DateOfBirth = @DateOfBirth ,Nationality = @Nationality," +
                     " EducationEndDate = @EducationEndDates WHERE Id = @Id";
-            using (SqlConnection cnn = new SqlConnection(connString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand(query, cnn))
-
-                    
+                using (SqlConnection cnn = new SqlConnection(connString))
                 {
-                    cmd.Parameters.Add(new SqlParameter("@FirstName", student.FirstName));
-                    cmd.Parameters.Add(new SqlParameter("@LastName", student.LastName));
-                    cmd.Parameters.Add(new SqlParameter("@PhoneNumber", student.PhoneNumber));
-                    cmd.Parameters.Add(new SqlParameter("@Email", student.Email));
-                    cmd.Parameters.Add(new SqlParameter("@DateOfBirth", student.DateOfBirth));
-                    cmd.Parameters.Add(new SqlParameter("@Nationality", student.Nationality));
-                    cmd.Parameters.Add(new SqlParameter("@EducationEndDate", student.EducationEndDate));
+                    using (SqlCommand cmd = new SqlCommand(sql, cnn))
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", studentModel.FirstName));
+                        cmd.Parameters.Add(new SqlParameter("@LastName", studentModel.LastName));
+                        cmd.Parameters.Add(new SqlParameter("@PhoneNumber", studentModel.PhoneNumber));
+                        cmd.Parameters.Add(new SqlParameter("@Email", studentModel.Email));
+                        cmd.Parameters.Add(new SqlParameter("@DateOfBirth", studentModel.DateOfBirth));
+                        cmd.Parameters.Add(new SqlParameter("@Nationality", studentModel.Nationality));
+                        cmd.Parameters.Add(new SqlParameter("@EducationEndDate", studentModel.EducationEndDate));
 
-                    cnn.Open();
-                    int rowsAffected = cmd.ExecuteNonQuery();
-                    return rowsAffected;
+                        // Set CommandType
+                        cmd.CommandType = CommandType.Text;
+
+                        // Open connection
+                        cnn.Open();
+
+                        // Execute the first statement
+                        var rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+
+            }
+            return false;
         }
         public bool VerifyStudent(string email, string hashedPassword)
         {

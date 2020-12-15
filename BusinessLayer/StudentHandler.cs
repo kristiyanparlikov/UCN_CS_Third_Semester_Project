@@ -34,9 +34,9 @@ namespace BusinessLayer
             return db.GetAll();
         }
 
-        public int Update(StudentModel entity)
+        public bool Update(StudentModel studentModel)
         {
-            return db.Update(entity);
+            return db.Update(studentModel);
         }
 
         public bool VerifyStudentCredentials(string email, string hashedPassword)
