@@ -55,7 +55,7 @@ namespace WPFClient.Views
                 var response2 = client.PostAsync(uri, content2).Result;
                 if (response2.IsSuccessStatusCode)
                 {
-                    var responseJsonString = await response2.Content.ReadAsStringAsync();
+                    var responseJsonString = await response2.Content.ReadAsStringAsync(); 
                     var deserialized = JsonConvert.DeserializeObject<AdministratorCast>(responseJsonString);
                     AdminUserHelper adminHelper = AdminUserHelper.Instance;
                     adminHelper.admin = deserialized;

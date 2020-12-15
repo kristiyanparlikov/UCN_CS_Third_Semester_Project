@@ -187,6 +187,7 @@
     <Compile Include="Models\BookingStatusUpdateModel.cs" />
     <Compile Include="Models\LoginRequest.cs" />
     <Compile Include="Models\LoginResponse.cs" />
+    <Compile Include="Models\LogInResponseAdmin.cs" />
     <Compile Include="Models\RegisterRequest.cs" />
     <Compile Include="Models\StringModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

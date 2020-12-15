@@ -48,5 +48,10 @@ namespace BusinessLayer
         {
             return db.GetStudentPassword(email);
         }
+
+        public StudentModel FindByBookingId(int bookingId)
+        {
+            return db.FindByBookingId(bookingId);
+        }
     }
 }

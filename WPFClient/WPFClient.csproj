@@ -73,6 +73,9 @@
     <Compile Include="AdministratorWindow.xaml.cs">
       <DependentUpon>AdministratorWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BookingAdvancedInfo.xaml.cs">
+      <DependentUpon>BookingAdvancedInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="EditRoomInfoWindow.xaml.cs">
       <DependentUpon>EditRoomInfoWindow.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,7 @@
     <Compile Include="Models\BookingStatusCast.cs" />
     <Compile Include="Models\LogedInUser.cs" />
     <Compile Include="Models\RoomCast.cs" />
+    <Compile Include="Models\StudentCast.cs" />
     <Compile Include="Views\AdminAccountView.xaml.cs">
       <DependentUpon>AdminAccountView.xaml</DependentUpon>
     </Compile>
@@ -119,6 +123,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdministratorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BookingAdvancedInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

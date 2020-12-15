@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -41,6 +42,8 @@ namespace WPFClient
             if (rvm.isEmailValid(emailField.Text))
             {
                 string url = baseUrl + "Update";
+                client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", admin.Token);
                 var updateContent = new JObject();
                 updateContent.Add("Id", admin.Id);
                 updateContent.Add("employeeNumber", Convert.ToInt32(employeeNumberField.Content));

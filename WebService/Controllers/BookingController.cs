@@ -57,6 +57,7 @@ namespace WebService.Controllers
             return bookingHandler.GetAllStudentBookings(studentId);
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("api/Bookings/AllOfStatus")]
         public IEnumerable<BookingModel> GetAllBookingsOfType(int status)
         {

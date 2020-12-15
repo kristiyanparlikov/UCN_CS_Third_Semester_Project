@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -52,6 +53,7 @@ namespace WPFClient
             int capacityNbr;
             double areaNbr;
             double priceNbr;
+            AdminUserHelper ah = AdminUserHelper.Instance;
             if (int.TryParse(roomNumberField.Text, out roomNbr))
             {
                 if (int.TryParse(floorField.Text, out floorNbr))
@@ -63,7 +65,10 @@ namespace WPFClient
                             if (double.TryParse(priceField.Text, out priceNbr))
                             {
                                 SelectedRoomHelper rh = SelectedRoomHelper.Instance;
+                                AdministratorCast admin = ah.admin;
                                 RoomCast updateRoom = rh.GetSelectedRoom(Convert.ToInt32(idField.Content));
+                                client.DefaultRequestHeaders.Authorization =
+                                new AuthenticationHeaderValue("Bearer", admin.Token);
                                 var registerContent = new JObject();
                                 registerContent.Add("Id", id);
                                 registerContent.Add("RoomNumber", roomNbr);

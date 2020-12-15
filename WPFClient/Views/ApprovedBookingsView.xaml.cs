@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,6 +38,10 @@ namespace WPFClient.Views
 
             using var client = new HttpClient();
             {
+                AdminUserHelper ah = AdminUserHelper.Instance;
+                AdministratorCast admin = ah.admin;
+                client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", admin.Token);
                 string url = baseUrl + "AllOfStatus?status=1"; 
                 var response = await client.GetAsync(url);
                 var responseJsonString = await response.Content.ReadAsStringAsync();
@@ -140,6 +145,44 @@ namespace WPFClient.Views
                 }
                 GetAllApprovedBookings();
             }
+        }
+
+        private async void informationBooking_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (BookingList.SelectedItem != null)
+            {
+                using var client = new HttpClient();
+                {
+                    BookingCast bm = (BookingCast)BookingList.SelectedItem;
+                    string url = "https://localhost:44382/api/Rooms?id=" + bm.RoomId;
+                    var roomResult = client.GetAsync(url).Result;
+                    var responseJsonString = await roomResult.Content.ReadAsStringAsync();
+                    var deserialized = JsonConvert.DeserializeObject<RoomCast>(responseJsonString);
+                    RoomCast rm = deserialized;
+                    AdminUserHelper ah = AdminUserHelper.Instance;
+                    AdministratorCast admin = ah.admin;
+                    client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", admin.Token);
+                    string uri = "https://localhost:44382/api/Student/FindByBooking?bookingId=" + bm.Id;
+                    var studentResult = client.GetAsync(uri).Result;
+                    var responseJsonString2 = await studentResult.Content.ReadAsStringAsync();
+                    var deserialized2 = JsonConvert.DeserializeObject<StudentCast>(responseJsonString2);
+                    StudentCast sd = deserialized2;
+                    BookingAdvancedInfo bk = new BookingAdvancedInfo();
+                    bk.BookingID.Content = bm.Id;
+                    bk.RoomNumber.Content = rm.RoomNumber;
+                    bk.DateOfCreation.Content = bm.CreationDate;
+                    bk.StudentMail.Content = sd.Email;
+                    bk.StudentName.Content = sd.FirstName + sd.LastName;
+                    bk.ShowDialog();
+
+                }
+
+                GetAllApprovedBookings();
+            }
+
+
+
         }
 
     }

@@ -14,7 +14,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace WebService.Controllers
 {
-
+    [Authorize]
     public class AdministratorController : ApiController
     {
         AdministratorHandler adminHandler = new AdministratorHandler();
@@ -72,63 +72,6 @@ namespace WebService.Controllers
             }
         }
 
-        [HttpPost]
-        public IHttpActionResult Authenticate([FromBody] LoginRequest login)
-        {
-            StudentController studentController = new StudentController();
-            var loginResponse = new LoginResponse { };
-
-            bool isEmailPasswordValid = false;
-
-            if (login != null)
-                isEmailPasswordValid = validateEmailPassword(login.Email, login.Password);
-
-            //if credentials are valid
-            if (isEmailPasswordValid)
-            {
-                //create response object with the user information and the token
-                //token
-                loginResponse.Token = studentController.createToken(login.Email);
-                //user info
-                AdministratorModel administrator = adminHandler.GetAdministratorInfo(login.Email);
-                loginResponse.Id = administrator.Id;
-                loginResponse.Email = administrator.Email;
-                loginResponse.FirstName = administrator.FirstName;
-                loginResponse.LastName = administrator.LastName;
-                loginResponse.PhoneNumber = administrator.PhoneNumber;
-                //loginResponse.EmployeeNumber = administrator.EmployeeNumber;
-               
-
-                //return the token
-                return Ok(loginResponse);
-            }
-            else
-            {
-                // if credentials are not valid send unauthorized status code in response
-                //loginResponse.responseMsg.StatusCode = HttpStatusCode.Unauthorized;
-                //response = ResponseMessage(loginResponse.responseMsg);
-                //return response;
-                return Unauthorized();
-            }
-        }
-
-        private bool validateEmailPassword(string email, string password)
-        {
-            //get the hashed password from the database
-            string realPassword = adminHandler.GetAdministratorPassword(email);
-            if (realPassword == null)
-            {
-                return false;
-            }
-            //check if the hashed password in the database matches with the input password
-            bool doesPasswordsMatch = BCryptHelper.CheckPassword(password, realPassword);
-            if (doesPasswordsMatch)
-            {
-                return true;
-            }
-            else return false;
-        }
-
         // DELETE: api/Administrator/5
         public void Delete(int id)
         {
@@ -136,14 +79,31 @@ namespace WebService.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("api/Administrator/Info")]
-        public AdministratorModel GetAdministratorInfo([FromBody] StringModel email)
+        public IHttpActionResult GetAdministratorInfo([FromBody] LoginRequest login)
         {
-            return adminHandler.GetAdministratorInfo(email.email);
+            var loginResponse = new LoginResponseAdmin { };
+            //create response object with the user information and the token
+            //token
+            loginResponse.Token = createToken(login.Email);
+            //user info
+            AdministratorModel administrator = adminHandler.GetAdministratorInfo(login.Email);
+            loginResponse.Id = administrator.Id;
+            loginResponse.Email = administrator.Email;
+            loginResponse.FirstName = administrator.FirstName;
+            loginResponse.LastName = administrator.LastName;
+            loginResponse.PhoneNumber = administrator.PhoneNumber;
+            loginResponse.EmployeeNumber = administrator.EmployeeNumber;
+            loginResponse.ModificationDate = administrator.modificationDate;
+
+            //return the token
+            return Ok(loginResponse);
         }
 
         [HttpPost]
         [Route("api/Administrator/LogIn")]
+        [AllowAnonymous]
         public IHttpActionResult CheckAdminLogIn([FromBody] LoginRequest login)
         {
             string realPassword = adminHandler.GetAdministratorPassword(login.Email);
@@ -159,7 +119,8 @@ namespace WebService.Controllers
             else return Ok("Incorrect password");
         }
 
-        public IHttpActionResult UpdateInfo([FromBody] AdministratorModel admin)
+        [Authorize(Roles ="Admin")]
+        public IHttpActionResult updateInfo([FromBody] AdministratorModel admin)
         {
             bool checkForUpdates = adminHandler.CheckModificationDate(admin.modificationDate, admin.Id);
             if (checkForUpdates == false)
@@ -168,6 +129,38 @@ namespace WebService.Controllers
             if (response)
                 return Ok("ok");
             return Ok("Something went wrong");
+        }
+
+        private string createToken(string email)
+        {
+            //Set issued at date
+            DateTime issuedAt = DateTime.UtcNow;
+            //set the time when it expires
+            DateTime expires = DateTime.UtcNow.AddMinutes(10);
+
+            //http://stackoverflow.com/questions/18223868/how-to-encrypt-jwt-security-token
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            //create a identity and add claims to the user which we want to log in
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.Role, "Admin")
+        });
+
+            const string sec = "401b09eab3c013d4ca54922bb802bec8fd5318192b0a75f201d8b3727429090fb337591abd3e44453b954555b7a0812e1081c39b740293f765eae731f5a65ed1";
+            var now = DateTime.UtcNow;
+            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(System.Text.Encoding.Default.GetBytes(sec));
+            var signingCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(securityKey, Microsoft.IdentityModel.Tokens.SecurityAlgorithms.HmacSha256Signature);
+
+
+            //create the jwt
+            var token =
+                (JwtSecurityToken)
+                    tokenHandler.CreateJwtSecurityToken(issuer: "https://localhost:44382/", audience: "https://localhost:44382/",
+                        subject: claimsIdentity, notBefore: issuedAt, expires: expires, signingCredentials: signingCredentials);
+            var tokenString = tokenHandler.WriteToken(token);
+
+            return tokenString;
         }
 
     }

@@ -34,6 +34,7 @@ namespace WebService.Controllers
 
         //WPF admin endpoint
         // POST: api/Rooms
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IHttpActionResult Post([FromBody]RoomModel model)
         {
@@ -60,11 +61,13 @@ namespace WebService.Controllers
         }
 
         // DELETE: api/Rooms/5
+        [Authorize(Roles = "Admin")]
         public void Delete(int id)
         {
             roomHandler.Delete(id);
         }
 
+        [Authorize(Roles = "Admin")]
         [Route("api/Rooms/Update")]
         public IHttpActionResult Update([FromBody] RoomModel model)
         {

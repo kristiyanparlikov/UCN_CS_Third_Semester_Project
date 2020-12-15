@@ -24,5 +24,7 @@ namespace DataAccessLayer.Repository
         bool VerifyStudent(string email, string hashedPassword);
 
         string GetStudentPassword(string email);
+
+        StudentModel FindByBookingId(int bookingId);
     }
 }
