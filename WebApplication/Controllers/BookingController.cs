@@ -31,9 +31,8 @@ namespace WebApplication.Controllers
         }
 
         // GET: Booking/Create
-        [Route("{id}")]
         [HttpGet]
-        public ActionResult Create(int id)
+        public ActionResult Create()
         {
             if(Session["UserID"] != null)
             {
@@ -50,6 +49,24 @@ namespace WebApplication.Controllers
         {
 
             return View();
+        }
+
+        [Route("{id}")]
+        public async Task<ActionResult> Cancel(int id)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+
+
+                HttpResponseMessage Res = await client.GetAsync("Bookings/Cancel/"+id);
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("UserAccount", "Home");
+                }
+                return RedirectToAction("UserAccount", "Home");
+            }
         }
 
         // POST: Booking/Create

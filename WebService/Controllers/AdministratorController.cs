@@ -159,7 +159,7 @@ namespace WebService.Controllers
             else return Ok("Incorrect password");
         }
 
-        public IHttpActionResult updateInfo([FromBody] AdministratorModel admin)
+        public IHttpActionResult UpdateInfo([FromBody] AdministratorModel admin)
         {
             bool checkForUpdates = adminHandler.CheckModificationDate(admin.modificationDate, admin.Id);
             if (checkForUpdates == false)

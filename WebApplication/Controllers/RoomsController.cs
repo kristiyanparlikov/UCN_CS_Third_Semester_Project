@@ -16,11 +16,11 @@ namespace WebApplication.Controllers
         string Baseurl = "https://localhost:44382/api/";
 
 
-        static List<RoomModel> rooms = new List<RoomModel>();
 
         // GET: Rooms with a search filter attribute
         public async Task<ActionResult> Rooms(string searchString, string searchDescription)
         {
+            List<RoomModel> rooms = new List<RoomModel>();
             using (var client = new HttpClient())
             {
                 //Passing service base url
@@ -57,36 +57,33 @@ namespace WebApplication.Controllers
         }
 
         
-        public ActionResult Room(int id)
+        public async Task<ActionResult> Room(int id)
         {
-            var room = rooms.Where(r => r.Id == id).FirstOrDefault();
+            RoomModel room = new RoomModel();
+            using (var client = new HttpClient())
+            {
+                //Passing service base url
+                client.BaseAddress = new Uri(Baseurl);
 
+                client.DefaultRequestHeaders.Clear();
+
+                //Define request data format  
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                HttpResponseMessage Res = await client.GetAsync("Rooms/" + id);
+
+                //Checking the response is successful or not which is sent using HttpClient  
+                if (Res.IsSuccessStatusCode)
+                {
+                    //Storing the response details recieved from web api   
+                    var roomResponse = Res.Content.ReadAsStringAsync().Result;
+
+                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    room = JsonConvert.DeserializeObject<RoomModel>(roomResponse);
+                }
+            }
+            //returning the rooms list to view 
             return View(room);
-            //RoomModel room = new RoomModel();
-            //using (var client = new HttpClient())
-            //{
-            //    //Passing service base url
-            //    client.BaseAddress = new Uri(Baseurl);
-
-            //    client.DefaultRequestHeaders.Clear();
-
-            //    //Define request data format  
-            //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            //    HttpResponseMessage Res = await client.GetAsync("Room/" + id);
-
-            //    //Checking the response is successful or not which is sent using HttpClient  
-            //    if (Res.IsSuccessStatusCode)
-            //    {
-            //        //Storing the response details recieved from web api   
-            //        var roomResponse = Res.Content.ReadAsStringAsync().Result;
-
-            //        //Deserializing the response recieved from web api and storing into the Employee list  
-            //        room = JsonConvert.DeserializeObject<RoomModel>(roomResponse);
-            //    }
-            //}
-            ////returning the rooms list to view 
-            //return View(room);
         }
 
 

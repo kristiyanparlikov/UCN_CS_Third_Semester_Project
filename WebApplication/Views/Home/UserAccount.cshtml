@@ -69,9 +69,9 @@
                         </div>
 
                     </div>
-                    <input type="submit" value="Submit changes" class="btn btn-warning" />
-                    
-                    
+                    <input type="submit" value=@Html.ActionLink("Update info", "UpdateStudentInfo", "Home") class="btn btn-warning" />
+
+
                 </div>
 
 
@@ -86,7 +86,7 @@
             <div style="width:1140px;" class="panel">
                 
                 <div class="panel-body prof-graph-info">
-                    <h2>BOOKING</h2>
+                    <h2>Your bookings</h2>
                     <p>
                         @Html.ActionLink("Create new booking", "Rooms", "Rooms")
                     </p>
@@ -101,29 +101,35 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.MoveOutDate)
                             </th>
-                           
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+
 
 
                         </tr>
 
                         @foreach (var item in Model)
                          {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CreationDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MoveInDate)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MoveOutDate)
-                                </td>
-                                
-                                <td>
-                                    @Html.ActionLink("Room", "Room", new { id = item.Id }) |
-                                    @Html.ActionLink("Cancel", "Cancel", new { id = item.Id }, null)
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreationDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MoveInDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MoveOutDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Room", "Room", "Rooms", new { id = item.RoomId }, null) |
+                            @Html.ActionLink("Cancel", "Cancel", "Booking", new { id = item.Id }, null)
+                        </td>
+                    </tr>
                          }
 
                     </table>
