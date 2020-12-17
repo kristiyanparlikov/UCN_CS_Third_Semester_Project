@@ -23,12 +23,6 @@
     }
 </div>
 
-@using (Html.BeginForm("Rooms", "Rooms", FormMethod.Get))
-{
-    <h4>Find by price:</h4> @Html.TextBox("SearchString")
-    <input type="submit" class="btn btn-warning" />
-}
-
 @Html.ActionLink("Show all rooms", "Rooms")
 
 <table class="table table-bordered">

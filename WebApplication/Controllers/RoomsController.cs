@@ -39,7 +39,7 @@ namespace WebApplication.Controllers
                     //Storing the response details recieved from web api   
                     var roomsResponse = Res.Content.ReadAsStringAsync().Result;
 
-                    //Deserializing the response recieved from web api and storing into the Employee list  
+                    //Deserializing the response recieved from web api and storing into the Room list  
                     rooms = JsonConvert.DeserializeObject<List<RoomModel>>(roomsResponse);
 
                     // The rooms array is filtered with the search string if the string is not null, empty or whitespace
