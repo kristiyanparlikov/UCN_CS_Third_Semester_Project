@@ -46,7 +46,7 @@ namespace WebApplication.Controllers
                     if (!string.IsNullOrEmpty(searchString) && !string.IsNullOrWhiteSpace(searchString))
                         rooms = rooms.FindAll(room => room.Price.ToString().Equals(searchString));
                     if (!string.IsNullOrEmpty(searchDescription) && !string.IsNullOrWhiteSpace(searchDescription))
-                        rooms = rooms.FindAll(room => room.Description.Contains(searchDescription));
+                        rooms = rooms.FindAll(room => room.Description.Contains(searchDescription.ToLower()));
                     
 
 
