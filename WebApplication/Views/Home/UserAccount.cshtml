@@ -30,7 +30,7 @@
                     Welcome to STUDO. Here you can see all your information.
                 </div>
                 <div class="panel-body prof-graph-info">
-                    <h1>PPROFILE INFORMATION</h1>
+                    <h1>PROFILE INFORMATION</h1>
                     <div class="row">
                         <div class="prof-row">
                             <label asp-for="Input.FirstName">First name</label>
@@ -69,7 +69,11 @@
                         </div>
 
                     </div>
-                    <input type="submit" value=@Html.ActionLink("Update info", "UpdateStudentInfo", "Home") class="btn btn-warning" />
+                    
+                        
+                <input type="button" value="Create" onclick="location.href='@Url.Action("UpdateInfo", "Home")'" />
+                    
+                    
 
 
                 </div>
