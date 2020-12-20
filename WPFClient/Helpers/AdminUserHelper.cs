@@ -12,6 +12,10 @@ namespace WPFClient.Models
         public string Token { get; set; }
         private static readonly AdminUserHelper instance = new AdminUserHelper();
 
+        private AdminUserHelper()
+        {
+        }
+
         public static AdminUserHelper Instance
         {
             get

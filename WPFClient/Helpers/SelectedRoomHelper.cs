@@ -12,6 +12,10 @@ namespace WPFClient.Helpers
         public IEnumerable<RoomCast> rooms { get; set; }
         private static readonly SelectedRoomHelper instance = new SelectedRoomHelper();
 
+        private SelectedRoomHelper()
+        {
+        }
+
         public static SelectedRoomHelper Instance
         {
             get

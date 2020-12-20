@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFClient.Models;
 
 namespace WPFClient.Views
 {
@@ -46,6 +48,10 @@ namespace WPFClient.Views
                         {
                             if (double.TryParse(priceField.Text, out priceNbr))
                             {
+                                AdminUserHelper ah = AdminUserHelper.Instance;
+                                AdministratorCast admin = ah.admin;
+                                client.DefaultRequestHeaders.Authorization =
+                                new AuthenticationHeaderValue("Bearer", admin.Token);
                                 var registerContent = new JObject();
                                 registerContent.Add("RoomNumber", roomNbr);
                                 registerContent.Add("Floor", floorNbr);

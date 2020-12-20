@@ -28,6 +28,7 @@ namespace WPFClient.Views
 
         string baseUrl = "https://localhost:44382//api/Administrator/";
         HttpClient client = new HttpClient();
+        string userCode = "A1B2C3";
 
         public RegisterView()
         {
@@ -45,30 +46,34 @@ namespace WPFClient.Views
             employeeErrorField.Content = "";
             passwordErrorField.Content = "";
             int empNumb = 0;
-            if (rvm.isEmailValid(emailField.Text))
+            if (userCodeField.Text.Equals(userCode))
             {
-                if (int.TryParse(employeeNumbField.Text, out empNumb))
+                if (rvm.isEmailValid(emailField.Text))
                 {
-                    if (password.Password == repeatPassword.Password)
+                    if (int.TryParse(employeeNumbField.Text, out empNumb))
                     {
-                        string url = baseUrl + "Register";
-                        var registerContent = new JObject();
-                        registerContent.Add("employeeNumber", empNumb);
-                        registerContent.Add("firstName", fNameField.Text);
-                        registerContent.Add("lastName", lNameField.Text);
-                        registerContent.Add("phoneNumber", phoneNumberField.Text);
-                        registerContent.Add("email", emailField.Text);
-                        registerContent.Add("password", password.Password);
-                        HttpContent content = new StringContent(registerContent.ToString(), Encoding.UTF8, "application/json");
-                        var responseBody = client.PostAsJsonAsync(url, registerContent).Result;
-                        returnBox.Content = await responseBody.Content.ReadAsStringAsync();
+                        if (password.Password == repeatPassword.Password)
+                        {
+                            string url = baseUrl + "Register";
+                            var registerContent = new JObject();
+                            registerContent.Add("employeeNumber", empNumb);
+                            registerContent.Add("firstName", fNameField.Text);
+                            registerContent.Add("lastName", lNameField.Text);
+                            registerContent.Add("phoneNumber", phoneNumberField.Text);
+                            registerContent.Add("email", emailField.Text);
+                            registerContent.Add("password", password.Password);
+                            HttpContent content = new StringContent(registerContent.ToString(), Encoding.UTF8, "application/json");
+                            var responseBody = client.PostAsJsonAsync(url, registerContent).Result;
+                            returnBox.Content = await responseBody.Content.ReadAsStringAsync();
+                        }
+                        else passwordErrorField.Content = "Passwords must match!";
                     }
-                    else passwordErrorField.Content = "Passwords must match!";
-                }
-                else employeeErrorField.Content = "Numbers only!";
+                    else employeeErrorField.Content = "Numbers only!";
 
+                }
+                else emailErrorField.Content = "Not a valid email!";
             }
-            else emailErrorField.Content = "Not a valid email!";
+            else returnBox.Content = "Invalid user code!";
         }
     
     }

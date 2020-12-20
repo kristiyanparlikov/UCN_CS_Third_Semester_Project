@@ -21,6 +21,7 @@ using Binding = System.Windows.Data.Binding;
 using System.Windows;
 using MessageBox = System.Windows.Forms.MessageBox;
 using WPFClient.Helpers;
+using System.Net.Http.Headers;
 
 namespace WPFClient.Views
 {
@@ -109,6 +110,10 @@ namespace WPFClient.Views
                     RoomCast rm = (RoomCast)RoomList.SelectedItem;
                     using var client = new HttpClient();
                     {
+                        AdminUserHelper ah = AdminUserHelper.Instance;
+                        AdministratorCast admin = ah.admin;
+                        client.DefaultRequestHeaders.Authorization =
+                        new AuthenticationHeaderValue("Bearer", admin.Token);
                         string url = baseUrl + rm.Id;
                         var response = await client.DeleteAsync(url);
                         if (response.IsSuccessStatusCode)
