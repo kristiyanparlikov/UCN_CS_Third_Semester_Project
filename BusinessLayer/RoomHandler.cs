@@ -60,5 +60,10 @@ namespace BusinessLayer
         {
             return db.CheckDateOfModification(dateTime, id);
         }
+
+        public void ChangeRoomAvailability(int roomId, bool available)
+        {
+            db.ChangeRoomAvailability(roomId, false);
+        }
     }
 }

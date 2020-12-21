@@ -131,7 +131,11 @@
 
                         <td>
                             @Html.ActionLink("Room", "Room", "Rooms", new { id = item.RoomId }, null) |
-                            @Html.ActionLink("Cancel", "Cancel", "Booking", new { id = item.Id }, null)
+                            @Html.ActionLink("Cancel", "Cancel", "Booking", new { id = item.Id }, null) 
+                            @if(item.Status == WebApplication.Models.BookingStatus.Accepted)
+                            {
+                                @Html.ActionLink("| Finalize", "Finalize", "Booking", new { id = item.Id }, null);
+                            }
                         </td>
                     </tr>
                          }

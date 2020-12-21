@@ -62,5 +62,10 @@ namespace BusinessLayer
         {
             return db.GetAll(studentId);
         }
+
+        public bool Finalize(int bookingId, int roomId)
+        {
+            return db.Finalize(bookingId, roomId);
+        }
     }
 }

@@ -145,6 +145,7 @@ namespace DataAccessLayer
                                 booking.MoveInDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveInDate"));
                                 booking.MoveOutDate = dr.GetFieldValue<DateTime>(dr.GetOrdinal("MoveOutDate"));
                                 booking.Status = dr.GetFieldValue<BookingStatus>(dr.GetOrdinal("Status"));
+                                booking.RoomId = dr.GetFieldValue<int>(dr.GetOrdinal("RoomId"));
                                 return booking;
                             }
                         }
@@ -335,6 +336,69 @@ namespace DataAccessLayer
             return status;
         }
 
-       
+        public bool Finalize(int bookingId, int roomId)
+        {
+            string query1 = "UPDATE Bookings SET Status ='3' WHERE Id =@BookingId";
+
+            string query2 = "UPDATE Rooms SET isAvailable='0' WHERE Id=@RoomId";
+            try
+            {
+                using (SqlConnection cnn = new SqlConnection(connString))
+                {
+                    //open connection
+                    cnn.Open();
+
+                    using (SqlTransaction trn = cnn.BeginTransaction())
+                    {
+                        try
+                        {
+                            using (SqlCommand cmd = new SqlCommand(query1, cnn))
+                            {
+                                // Add the transaction to the command object
+                                cmd.Transaction = trn;
+
+                                // Create input parameters
+                                cmd.Parameters.Add(new SqlParameter("@BookingId", bookingId));
+
+                                // Set CommandType
+                                cmd.CommandType = CommandType.Text;
+
+                                // Execute the first statement
+                                cmd.ExecuteNonQuery();
+
+                                //***Second statement to execute***
+
+                                // Reset the command text
+                                cmd.CommandText = query2;
+
+                                // Clear previous parameters
+                                cmd.Parameters.Clear();
+
+                                // Create input parameters 
+                                cmd.Parameters.AddWithValue("@RoomId", roomId);
+
+                                // Execute the second statement
+                                cmd.ExecuteNonQuery();
+
+                                // Finish the transaction
+                                trn.Commit();
+                                return true;
+                            }
+                        }
+                        catch (Exception ex) //catch block for transaction
+                        {
+                            trn.Rollback();
+                            Console.WriteLine(ex.Message);
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
 }

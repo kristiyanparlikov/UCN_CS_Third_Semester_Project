@@ -22,6 +22,9 @@ namespace DataAccessLayer.Repository
         IEnumerable<RoomModel> GetAllAvailable();
 
         bool CheckDateOfModification(DateTime dateTime, int id);
+
+        void ChangeRoomAvailability(int roomId, bool available);
+
         //admin method
         //IEnumerable<BookingModel> GetAllPendingBookingsOnRoom(RoomModel room);
     }

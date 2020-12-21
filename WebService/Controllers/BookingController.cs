@@ -51,6 +51,32 @@ namespace WebService.Controllers
         {
         }
 
+        [HttpGet]
+        [Route("api/Bookings/Cancel/{bookingId}")]
+        public IHttpActionResult Cancel(int bookingId)
+        {
+            int rowsAffected = bookingHandler.ChangeBookingStatus(BookingStatus.Cancelled, bookingId);
+            if (rowsAffected == 1)
+                return Ok("Booking successfully cancelled");
+            else
+                return BadRequest();
+        }
+
+        [HttpGet]
+        [Route("api/Bookings/Finalize/{bookingId}")]
+        public IHttpActionResult Finalize(int bookingId)
+        {
+            BookingModel booking = bookingHandler.Get(bookingId);
+            int roomId = booking.RoomId;
+            bool isSuccessful = bookingHandler.Finalize(bookingId, roomId);
+            if (isSuccessful)
+                return Ok("Booking successfully finalized");
+            else
+                return BadRequest();
+        }
+
+
+
         [Route("api/Bookings/AllStudentBookings/{studentId}")]
         public IEnumerable<BookingModel> GetAllStudentBookings(int studentId)
         {

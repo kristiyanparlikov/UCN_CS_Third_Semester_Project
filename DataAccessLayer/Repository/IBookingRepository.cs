@@ -29,5 +29,7 @@ namespace DataAccessLayer.Repository
 
         int GetBookingStatus(int id);
 
+        bool Finalize(int bookingId, int roomId);
+
     }
 }

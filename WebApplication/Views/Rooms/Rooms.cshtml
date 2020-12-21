@@ -16,7 +16,7 @@
     @using (Html.BeginForm("Rooms", "Rooms", FormMethod.Get))
     {
         <p>Use the keywords to search for the room</p>
-        <p>#furnished  #terrace #bathroom </p>
+        <p>furnished, terrace, bathroom </p>
         
         @Html.TextBox("SearchDescription")
         <input type="submit" class="btn btn-warning" />

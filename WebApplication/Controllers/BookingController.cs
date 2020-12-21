@@ -69,6 +69,24 @@ namespace WebApplication.Controllers
             }
         }
 
+        [Route("{id}")]
+        public async Task<ActionResult> Finalize(int id)
+        {
+            using(var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(Baseurl);
+
+
+                HttpResponseMessage Res = await client.GetAsync("Bookings/Finalize/" + id);
+
+                if (Res.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("UserAccount", "Home");
+                }
+                return RedirectToAction("UserAccount", "Home");
+            }
+        }
+
         // POST: Booking/Create
         [Route("{id}")]
         [HttpPost]

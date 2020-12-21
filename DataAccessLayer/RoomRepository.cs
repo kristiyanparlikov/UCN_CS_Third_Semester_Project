@@ -243,5 +243,20 @@ namespace DataAccessLayer
             }
             return false;
         }
+
+        public void ChangeRoomAvailability(int roomId, bool available)
+        {
+            string query = "UPDATE Rooms SET isAvailable=" + "'" + available + "'" + " WHERE Id=@RoomId";
+            using (SqlConnection cnn = new SqlConnection(connString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, cnn))
+                {
+                    cmd.Parameters.Add(new SqlParameter("@RoomId", roomId));
+
+                    cnn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
