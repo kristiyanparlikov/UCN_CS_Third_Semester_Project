@@ -34,44 +34,44 @@
                     <div class="row">
                         <div class="prof-row">
                             <label asp-for="Input.FirstName">First name</label>
-                            <input asp-for="Input.FirstName" class="form-control" value=@Session["UserFirstName"].ToString() />
+                            <input readonly asp-for="Input.FirstName" class="form-control" value=@Session["UserFirstName"].ToString() />
                             <span asp-validation-for="Input.FirstName" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.LastName">Last name</label>
-                            <input asp-for="Input.FirstName" class="form-control" value=@Session["UserLastName"].ToString() />
+                            <input readonly asp-for="Input.FirstName" class="form-control" value=@Session["UserLastName"].ToString() />
                             <span asp-validation-for="Input.LastName" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.Email">Email</label>
-                            <input asp-for="Input.Email" class="form-control" value=@Session["UserEmail"].ToString() />
+                            <input readonly asp-for="Input.Email" class="form-control" value=@Session["UserEmail"].ToString() />
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.PhoneNumber">Phone number</label>
-                            <input asp-for="Input.PhoneNumber" class="form-control" value=@Session["UserPhoneNumber"].ToString() />
+                            <input readonly asp-for="Input.PhoneNumber" class="form-control" value=@Session["UserPhoneNumber"].ToString() />
                             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.DateOfBirth">Date of birth</label>
-                            <input asp-for="Input.DateOfBirth" class="form-control" value=@Session["UserDateOfBirth"].ToString() />
+                            <input readonly asp-for="Input.DateOfBirth" class="form-control" value=@Session["UserDateOfBirth"].ToString() />
                             <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.Nationality">Nationality</label>
-                            <input asp-for="Input.Nationality" class="form-control" value=@Session["UserNationality"].ToString() />
+                            <input readonly asp-for="Input.Nationality" class="form-control" value=@Session["UserNationality"].ToString() />
                             <span asp-validation-for="Input.Nationality" class="text-danger"></span>
                         </div>
                         <div class="prof-row">
                             <label asp-for="Input.EducationEndDate">Education end date</label>
-                            <input asp-for="Input.EducationEndDate" class="form-control" value=@Session["UserEducationEndDate"].ToString() />
+                            <input readonly asp-for="Input.EducationEndDate" class="form-control" value=@Session["UserEducationEndDate"].ToString() />
                             <span asp-validation-for="Input.EducationEndDate" class="text-danger"></span>
                         </div>
 
                     </div>
                     
                         
-                <input type="button" value="Create" onclick="location.href='@Url.Action("UpdateInfo", "Home")'" />
+                
                     
                     
 
